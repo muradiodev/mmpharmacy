@@ -1,6 +1,5 @@
 package com.mmpharmacy.mmpharmacy.entity;
 
-
 import lombok.ToString;
 
 import javax.persistence.*;
