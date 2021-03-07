@@ -5,12 +5,12 @@ import lombok.ToString;
 import javax.persistence.*;
 
 @Entity
-@Table(name="month")
+@Table(name = "month")
 @ToString
 public class Month {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "Id")
+    @Column(name = "id")
     private int id;
 
     @Column(name = "name")
