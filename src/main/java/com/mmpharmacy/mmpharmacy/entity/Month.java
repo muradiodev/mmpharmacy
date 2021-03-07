@@ -6,9 +6,9 @@ import lombok.ToString;
 import javax.persistence.*;
 
 @Entity
-@Table(name="time")
+@Table(name="month")
 @ToString
-public class Time {
+public class Month {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Id")
