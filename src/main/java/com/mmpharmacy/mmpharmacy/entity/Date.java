@@ -3,6 +3,7 @@ package com.mmpharmacy.mmpharmacy.entity;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "country")
@@ -16,17 +17,17 @@ public class Date {
     @Column(name = "year")
     private String year;
 
-    @ManyToOne
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "date_month",
             joinColumns = @JoinColumn(name = "date_id"),
             inverseJoinColumns = @JoinColumn(name = "month_id"))
-    Month month;
+    Set<Month> month;
 
     @Column(name = "day")
     private String day;
 
-    public Date(int id, String year, Month month, String day) {
+    public Date(int id, String year, Set<Month> month, String day) {
         this.id = id;
         this.year = year;
         this.month = month;
@@ -49,11 +50,11 @@ public class Date {
         this.year = year;
     }
 
-    public Month getMonth() {
+    public Set<Month> getMonth() {
         return month;
     }
 
-    public void setMonth(Month month) {
+    public void setMonth(Set<Month> month) {
         this.month = month;
     }
 

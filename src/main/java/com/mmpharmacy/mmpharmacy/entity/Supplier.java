@@ -17,7 +17,7 @@ public class Supplier {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "supplier_country",
             joinColumns = @JoinColumn(name = "supplier_id"),
