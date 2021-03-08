@@ -11,7 +11,7 @@ public class ControllerMain {
     @RequestMapping("/home")
     public String open() {
 
-        return "admin/suppliers.html";
+        return "admin/index.html";
     }
 
 }
