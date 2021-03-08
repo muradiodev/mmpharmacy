@@ -8,10 +8,11 @@ import javax.persistence.*;
 @Table(name = "type")
 @ToString
 public class Type {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "Id")
-    private int id;
+    @Column(name = "type_id")
+    private int type_id;
 
     @Column(name = "name")
     private String name;
@@ -19,17 +20,17 @@ public class Type {
     public Type() {
     }
 
-    public Type(int id, String name) {
-        this.id = id;
+    public Type(int type_id, String name) {
+        this.type_id = type_id;
         this.name = name;
     }
 
-    public int getId() {
-        return id;
+    public int getType_id() {
+        return type_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setType_id(int type_id) {
+        this.type_id = type_id;
     }
 
     public String getName() {

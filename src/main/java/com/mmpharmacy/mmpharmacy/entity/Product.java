@@ -11,14 +11,18 @@ import java.util.Set;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private int id;
+    @Column(name = "product_id")
+    private int product_id;
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "description")
     private String description;
+
     @Column(name = "qty_stock")
     private String qty_stock;
+
     @Column(name = "string")
     private String price;
 
