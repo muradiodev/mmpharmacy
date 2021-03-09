@@ -12,4 +12,8 @@ public class ControllerSuppliers {
     public String openAdminPage(){
         return "admin/suppliers.html";
     }
+
+    //todo: getAllTables, edit, delete as update
+
+
 }

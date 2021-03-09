@@ -13,7 +13,7 @@ public class ControllerDashboard {
         return "admin/index.html";
     }
 
-    //TODO: check later
+    //TODO: check later and add all sales
 
 
 }
