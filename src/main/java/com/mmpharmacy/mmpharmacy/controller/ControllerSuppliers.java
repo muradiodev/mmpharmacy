@@ -1,17 +1,19 @@
 package com.mmpharmacy.mmpharmacy.controller;
 
+
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class ControllerMain {
+@RequestMapping("/admin")
+public class ControllerSuppliers {
 
-    // thymeleaf
-    @RequestMapping("/home")
-    public String open() {
-
+    @RequestMapping("/suppliers")
+    public String openAdminPage(){
         return "admin/suppliers.html";
     }
+
+    //todo: getAllTables, edit, delete as update
+
 
 }
