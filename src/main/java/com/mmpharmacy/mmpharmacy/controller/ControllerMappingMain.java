@@ -17,6 +17,6 @@ public class ControllerMappingMain {
     }
     @RequestMapping("/main")
     public String openIndex() {
-        return "main/indexşhtml";
+        return "main/index.html";
     }
 }
