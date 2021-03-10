@@ -19,7 +19,7 @@ public class ControllerCategories {
 
 
     @RequestMapping("/categories")
-    public String findAll(Model md) {
+    public String openAdminPage(Model md) {
         List<Category> category = repoCategory.findAll();
         for (Category cat: category){
             md.addAttribute("category", category);
@@ -28,13 +28,16 @@ public class ControllerCategories {
     }
 
 //    @GetMapping("/deleteCategory")
-//    public String deleteCategoryById(@RequestParam("id") String category_id) {
-//        Category category = repoCategory.findByCategory_id(category_id);
+//    public String deleteTicketByViewGuid(@RequestParam("id") String category_id) {
+//        Category category = repoCategory.findTicketsByviewGuid(category_id);
 //        category.setIsActive(0);
 //        repoCategory.save(ticket);
 //        return "redirect:/tickets";
 //    }
+//    public String getAll(){
 //
+//        return
+//    }
     //todo: getAllTables, edit, delete as update
 
 }

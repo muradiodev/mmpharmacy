@@ -76,53 +76,25 @@
             </div>
         </div>
     </div>
-
-    <div class="content ">
-        <div class="animated fadeIn ">
+    <a href="https://admin/adduser.html/">Add User</a>
+    <div class="content-users ">
+        <div class="animated fadeIn">
             <div class="row">
-
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
                             <strong class="card-title">List of Users</strong>
                         </div>
                         <div class="card-body">
-
-                            <table id="bootstrap-data-table" class="table table-striped table-bordered table-hover">
-                                <thead>
-                                <tr>
-                                    <th>*</th>
-                                    <th>Name</th>
-                                    <th>Suname</th>
-                                    <th>Email</th>
-                                    <th>Phone Number</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-
-
-                                <th:block th:each="users : ${user}">
-                                    <tr>
-                                        <td th:text="${users.user_id}">...</td>
-                                        <td th:text="${users.name}">...</td>
-                                        <td th:text="${users.surname}">...</td>
-                                        <td th:text="${users.email}">...</td>
-                                        <td th:text="${users.phone_number}">...</td>
-                                        <td>
-                                            <button type="button" class="btn btn-outline-warning"><i
-                                                    class="fa fa-edit"></i>&nbsp; Edit
-                                            </button>&nbsp;&nbsp;&nbsp;
-<!--                                            <button th:href="@{/users/deleteUser(id=${user.id})}"-->
-<!--                                                    type="button" class="btn btn-outline-danger"><i-->
-<!--                                                    class="fa fa-minus"></i>&nbsp; Delete-->
-<!--                                            </button>-->
-                                        </td>
-                                    </tr>
-                                </th:block>
-
-                                </tbody>
-                            </table>
+                            <form action="#" th:action="@{/adduser}" th:object="${user}" method="post">
+                                <label for="name">Name</label>
+                                <input type="text" th:field="*{name}" id="name" placeholder="Name">
+                                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                                <label for="email">Email</label>
+                                <input type="text" th:field="*{email}" id="email" placeholder="Email">
+                                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                                <input type="submit" value="Add User">
+                            </form>
                         </div>
                     </div>
                 </div>
