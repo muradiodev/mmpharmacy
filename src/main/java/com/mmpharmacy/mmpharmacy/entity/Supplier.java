@@ -9,6 +9,7 @@ import javax.validation.constraints.Email;
 @Table(name = "supplier")
 @ToString
 public class Supplier {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "supplier_id")
