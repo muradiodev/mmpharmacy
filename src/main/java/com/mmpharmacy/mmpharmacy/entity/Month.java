@@ -10,18 +10,23 @@ import javax.persistence.*;
 public class Month {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private int id;
+    @Column(name = "month_id")
+    private int month_id;
 
     @Column(name = "name")
     private String name;
 
-    public int getId() {
-        return id;
+    public Month(int month_id, String name) {
+        this.month_id = month_id;
+        this.name = name;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getMonth_id() {
+        return month_id;
+    }
+
+    public void setMonth_id(int month_id) {
+        this.month_id = month_id;
     }
 
     public String getName() {

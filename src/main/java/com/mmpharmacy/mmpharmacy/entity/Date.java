@@ -11,8 +11,8 @@ import java.util.Set;
 public class Date {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private int id;
+    @Column(name = "date_id")
+    private int date_id;
 
     @Column(name = "year")
     private String year;
@@ -28,18 +28,18 @@ public class Date {
     private String day;
 
     public Date(int id, String year, Set<Month> month, String day) {
-        this.id = id;
+        this.date_id = id;
         this.year = year;
         this.month = month;
         this.day = day;
     }
 
-    public int getId() {
-        return id;
+    public int getDate_id() {
+        return date_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setDate_id(int date_id) {
+        this.date_id = date_id;
     }
 
     public String getYear() {

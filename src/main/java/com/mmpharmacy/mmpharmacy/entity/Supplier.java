@@ -11,8 +11,8 @@ import javax.validation.constraints.Email;
 public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private int id;
+    @Column(name = "supplier_id")
+    private int supplier_id;
 
     @Column(name = "name")
     private String name;
@@ -38,7 +38,7 @@ public class Supplier {
     private String isActive;
 
     public Supplier(int id, String name, Country country, String address, String phone_number, @Email String email, String isActive) {
-        this.id = id;
+        this.supplier_id = id;
         this.name = name;
         this.country = country;
         this.address = address;
@@ -47,12 +47,12 @@ public class Supplier {
         this.isActive = isActive;
     }
 
-    public int getId() {
-        return id;
+    public int getSupplier_id() {
+        return supplier_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setSupplier_id(int supplier_id) {
+        this.supplier_id = supplier_id;
     }
 
     public String getName() {

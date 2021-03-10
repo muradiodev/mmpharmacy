@@ -11,8 +11,8 @@ import java.util.Set;
 public class Sales {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private int id;
+    @Column(name = "sales_id")
+    private int sales_id;
 
     @Column(name = "quantity")
     private int quantity;
@@ -35,19 +35,19 @@ public class Sales {
     private String isActive;
 
     public Sales(int id, int quantity, Set<Date> date, Set<Product> product, String isActive) {
-        this.id = id;
+        this.sales_id = id;
         this.quantity = quantity;
         this.date = date;
         this.product = product;
         this.isActive = isActive;
     }
 
-    public int getId() {
-        return id;
+    public int getSales_id() {
+        return sales_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setSales_id(int sales_id) {
+        this.sales_id = sales_id;
     }
 
     public int getQuantity() {
