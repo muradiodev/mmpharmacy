@@ -21,9 +21,9 @@ public class ControllerSuppliers {
     @RequestMapping("/suppliers")
     public String openAdminPage(Model md){
 
-        List<Supplier> supplier = repoSupplier.findAllByIsActive("1");
-        for (Supplier sup: supplier){
-            md.addAttribute("suppliers", supplier);
+        List<Supplier> suppliers = repoSupplier.findAllByIsActive("1");
+        for (Supplier sup: suppliers){
+            md.addAttribute("supplier", suppliers);
         }
         return "admin/suppliers.html";
     }
