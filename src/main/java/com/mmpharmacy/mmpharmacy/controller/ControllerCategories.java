@@ -6,9 +6,7 @@ import com.mmpharmacy.mmpharmacy.repo.RepoCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -21,30 +19,22 @@ public class ControllerCategories {
 
 
     @RequestMapping("/categories")
-    public String openAdminPage(Model md) {
-//        System.out.println("girdi"+repoCategory.findAll());
-//        private String value = "0";
-//        value.toString().addAttribute("ticket", "123");
+    public String findAll(Model md) {
         List<Category> category = repoCategory.findAll();
         for (Category cat: category){
             md.addAttribute("category", category);
-//            System.out.println(category);
         }
-//        System.out.println("cixdi");
         return "admin/categories.html";
     }
 
 //    @GetMapping("/deleteCategory")
-//    public String deleteTicketByViewGuid(@RequestParam("id") String category_id) {
-//        Category category = repoCategory.findTicketsByviewGuid(category_id);
+//    public String deleteCategoryById(@RequestParam("id") String category_id) {
+//        Category category = repoCategory.findByCategory_id(category_id);
 //        category.setIsActive(0);
 //        repoCategory.save(ticket);
 //        return "redirect:/tickets";
 //    }
-//    public String getAll(){
 //
-//        return
-//    }
     //todo: getAllTables, edit, delete as update
 
 }

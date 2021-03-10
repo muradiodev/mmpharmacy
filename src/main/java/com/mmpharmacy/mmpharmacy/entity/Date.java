@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "country")
+@Table(name = "date")
 @ToString
 public class Date {
     @Id

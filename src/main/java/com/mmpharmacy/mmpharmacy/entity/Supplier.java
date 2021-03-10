@@ -6,7 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 
 @Entity
-@Table(name = "country")
+@Table(name = "supplier")
 @ToString
 public class Supplier {
     @Id
@@ -37,8 +37,8 @@ public class Supplier {
     @Column(name = "isActive")
     private String isActive;
 
-    public Supplier(int id, String name, Country country, String address, String phone_number, @Email String email, String isActive) {
-        this.supplier_id = id;
+    public Supplier(int supplier_id, String name, Country country, String address, String phone_number, @Email String email, String isActive) {
+        this.supplier_id = supplier_id;
         this.name = name;
         this.country = country;
         this.address = address;

@@ -8,4 +8,6 @@ import java.util.List;
 public interface RepoCategory extends JpaRepository<Category, Integer> {
 
     List<Category> findAll();
+
+//    Category findByCategory_id(int id);
 }
