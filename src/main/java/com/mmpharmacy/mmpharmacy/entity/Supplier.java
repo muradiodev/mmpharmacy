@@ -37,6 +37,9 @@ public class Supplier {
     @Column(name = "isActive")
     private String isActive;
 
+    public Supplier() {
+    }
+
     public Supplier(int supplier_id, String name, Country country, String address, String phone_number, @Email String email, String isActive) {
         this.supplier_id = supplier_id;
         this.name = name;

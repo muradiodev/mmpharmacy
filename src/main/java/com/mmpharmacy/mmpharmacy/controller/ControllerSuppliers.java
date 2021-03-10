@@ -18,21 +18,26 @@ public class ControllerSuppliers {
     @Autowired
     private RepoSupplier repoSupplier;
 
-//    @RequestMapping("/suppliers")
-//    public String openAdminPage(){
-//        return "admin/suppliers.html";
-//    }
-
-    //todo: getAllTables, edit, delete as update
-
     @RequestMapping("/suppliers")
-    public String findAllByIsActive(Model md) {
+    public String openAdminPage(Model md){
+
         List<Supplier> supplier = repoSupplier.findAllByIsActive("1");
         for (Supplier sup: supplier){
             md.addAttribute("suppliers", supplier);
         }
         return "admin/suppliers.html";
     }
+
+    //todo: getAllTables, edit, delete as update
+
+//    @RequestMapping("/suppliers")
+//    public String findAllByIsActive(Model md) {
+//        List<Supplier> supplier = repoSupplier.findAllByIsActive("1");
+//        for (Supplier sup: supplier){
+//            md.addAttribute("suppliers", supplier);
+//        }
+//        return "admin/suppliers.html";
+//    }
 
 //    @GetMapping("/deleteSupplier")
 //    public String deleteSupplierById(@RequestParam("id") int id) {
