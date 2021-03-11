@@ -41,6 +41,7 @@ public class Supplier {
     public Supplier() {
     }
 
+
     public Supplier( String name,  String address, String phone_number, @Email String email, String isActive) {
         this.name = name;
 //        this.country = country;

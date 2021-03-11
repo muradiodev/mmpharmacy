@@ -63,7 +63,11 @@
                 <div class="col-sm-4">
                     <div class="page-header float-left">
                         <div class="page-title">
-                            <h1>Suppliers &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#exampleModalAdd"><i class="fa fa-plus"></i>&nbsp; add</button></h1>
+                            <h1>Suppliers &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal"
+                                        data-target="#exampleModalAdd"><i class="fa fa-plus"></i>&nbsp; add
+                                </button>
+                            </h1>
 
                         </div>
                     </div>
@@ -111,10 +115,14 @@
                                     <tr>
                                         <td th:text="${suppliers.supplier_id}">...</td>
                                         <td th:text="${suppliers.name}">...</td>
-                                        <td th:text="${suppliers.country}">...</td>
+                                        <td th:each="country : ${suppliers.country}">
+                                            <span th:text="${country.name}">Street</span>
+                                        </td>
+
                                         <td th:text="${suppliers.address}">...</td>
                                         <td th:text="${suppliers.phone_number}">...</td>
                                         <td th:text="${suppliers.email}">...</td>
+
                                         <td>
                                             <button onclick="setterEdit(this)" th:id="${suppliers.supplier_id}"
                                                     data-toggle="modal" data-target="#exampleModalEdit"
@@ -211,9 +219,23 @@
                             <input type="text" class="form-control" id="recipient-name">
                         </div>
                         <div class="form-group">
-                            <label for="recipient-country" class="col-form-label">Country:</label>
-                            <input type="text" class="form-control" id="recipient-country">
+                            <label  class="col-form-label">Country:</label>
+
+                            <select name="select" id="recipient-country" class="form-control">
+
+<!--                                <option th value="1">Azerbaijan</option>-->
+<!--                                <option value="2">Turkey</option>-->
+<!--                                <option value="3">Mozambique</option>-->
+
+                                <option th:each="cntr : ${countriess}"
+                                        th:value="${cntr.country_id}"
+
+                                        th:text="${cntr.name}">
+                                </option>
+
+                            </select>
                         </div>
+
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Address:</label>
                             <input type="text" class="form-control" id="recipient-address">
@@ -328,12 +350,6 @@
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         var modal = $(this)
-        // $("#recipient-name").val(button.data('name'));
-        // $("#recipient-country").val(button.data('country'));
-        // $("#recipient-address").val(button.data('address'));
-        // $("#recipient-phonenumber").val(button.data('phone_number'));
-        // $("#recipient-email").val(button.data('email'));
-        // $("#hidden").val(button.data('id'));
 
         modal.find('.modal-title').text('Add new Entry')
         modal.find('.modal-body ').val(recipient)
@@ -393,7 +409,7 @@
     function updateDataById() {
         var id = $("#hidden").val();
         var name = $("#recipient-name").val();
-        var country = $("#recipient-country").val();
+        var country_id = $("#recipient-country option:selected").val();
         var address = $("#recipient-address").val();
         var phone_number = $("#recipient-phonenumber").val();
         var email = $("#recipient-email").val();
@@ -405,7 +421,7 @@
                 data: {
                     "id": id,
                     "name": name,
-                    "country": country,
+                    "country_id": country_id,
                     "phone_number": phone_number,
                     "address": address,
                     "email": email
@@ -428,11 +444,11 @@
     function addData() {
         var id = $("#add-hidden").val();
         var name = $("#add-name").val();
-        var country = $("#add-country").val();
+        var country_id = $("#add-country").val();
         var address = $("#add-address").val();
         var phone_number = $("#add-phonenumber").val();
         var email = $("#add-email").val();
-        alert("name "+name);
+        alert("name " + name);
 
         $.ajax
         (
@@ -441,7 +457,7 @@
                 data: {
                     // "id": id,
                     "name": name,
-                    "country": country,
+                    "country_id": country_id,
                     "phone_number": phone_number,
                     "address": address,
                     "email": email
