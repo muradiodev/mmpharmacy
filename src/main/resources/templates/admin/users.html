@@ -2,10 +2,14 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang=""> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,7 +24,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
     <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="assets/css/lib/datatable/dataTables.bootstrap.min.css">
@@ -35,7 +40,7 @@
 <!-- Left Panel -->
 <aside id="left-panel" class="left-panel">
     <nav class="navbar navbar-expand-sm navbar-default">
-        <div  id="main-menu" class="main-menu collapse navbar-collapse"></div>
+        <div id="main-menu" class="main-menu collapse navbar-collapse"></div>
         <div th:replace="admin/menu :: menu"></div>
     </nav>
 </aside>
@@ -58,7 +63,8 @@
                 <div class="col-sm-4">
                     <div class="page-header float-left">
                         <div class="page-title">
-                            <h1>Users</h1>
+                            <h1>Users &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#exampleModalAdd"><i class="fa fa-plus"></i>&nbsp; add</button></h1>
+
                         </div>
                     </div>
                 </div>
@@ -100,23 +106,31 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-
-
                                 <th:block th:each="users : ${user}">
                                     <tr>
                                         <td th:text="${users.user_id}">...</td>
                                         <td th:text="${users.name}">...</td>
                                         <td th:text="${users.surname}">...</td>
-                                        <td th:text="${users.email}">...</td>
                                         <td th:text="${users.phone_number}">...</td>
+                                        <td th:text="${users.email}">...</td>
                                         <td>
-                                            <button type="button" class="btn btn-outline-warning"><i
+                                            <button onclick="setterEdit(this)" th:id="${users.user_id}"
+                                                    data-toggle="modal" data-target="#exampleModalEdit"
+                                                    th:data-name="${users.name}"
+                                                    th:data-surname="${users.surname}"
+                                                    th:data-phone_number="${users.phone_number}"
+                                                    th:data-email="${users.email}"
+                                                    th:data-id="${users.user_id}"
+                                                    type="button"
+                                                    class="btn btn-outline-warning"><i
                                                     class="fa fa-edit"></i>&nbsp; Edit
                                             </button>&nbsp;&nbsp;&nbsp;
-<!--                                            <button th:href="@{/users/deleteUser(id=${user.id})}"-->
-<!--                                                    type="button" class="btn btn-outline-danger"><i-->
-<!--                                                    class="fa fa-minus"></i>&nbsp; Delete-->
-<!--                                            </button>-->
+                                            <button onclick="setter(this)" th:id="${users.user_id}"
+                                                    type="button" class="btn btn-outline-danger" data-toggle="modal"
+                                                    data-target="#exampleModalCenter"><i
+                                                //data-target equals id of wanted modal page
+                                                class="fa fa-minus"></i>&nbsp; Delete
+                                            </button>
                                         </td>
                                     </tr>
                                 </th:block>
@@ -131,7 +145,114 @@
             </div>
         </div><!-- .animated -->
     </div><!-- .content -->
+    <!--Modal-->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this item?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                            data-dismiss="modal">Cancel
+                    </button>
+                    <button onclick="deleteDataById(this)" class="btn btn-outline-danger btn-fw delete-user"
+                            role="button" aria-pressed="true"><i
+                            class="fa fa-trash-o mr-3"></i>Confirm
+                    </button>
+                </div>
 
+            </div>
+        </div>
+    </div>
+    <!--Modal Edit-->
+    <div class="modal fade" id="exampleModalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit data of </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Name:</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-surname" class="col-form-label">Surname:</label>
+                            <input type="text" class="form-control" id="recipient-surname">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-phonenumber" class="col-form-label">Phone Number:</label>
+                            <input type="text" class="form-control" id="recipient-phonenumber">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-email" class="col-form-label">E-mail:</label>
+                            <input type="text" class="form-control" id="recipient-email">
+                            <input type="hidden" id="hidden" name="hidden" value="">
+
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" onclick="updateDataById()" class="btn btn-success update-user">Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal Add-->
+    <div class="modal fade" id="exampleModalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="add-name" class="col-form-label">Name:</label>
+                            <input type="text" class="form-control" id="add-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="add-surname" class="col-form-label">Surname:</label>
+                            <input type="text" class="form-control" id="add-surname">
+                        </div>
+                        <div class="form-group">
+                            <label for="add-phonenumber" class="col-form-label">Phone Number:</label>
+                            <input type="text" class="form-control" id="add-phonenumber">
+                        </div>
+                        <div class="form-group">
+                            <label for="add-email" class="col-form-label">E-mail:</label>
+                            <input type="text" class="form-control" id="add-email">
+                            <input type="hidden" id="add-hidden" name="hidden" value="">
+
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" onclick="addData()" class="btn btn-success add-user">Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="clearfix"></div>
 
@@ -167,9 +288,146 @@
 
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#bootstrap-data-table-export').DataTable();
-    } );
+    });
+
+    $('#exampleModalEdit').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var recipient = button.data('name') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        $("#recipient-name").val(button.data('name'));
+        $("#recipient-surname").val(button.data('surname'));
+        $("#recipient-phonenumber").val(button.data('phone_number'));
+        $("#recipient-email").val(button.data('email'));
+        $("#hidden").val(button.data('id'));
+        modal.find('.modal-title').text('Edit the datas of - ' + recipient)
+        modal.find('.modal-body ').val(recipient)
+    })
+
+    $('#exampleModalAdd').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var recipient = button.data('name') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        modal.find('.modal-title').text('Add new Entry')
+        modal.find('.modal-body ').val(recipient)
+    })
+
+    $('#exampleModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var recipient = button.data('whatever') // Extract info from data-* attributes
+
+
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        modal.find('.modal-title').text('New message to ' + recipient)
+        modal.find('.modal-body ').val(recipient)
+    })
+
+    function setter(btn) {
+        var id = $(btn).attr("id");
+
+        $(".delete-user").attr("id", id);
+    }
+
+    function deleteDataById(btn) {
+
+        var id = $(btn).attr("id");
+
+        $.ajax
+        (
+            {
+                url: '/admin/deleteUser',
+                data: {"id": id},
+                type: 'post',
+                cache: false,
+                success: function (data) {
+
+                    if (data === "deleted") {
+                        location.reload();
+                        //$("#bootstrap-data-table").DataTable().ajax.reload(null, false);
+                    }
+
+                },
+                error: function () {
+                    alert('error');
+                }
+            }
+        );
+
+    };
+
+    function updateDataById() {
+        var id = $("#hidden").val();
+        var name = $("#recipient-name").val();
+        var surname = $("#recipient-surname").val();
+        var phone_number = $("#recipient-phonenumber").val();
+        var email = $("#recipient-email").val();
+
+        $.ajax
+        (
+            {
+                url: '/admin/updateUser',
+                data: {
+                    "id": id,
+                    "name": name,
+                    "surname": surname,
+                    "phone_number": phone_number,
+                    "email": email
+                },
+                type: 'post',
+                cache: false,
+                success: function (data) {
+
+                    location.reload();
+
+                },
+                error: function () {
+                    alert('error');
+                }
+            }
+        );
+
+    };
+
+    function addData() {
+        var id = $("#add-hidden").val();
+        var name = $("#add-name").val();
+        var surname = $("#add-surname").val();
+        var phone_number = $("#add-phonenumber").val();
+        var email = $("#add-email").val();
+
+        $.ajax
+        (
+            {
+                url: '/admin/addUser',
+                data: {
+                    // "id": id,
+                    "name": name,
+                    "surname": surname,
+                    "phone_number": phone_number,
+                    "email": email
+                },
+                type: 'post',
+                cache: false,
+                success: function (data) {
+
+                    location.reload();
+
+                },
+                error: function () {
+                    // alert('dataaa   '+data)
+                    alert('error');
+                }
+            }
+        );
+
+    };
 </script>
 
 
