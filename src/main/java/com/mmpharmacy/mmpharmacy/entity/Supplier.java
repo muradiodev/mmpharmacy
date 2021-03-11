@@ -41,10 +41,9 @@ public class Supplier {
     public Supplier() {
     }
 
-    public Supplier(int supplier_id, String name, Country country, String address, String phone_number, @Email String email, String isActive) {
-        this.supplier_id = supplier_id;
+    public Supplier( String name,  String address, String phone_number, @Email String email, String isActive) {
         this.name = name;
-        this.country = country;
+//        this.country = country;
         this.address = address;
         this.phone_number = phone_number;
         this.email = email;
