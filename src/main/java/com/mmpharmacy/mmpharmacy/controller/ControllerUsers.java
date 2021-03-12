@@ -47,20 +47,20 @@ public class ControllerUsers {
     }
 
     @RequestMapping("/updateUser")
-    public String updateUser(@RequestParam(value = "id") int id, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "surname", required = false) String surname, @RequestParam(value = "email", required = false) String email, @RequestParam(value = "phone_number", required = false) String phone_number) {
+    public String updateUser(@RequestParam(value = "id") int id, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "surname", required = false) String surname, @RequestParam(value = "email", required = false) String email, @RequestParam(value = "phonenumber", required = false) String phonenumber) {
         User user = repoUser.getOne(id);
         user.setName(name);
         user.setSurname(surname);
         user.setEmail(email);
-        user.setPhonenumber(phone_number);
+        user.setPhonenumber(phonenumber);
         System.out.println("Setted");
         repoUser.save(user);
         return "redirect:/admin/users";
     }
 
     @RequestMapping("/addUser")
-    public String addUser(@RequestParam(value = "name", required = false) String name, @RequestParam(value = "surname", required = false) String surname, @RequestParam(value = "email", required = false) String email, @RequestParam(value = "phone_number", required = false) String phone_number) {
-        User user = new User(name, surname, phone_number, email, "1");
+    public String addUser(@RequestParam(value = "name", required = false) String name, @RequestParam(value = "surname", required = false) String surname, @RequestParam(value = "email", required = false) String email, @RequestParam(value = "phonenumber", required = false) String phonenumber) {
+        User user = new User(name, surname, phonenumber, email, "1");
         repoUser.save(user);
         return "redirect:/admin/suppliers";
     }
