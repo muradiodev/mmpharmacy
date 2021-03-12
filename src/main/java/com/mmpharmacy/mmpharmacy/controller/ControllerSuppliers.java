@@ -34,7 +34,6 @@ public class ControllerSuppliers {
 
         List<Supplier> suppliers = repoSupplier.findAllByIsActive("1");
         List<Country> countries = repoCountry.findAll();
-//        System.out.println("aaaaaaaaaa " + suppliers);
 
         md.addAttribute("supplier", suppliers);
         md.addAttribute("countriess", countries);
@@ -42,12 +41,6 @@ public class ControllerSuppliers {
 
         return "admin/suppliers.html";
     }
-//    public boolean isSelected(Integer country_id){
-//        if (country_id != null) {
-//            return country_id.equals(country_id);
-//        }
-//        return false;
-//    }
 
     @RequestMapping("/deleteSupplier")
     @ResponseBody

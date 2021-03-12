@@ -127,7 +127,8 @@
                                             <button onclick="setterEdit(this)" th:id="${suppliers.supplier_id}"
                                                     data-toggle="modal" data-target="#exampleModalEdit"
                                                     th:data-name="${suppliers.name}"
-                                                    th:data-country="${suppliers.country}"
+                                                    th:data-country="${suppliers.country.name}"
+                                                    th:data-countryid="${suppliers.country.country_id}"
                                                     th:data-address="${suppliers.address}"
                                                     th:data-phone_number="${suppliers.phone_number}"
                                                     th:data-email="${suppliers.email}"
@@ -175,7 +176,19 @@
                         </div>
                         <div class="form-group">
                             <label for="recipient-country" class="col-form-label">Country:</label>
-                            <input type="text" class="form-control" id="add-country">
+                            <!--                            <input type="text" class="form-control" id="add-country">-->
+
+                            <select name="select" id="add-country" class="form-control">
+
+                                <option>--Please choose an option--</option>
+                                <option th:each="cntr : ${countriess}"
+                                        th:value="${cntr.country_id}"
+
+                                        th:text="${cntr.name}">
+                                </option>
+
+                            </select>
+
                         </div>
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Address:</label>
@@ -218,14 +231,14 @@
                             <label for="recipient-name" class="col-form-label">Name:</label>
                             <input type="text" class="form-control" id="recipient-name">
                         </div>
-                        <div class="form-group">
-                            <label  class="col-form-label">Country:</label>
+                        <div class="form-group mustselected">
+                            <label class="col-form-label">Country:</label>
 
                             <select name="select" id="recipient-country" class="form-control">
 
-<!--                                <option th value="1">Azerbaijan</option>-->
-<!--                                <option value="2">Turkey</option>-->
-<!--                                <option value="3">Mozambique</option>-->
+                                <!--                                <option th value="1">Azerbaijan</option>-->
+                                <!--                                <option value="2">Turkey</option>-->
+                                <!--                                <option value="3">Mozambique</option>-->
 
                                 <option th:each="cntr : ${countriess}"
                                         th:value="${cntr.country_id}"
@@ -333,8 +346,14 @@
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         var modal = $(this)
+///////////////////////////////////////////////////////////
+        var tuple = button.data('countryid');
+
+        $("div.mustselected select").val(tuple);
+///////////////////////////////////////////////////////////
+        // alert();
         $("#recipient-name").val(button.data('name'));
-        $("#recipient-country").val(button.data('country'));
+        // $("#recipient-country").val(button.data('country'));
         $("#recipient-address").val(button.data('address'));
         $("#recipient-phonenumber").val(button.data('phone_number'));
         $("#recipient-email").val(button.data('email'));
@@ -398,7 +417,7 @@
 
                 },
                 error: function () {
-                    alert('error');
+                    // alert('error');
                 }
             }
         );
@@ -434,7 +453,7 @@
 
                 },
                 error: function () {
-                    alert('error');
+                    // alert('error');
                 }
             }
         );
@@ -471,7 +490,7 @@
                 },
                 error: function () {
                     // alert('dataaa   '+data)
-                    alert('error');
+                    // alert('error');
                 }
             }
         );
