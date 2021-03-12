@@ -46,17 +46,30 @@ public class ControllerProducts {
 
     @RequestMapping("/deleteProduct")
     @ResponseBody
-    public ResponseEntity deleteProductById(HttpServletRequest request) {
-
-        int id = Integer.parseInt(request.getParameter("id"));
+    public ResponseEntity deleteProductById(@RequestParam(value = "id") int id) {
+//    public ResponseEntity deleteUserById(HttpServletRequest request) {
+//
+//        int id = Integer.parseInt(request.getParameter("id"));
 
         Product product = repoProduct.getOne(id);
         product.setIsactive("0");
         repoProduct.save(product);
 
         return ResponseEntity.status(HttpStatus.OK).body("deleted");
-
     }
+
+//    @RequestMapping("/updateProduct")
+//    public String updateProduct(@RequestParam(value = "id") int id, @RequestParam(value = "countryid", required = false) int countryid, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "email", required = false) String email, @RequestParam(value = "phonenumber", required = false) String phonenumber, @RequestParam(value = "address", required = false) String address) {
+//        Supplier sup = repoSupplier.getOne(id);
+//        Country cnt = repoCountry.getOne(countryid);
+//        sup.setEmail(email);
+//        sup.setAddress(address);
+//        sup.setName(name);
+//        sup.setPhonenumber(phonenumber);
+//        sup.setCountry(cnt);
+//        repoSupplier.save(sup);
+//        return "redirect:/admin/suppliers";
+//    }
 //
 //
 //    @RequestMapping("/addSupplier")
@@ -76,16 +89,5 @@ public class ControllerProducts {
 //        return "redirect:/admin/suppliers";
 //    }
 //
-//    @RequestMapping("/updateSupplier")
-//    public String updateSupplier(@RequestParam(value = "id") int id, @RequestParam(value = "countryid", required = false) int countryid, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "email", required = false) String email, @RequestParam(value = "phonenumber", required = false) String phonenumber, @RequestParam(value = "address", required = false) String address) {
-//        Supplier sup = repoSupplier.getOne(id);
-//        Country cnt = repoCountry.getOne(countryid);
-//        sup.setEmail(email);
-//        sup.setAddress(address);
-//        sup.setName(name);
-//        sup.setPhonenumber(phonenumber);
-//        sup.setCountry(cnt);
-//        repoSupplier.save(sup);
-//        return "redirect:/admin/suppliers";
-//    }
+
 }
