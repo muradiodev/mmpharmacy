@@ -1,17 +1,20 @@
 package com.mmpharmacy.mmpharmacy.controller;
 
 
-import com.mmpharmacy.mmpharmacy.entity.Product;
-import com.mmpharmacy.mmpharmacy.entity.Supplier;
-import com.mmpharmacy.mmpharmacy.entity.User;
+import com.mmpharmacy.mmpharmacy.entity.*;
+import com.mmpharmacy.mmpharmacy.repo.RepoCategory;
 import com.mmpharmacy.mmpharmacy.repo.RepoProduct;
-import com.mmpharmacy.mmpharmacy.repo.RepoUser;
+import com.mmpharmacy.mmpharmacy.repo.RepoType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -19,41 +22,70 @@ import java.util.List;
 public class ControllerProducts {
 
     @Autowired
+    private RepoCategory repoCategory;
+
+    @Autowired
+    private RepoType repoType;
+
+    @Autowired
     private RepoProduct repoProduct;
 
     @RequestMapping("/products")
-    public String getAllProducts(Model md) {
-        List<Product> products = repoProduct.findAll();
-        for (Product product : products) {
-            md.addAttribute("product", products);
-        }
+    public String findAllByIsActive(Model md) {
+
+        List<Product> products = repoProduct.findAllByIsactive("1");
+        List<Category> categories = repoCategory.findAll();
+        List<Type> types = repoType.findAll();
+
+        md.addAttribute("products", products);
+        md.addAttribute("categories", categories);
+        md.addAttribute("types", types);
+
         return "admin/products.html";
     }
 
-//    @RequestMapping("/deleteUser")
-//    public String deleteUserById(@RequestParam("user_id") int user_id) {
-//        User user = repoUser.getOne(user_id);
-//        user.setIsActive("0");
-//        repoUser.save(user);
-//        return "redirect:/admin/users";
+    @RequestMapping("/deleteProduct")
+    @ResponseBody
+    public ResponseEntity deleteProductById(HttpServletRequest request) {
+
+        int id = Integer.parseInt(request.getParameter("id"));
+
+        Product product = repoProduct.getOne(id);
+        product.setIsactive("0");
+        repoProduct.save(product);
+
+        return ResponseEntity.status(HttpStatus.OK).body("deleted");
+
+    }
+//
+//
+//    @RequestMapping("/addSupplier")
+//    public String addSupplier(@RequestParam(value = "countryid", required = false) int countryid,
+//                              @RequestParam(value = "name", required = false) String name,
+//                              @RequestParam(value = "email", required = false) String email,
+//                              @RequestParam(value = "phonenumber", required = false) String phonenumber,
+//                              @RequestParam(value = "address", required = false) String address) {
+//
+//        Country cnt = repoCountry.getOne(countryid);
+//
+//        Supplier sup = new Supplier(name, address, phonenumber, email, "1");
+//        sup.setCountry(cnt);
+//        System.out.println("suppppp" + sup);
+//
+//        repoSupplier.save(sup);
+//        return "redirect:/admin/suppliers";
 //    }
 //
-//    @RequestMapping("/addUser")
-//    public String addUser(@RequestParam(value = "country", required = false) String country) {
-//        User user = new User();
-//
-//        repoUser.save(user);
-//        return "redirect:/admin/users";
-//    }
-//
-//    @RequestMapping("/editUser")
-//    public String editUser(@RequestParam(value = "user_id") int user_id) {
-//        User user = repoUser.getOne(user_id);
-////        user.setName(name);
-////        user.setSurname(surname);
-////        user.setEmail(email);
-////        user.setPhone_number(phoneNumber);
-//        repoUser.save(user);
-//        return "redirect:/admin/users";
+//    @RequestMapping("/updateSupplier")
+//    public String updateSupplier(@RequestParam(value = "id") int id, @RequestParam(value = "countryid", required = false) int countryid, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "email", required = false) String email, @RequestParam(value = "phonenumber", required = false) String phonenumber, @RequestParam(value = "address", required = false) String address) {
+//        Supplier sup = repoSupplier.getOne(id);
+//        Country cnt = repoCountry.getOne(countryid);
+//        sup.setEmail(email);
+//        sup.setAddress(address);
+//        sup.setName(name);
+//        sup.setPhonenumber(phonenumber);
+//        sup.setCountry(cnt);
+//        repoSupplier.save(sup);
+//        return "redirect:/admin/suppliers";
 //    }
 }

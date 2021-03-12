@@ -2,10 +2,14 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang=""> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,7 +24,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
     <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="assets/css/lib/datatable/dataTables.bootstrap.min.css">
@@ -35,7 +40,7 @@
 <!-- Left Panel -->
 <aside id="left-panel" class="left-panel">
     <nav class="navbar navbar-expand-sm navbar-default">
-        <div  id="main-menu" class="main-menu collapse navbar-collapse"></div>
+        <div id="main-menu" class="main-menu collapse navbar-collapse"></div>
         <div th:replace="admin/menu :: menu"></div>
     </nav>
 </aside>
@@ -58,7 +63,12 @@
                 <div class="col-sm-4">
                     <div class="page-header float-left">
                         <div class="page-title">
-                            <h1>Users</h1>
+                            <h1>Medicines &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal"
+                                        data-target="#exampleModalAdd"><i class="fa fa-plus"></i>&nbsp; add
+                                </button>
+                            </h1>
+
                         </div>
                     </div>
                 </div>
@@ -68,7 +78,6 @@
                             <ol class="breadcrumb text-right">
                                 <li><a href="#">Dashboard</a></li>
                                 <li><a href="#">Medicines</a></li>
-                                <!--                                    <li class="active">Data table</li>-->
                             </ol>
                         </div>
                     </div>
@@ -77,8 +86,8 @@
         </div>
     </div>
 
-    <div class="content ">
-        <div class="animated fadeIn ">
+    <div class="content">
+        <div class="animated fadeIn">
             <div class="row">
 
                 <div class="col-md-12">
@@ -88,39 +97,70 @@
                         </div>
                         <div class="card-body">
 
+
                             <table id="bootstrap-data-table" class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
                                     <th>*</th>
-                                    <th>Name</th>
+                                    <th>Product Name</th>
                                     <th>Description</th>
+                                    <th>Category</th>
+                                    <th>Type</th>
                                     <th>Quantity</th>
                                     <th>Price</th>
                                     <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <th:block th:each="products : ${product}">
+                                <th:block th:each="product : ${products}">
                                     <tr>
-                                        <td th:text="${products.productid}">...</td>
-                                        <td th:text="${products.name}">...</td>
-                                        <td th:text="${products.description}">...</td>
-                                        <td th:text="${products.qtystock}">...</td>
-                                        <td th:text="${products.price}">...</td>
+                                        <td th:text="${product.productid}">...</td>
+                                        <td th:text="${product.name}">...</td>
+                                        <td th:text="${product.description}">...</td>
                                         <td>
-                                            <button type="button" class="btn btn-outline-warning"><i
-                                                    class="fa fa-edit"></i>&nbsp; Edit
-                                            </button>&nbsp;&nbsp;&nbsp;
-                                            <!--                                            <button th:href="@{/users/deleteUser(user_id=${user.user_id})}"-->
-                                            <!--                                                    type="button" class="btn btn-outline-danger"><i-->
-                                            <!--                                                    class="fa fa-minus"></i>&nbsp; Delete-->
-                                            <!--                                            </button>-->
+                                            <p th:each="category : ${product.categories}" style="display:inline">
+                                                <span th:text="${category.name}"
+                                                      class="badge badge-secondary">Street</span>
+                                            </p>
                                         </td>
+                                        <td>
+                                            <p th:each="type : ${product.types}" style="display:inline">
+                                                <span th:text="${type.name}" class="badge badge-secondary"></span>
+
+                                            </p>
+
+                                        </td>
+                                        <!--                                        <td th:text="${product.categories.name}">...</td>-->
+                                        <!--                                        <td th:text="${product.types.name}">...</td>-->
+                                        <td th:text="${product.qtystock}">...</td>
+                                        <td th:text="${product.price}">...</td>
+
+                                                                        <td>
+<!--                                                                            <button onclick="setterEdit(this)" th:id="${product.productid}"-->
+<!--                                                                                    data-toggle="modal" data-target="#exampleModalEdit"-->
+<!--                                                                                    th:data-id="${product.productid}"-->
+<!--                                                                                    th:data-name="${product.name}"-->
+<!--                                                                                    th:data-category="${product.category.name}"-->
+<!--                                                                                    th:data-categoryid="${product.category.categoryid}"-->
+<!--                                                                                    th:data-type="${product.type.name}"-->
+<!--                                                                                    th:data-typeid="${product.type.typeid}"-->
+<!--                                                                                    th:data-address="${product.qtystock}"-->
+<!--                                                                                    th:data-phonenumber="${product.price}"-->
+<!--                                                                                    type="button"-->
+<!--                                                                                    class="btn btn-outline-warning"><i-->
+<!--                                                                                    class="fa fa-edit"></i>&nbsp; Edit-->
+<!--                                                                            </button>&nbsp;&nbsp;&nbsp;-->
+                                                                            <button onclick="setter(this)" th:id="${product.productid}"
+                                                                                    type="button" class="btn btn-outline-danger" data-toggle="modal"
+                                                                                    data-target="#exampleModalCenter"><i
+                                                                                    class="fa fa-minus"></i>&nbsp; Delete
+                                                                            </button>
+                                                                        </td>
                                     </tr>
                                 </th:block>
-
                                 </tbody>
                             </table>
+
                         </div>
                     </div>
                 </div>
@@ -129,8 +169,32 @@
             </div>
         </div><!-- .animated -->
     </div><!-- .content -->
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this item?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                            data-dismiss="modal">Cancel
+                    </button>
+                    <button onclick="deleteDataById(this)" class="btn btn-outline-danger btn-fw delete-product"
+                            role="button" aria-pressed="true"><i
+                            class="fa fa-trash-o mr-3"></i>Confirm
+                    </button>
+                </div>
 
-
+            </div>
+        </div>
+    </div>
     <div class="clearfix"></div>
 
     <!-- Footer -->
@@ -165,9 +229,46 @@
 
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#bootstrap-data-table-export').DataTable();
-    } );
+
+
+    });
+
+    function setter(btn) {
+        var id = $(btn).attr("id");
+
+        $(".delete-supplier").attr("id", id);
+    }
+
+    function deleteDataById(btn) {
+
+        var id = $(btn).attr("id");
+
+        $.ajax
+        (
+            {
+                url: '/admin/deleteProduct',
+                data: {"id": id},
+                type: 'post',
+                cache: false,
+                success: function (data) {
+
+                    if (data === "deleted") {
+                        location.reload();
+                        //$("#bootstrap-data-table").DataTable().ajax.reload(null, false);
+                    }
+
+                },
+                error: function () {
+                    // alert('error');
+                }
+            }
+        );
+
+    };
+
+
 </script>
 
 
