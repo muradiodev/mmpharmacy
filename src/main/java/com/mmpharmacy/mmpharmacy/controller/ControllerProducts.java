@@ -21,13 +21,13 @@ public class ControllerProducts {
     @Autowired
     private RepoProduct repoProduct;
 
-    @RequestMapping("/medicines")
+    @RequestMapping("/products")
     public String getAllProducts(Model md) {
         List<Product> products = repoProduct.findAll();
         for (Product product : products) {
             md.addAttribute("product", products);
         }
-        return "admin/medicines.html";
+        return "admin/products.html";
     }
 
 //    @RequestMapping("/deleteUser")
