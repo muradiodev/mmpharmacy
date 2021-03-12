@@ -11,8 +11,8 @@ import java.util.Set;
 public class Sales {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "sales_id")
-    private int sales_id;
+    @Column(name = "salesid")
+    private int salesid;
 
     @Column(name = "quantity")
     private int quantity;
@@ -20,35 +20,29 @@ public class Sales {
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "sales_date",
-            joinColumns = @JoinColumn(name = "sales_id"),
-            inverseJoinColumns = @JoinColumn(name = "date_id"))
+            joinColumns = @JoinColumn(name = "salesid"),
+            inverseJoinColumns = @JoinColumn(name = "dateid"))
     Set<Date> date;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "sales_product",
-            joinColumns = @JoinColumn(name = "sales_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
+            joinColumns = @JoinColumn(name = "salesid"),
+            inverseJoinColumns = @JoinColumn(name = "productid"))
     Set<Product> product;
 
-    @Column(name = "isActive")
-    private String isActive;
+    @Column(name = "isactive")
+    private String isactive;
 
-    public Sales(int id, int quantity, Set<Date> date, Set<Product> product, String isActive) {
-        this.sales_id = id;
+    public Sales(int id, int quantity, Set<Date> date, Set<Product> product, String isactivective) {
+        this.salesid = id;
         this.quantity = quantity;
         this.date = date;
         this.product = product;
-        this.isActive = isActive;
+        this.isactive = isactive;
     }
 
-    public int getSales_id() {
-        return sales_id;
-    }
 
-    public void setSales_id(int sales_id) {
-        this.sales_id = sales_id;
-    }
 
     public int getQuantity() {
         return quantity;
@@ -74,11 +68,19 @@ public class Sales {
         this.product = product;
     }
 
-    public String getIsActive() {
-        return isActive;
+    public int getSalesid() {
+        return salesid;
     }
 
-    public void setIsActive(String isActive) {
-        this.isActive = isActive;
+    public void setSalesid(int salesid) {
+        this.salesid = salesid;
+    }
+
+    public String getIsactive() {
+        return isactive;
+    }
+
+    public void setIsactive(String isactive) {
+        this.isactive = isactive;
     }
 }

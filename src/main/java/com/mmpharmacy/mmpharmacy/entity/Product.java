@@ -11,8 +11,8 @@ import java.util.Set;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "product_id")
-    private int product_id;
+    @Column(name = "productid")
+    private int productid;
 
     @Column(name = "name")
     private String name;
@@ -20,27 +20,19 @@ public class Product {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "qty_stock")
-    private String qty_stock;
+    @Column(name = "qtystock")
+    private String qtystock;
 
     @Column(name = "string")
     private String price;
 
 
-//    @ToString.Exclude
-//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "product_supplier",
-//            joinColumns = @JoinColumn(name = "product_id"),
-//            inverseJoinColumns = @JoinColumn(name = "supplier_id"))
-//    private Set<Type> product_supplier;
-
     @ToString.Exclude
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "product_category",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id"))
+            joinColumns = @JoinColumn(name = "productid"),
+            inverseJoinColumns = @JoinColumn(name = "categoryid"))
     Set<Category> product_category;
 
 
@@ -48,12 +40,13 @@ public class Product {
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "product_type",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "type_id"))
-    Set<Type> product_type;
+            joinColumns = @JoinColumn(name = "productid"),
+            inverseJoinColumns = @JoinColumn(name = "typeid"))
+    Set<Type> producttype;
 
 
-    @Column(name = "isActive")
-    private String isActive;
+    @Column(name = "isactive")
+    private String isactive;
+
 
 }

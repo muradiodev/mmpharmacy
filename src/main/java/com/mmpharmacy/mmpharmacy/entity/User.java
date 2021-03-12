@@ -12,8 +12,8 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_id")
-    private int user_id;
+    @Column(name = "userid")
+    private int userid;
 
     @Column(name = "name")
     private String name;
@@ -27,38 +27,32 @@ public class User {
     @Column(name = "user_type")
     private String user_type;
 
-    @Column(name = "phone_number")
-    private String phone_number;
+    @Column(name = "phonenumber")
+    private String phonenumber;
 
     @Column(name = "password")
     private String password;
 
-    @Column(name = "isActive")
-    private String isActive;
+    @Column(name = "isactive")
+    private String isactive;
 
     @ToString.Exclude
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "userid"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    public User(String name, String surname, String phone_number, String email , String isActive) {
+    public User(String name, String surname, String phonenumber, String email , String isActive) {
         this.name = name;
         this.surname = surname;
         this.email = email;
-        this.phone_number = phone_number;
-        this.isActive = isActive;
+        this.phonenumber = phonenumber;
+        this.isactive = isactive;
     }
 
     public User() {
     }
 
-    public int getUser_id() {
-        return user_id;
-    }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
 
     public String getName() {
         return name;
@@ -92,13 +86,7 @@ public class User {
         this.user_type = user_type;
     }
 
-    public String getPhone_number() {
-        return phone_number;
-    }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
-    }
 
     public String getPassword() {
         return password;
@@ -108,12 +96,28 @@ public class User {
         this.password = password;
     }
 
-    public String getIsActive() {
-        return isActive;
+    public int getUserid() {
+        return userid;
     }
 
-    public void setIsActive(String isActive) {
-        this.isActive = isActive;
+    public void setUserid(int userid) {
+        this.userid = userid;
+    }
+
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
+    }
+
+    public String getIsactive() {
+        return isactive;
+    }
+
+    public void setIsactive(String isactive) {
+        this.isactive = isactive;
     }
 
     public Set<Role> getRoles() {

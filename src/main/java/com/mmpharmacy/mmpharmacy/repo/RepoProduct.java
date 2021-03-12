@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface RepoProduct extends JpaRepository<Product, Integer> {
 
-    List<User> findAllByIsActive(String isActive);
+    List<User> findAllByIsactive(String isActive);
 
 }

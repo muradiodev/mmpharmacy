@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface RepoUser extends JpaRepository<User, Integer> {
 
-    List<User> findAllByIsActive(String isActive);
+    List<User> findAllByIsactive(String isActive);
 
 //    User findUserByUser_id(int id);
 

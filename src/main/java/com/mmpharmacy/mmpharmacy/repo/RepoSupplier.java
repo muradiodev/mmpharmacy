@@ -9,7 +9,7 @@ import java.util.List;
 public interface RepoSupplier extends JpaRepository<Supplier,Integer> {
 
 
-    List<Supplier> findAllByIsActive(String isActive);
+    List<Supplier> findAllByIsactive(String isActive);
 
 //    List<Supplier> findSupplierBySupplier_id
 

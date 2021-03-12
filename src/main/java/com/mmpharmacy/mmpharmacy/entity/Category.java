@@ -10,8 +10,8 @@ import javax.persistence.*;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "category_id")
-    private int category_id;
+    @Column(name = "categoryid")
+    private int categoryid;
 
     @Column(name = "name")
     private String name;
@@ -19,17 +19,17 @@ public class Category {
     public Category() {
     }
 
-    public Category(int category_id, String name) {
-        this.category_id = category_id;
+    public Category(int categoryid, String name) {
+        this.categoryid = categoryid;
         this.name = name;
     }
 
-    public int getCategory_id() {
-        return category_id;
+    public int getCategoryid() {
+        return categoryid;
     }
 
-    public void setCategory_id(int category_id) {
-        this.category_id = category_id;
+    public void setCategoryid(int categoryid) {
+        this.categoryid = categoryid;
     }
 
     public String getName() {

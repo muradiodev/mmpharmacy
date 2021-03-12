@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface RepoCountry extends JpaRepository<Country, Integer> {
 
-    List<Country> findAll();
+    List<Country> findAllByOrderByCountryid();
 
 
 }

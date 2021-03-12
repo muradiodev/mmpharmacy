@@ -113,31 +113,31 @@
                                 <tbody>
                                 <th:block th:each="suppliers : ${supplier}">
                                     <tr>
-                                        <td th:text="${suppliers.supplier_id}">...</td>
+                                        <td th:text="${suppliers.supplierid}">...</td>
                                         <td th:text="${suppliers.name}">...</td>
                                         <td th:each="country : ${suppliers.country}">
                                             <span th:text="${country.name}">Street</span>
                                         </td>
 
                                         <td th:text="${suppliers.address}">...</td>
-                                        <td th:text="${suppliers.phone_number}">...</td>
+                                        <td th:text="${suppliers.phonenumber}">...</td>
                                         <td th:text="${suppliers.email}">...</td>
 
                                         <td>
-                                            <button onclick="setterEdit(this)" th:id="${suppliers.supplier_id}"
+                                            <button onclick="setterEdit(this)" th:id="${suppliers.supplierid}"
                                                     data-toggle="modal" data-target="#exampleModalEdit"
                                                     th:data-name="${suppliers.name}"
                                                     th:data-country="${suppliers.country.name}"
-                                                    th:data-countryid="${suppliers.country.country_id}"
+                                                    th:data-countryid="${suppliers.country.countryid}"
                                                     th:data-address="${suppliers.address}"
-                                                    th:data-phone_number="${suppliers.phone_number}"
+                                                    th:data-phonenumber="${suppliers.phonenumber}"
                                                     th:data-email="${suppliers.email}"
-                                                    th:data-id="${suppliers.supplier_id}"
+                                                    th:data-id="${suppliers.supplierid}"
                                                     type="button"
                                                     class="btn btn-outline-warning"><i
                                                     class="fa fa-edit"></i>&nbsp; Edit
                                             </button>&nbsp;&nbsp;&nbsp;
-                                            <button onclick="setter(this)" th:id="${suppliers.supplier_id}"
+                                            <button onclick="setter(this)" th:id="${suppliers.supplierid}"
                                                     type="button" class="btn btn-outline-danger" data-toggle="modal"
                                                     data-target="#exampleModalCenter"><i
                                                     class="fa fa-minus"></i>&nbsp; Delete
@@ -182,7 +182,7 @@
 
                                 <option>--Please choose an option--</option>
                                 <option th:each="cntr : ${countriess}"
-                                        th:value="${cntr.country_id}"
+                                        th:value="${cntr.countryid}"
 
                                         th:text="${cntr.name}">
                                 </option>
@@ -241,7 +241,7 @@
                                 <!--                                <option value="3">Mozambique</option>-->
 
                                 <option th:each="cntr : ${countriess}"
-                                        th:value="${cntr.country_id}"
+                                        th:value="${cntr.countryid}"
 
                                         th:text="${cntr.name}">
                                 </option>
@@ -355,7 +355,7 @@
         $("#recipient-name").val(button.data('name'));
         // $("#recipient-country").val(button.data('country'));
         $("#recipient-address").val(button.data('address'));
-        $("#recipient-phonenumber").val(button.data('phone_number'));
+        $("#recipient-phonenumber").val(button.data('phonenumber'));
         $("#recipient-email").val(button.data('email'));
         $("#hidden").val(button.data('id'));
 
@@ -428,9 +428,9 @@
     function updateDataById() {
         var id = $("#hidden").val();
         var name = $("#recipient-name").val();
-        var country_id = $("#recipient-country option:selected").val();
+        var countryid = $("#recipient-country option:selected").val();
         var address = $("#recipient-address").val();
-        var phone_number = $("#recipient-phonenumber").val();
+        var phonenumber = $("#recipient-phonenumber").val();
         var email = $("#recipient-email").val();
 
         $.ajax
@@ -440,8 +440,8 @@
                 data: {
                     "id": id,
                     "name": name,
-                    "country_id": country_id,
-                    "phone_number": phone_number,
+                    "countryid": countryid,
+                    "phonenumber": phonenumber,
                     "address": address,
                     "email": email
                 },
@@ -463,9 +463,9 @@
     function addData() {
         var id = $("#add-hidden").val();
         var name = $("#add-name").val();
-        var country_id = $("#add-country").val();
+        var countryid = $("#add-country").val();
         var address = $("#add-address").val();
-        var phone_number = $("#add-phonenumber").val();
+        var phonenumber = $("#add-phonenumber").val();
         var email = $("#add-email").val();
         alert("name " + name);
 
@@ -476,8 +476,8 @@
                 data: {
                     // "id": id,
                     "name": name,
-                    "country_id": country_id,
-                    "phone_number": phone_number,
+                    "countryid": countryid,
+                    "phonenumber": phonenumber,
                     "address": address,
                     "email": email
                 },

@@ -6,6 +6,7 @@ import com.mmpharmacy.mmpharmacy.entity.Supplier;
 import com.mmpharmacy.mmpharmacy.repo.RepoCountry;
 import com.mmpharmacy.mmpharmacy.repo.RepoSupplier;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -32,8 +33,8 @@ public class ControllerSuppliers {
     @RequestMapping("/suppliers")
     public String findAllByIsActive(Model md) {
 
-        List<Supplier> suppliers = repoSupplier.findAllByIsActive("1");
-        List<Country> countries = repoCountry.findAll();
+        List<Supplier> suppliers = repoSupplier.findAllByIsactive("1");
+        List<Country> countries = repoCountry.findAllByOrderByCountryid();
 
         md.addAttribute("supplier", suppliers);
         md.addAttribute("countriess", countries);
@@ -49,7 +50,7 @@ public class ControllerSuppliers {
         int id = Integer.parseInt(request.getParameter("id"));
 
         Supplier sup = repoSupplier.getOne(id);
-        sup.setIsActive("0");
+        sup.setIsactive("0");
         repoSupplier.save(sup);
 
         return ResponseEntity.status(HttpStatus.OK).body("deleted");
@@ -58,15 +59,15 @@ public class ControllerSuppliers {
 
 
     @RequestMapping("/addSupplier")
-    public String addSupplier(@RequestParam(value = "country_id", required = false) int country_id,
+    public String addSupplier(@RequestParam(value = "countryid", required = false) int countryid,
                               @RequestParam(value = "name", required = false) String name,
                               @RequestParam(value = "email", required = false) String email,
-                              @RequestParam(value = "phone_number", required = false) String phone_number,
+                              @RequestParam(value = "phonenumber", required = false) String phonenumber,
                               @RequestParam(value = "address", required = false) String address) {
 
-        Country cnt = repoCountry.getOne(country_id);
+        Country cnt = repoCountry.getOne(countryid);
 
-        Supplier sup = new Supplier(name, address, phone_number, email, "1");
+        Supplier sup = new Supplier(name, address, phonenumber, email, "1");
         sup.setCountry(cnt);
         System.out.println("suppppp" + sup);
 
@@ -75,15 +76,14 @@ public class ControllerSuppliers {
     }
 
     @RequestMapping("/updateSupplier")
-    public String updateSupplier(@RequestParam(value = "id") int id, @RequestParam(value = "country_id", required = false) int country_id, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "email", required = false) String email, @RequestParam(value = "phone_number", required = false) String phone_number, @RequestParam(value = "address", required = false) String address) {
+    public String updateSupplier(@RequestParam(value = "id") int id, @RequestParam(value = "countryid", required = false) int countryid, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "email", required = false) String email, @RequestParam(value = "phonenumber", required = false) String phonenumber, @RequestParam(value = "address", required = false) String address) {
         Supplier sup = repoSupplier.getOne(id);
-        Country cnt = repoCountry.getOne(country_id);
+        Country cnt = repoCountry.getOne(countryid);
         sup.setEmail(email);
         sup.setAddress(address);
         sup.setName(name);
-        sup.setPhone_number(phone_number);
+        sup.setPhonenumber(phonenumber);
         sup.setCountry(cnt);
-//        System.out.println("suppp "+sup);
         repoSupplier.save(sup);
         return "redirect:/admin/suppliers";
     }

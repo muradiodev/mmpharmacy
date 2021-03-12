@@ -11,8 +11,8 @@ public class Type {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "type_id")
-    private int type_id;
+    @Column(name = "typeid")
+    private int typeid;
 
     @Column(name = "name")
     private String name;
@@ -20,17 +20,17 @@ public class Type {
     public Type() {
     }
 
-    public Type(int type_id, String name) {
-        this.type_id = type_id;
+    public Type(int typeid, String name) {
+        this.typeid = typeid;
         this.name = name;
     }
 
-    public int getType_id() {
-        return type_id;
+    public int getTypeid() {
+        return typeid;
     }
 
-    public void setType_id(int type_id) {
-        this.type_id = type_id;
+    public void setTypeid(int typeid) {
+        this.typeid = typeid;
     }
 
     public String getName() {

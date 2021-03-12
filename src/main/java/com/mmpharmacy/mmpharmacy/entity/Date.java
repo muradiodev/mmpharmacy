@@ -11,8 +11,8 @@ import java.util.Set;
 public class Date {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "date_id")
-    private int date_id;
+    @Column(name = "dateid")
+    private int dateid;
 
     @Column(name = "year")
     private String year;
@@ -20,26 +20,26 @@ public class Date {
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "date_month",
-            joinColumns = @JoinColumn(name = "date_id"),
-            inverseJoinColumns = @JoinColumn(name = "month_id"))
+            joinColumns = @JoinColumn(name = "dateid"),
+            inverseJoinColumns = @JoinColumn(name = "monthid"))
     Set<Month> month;
 
     @Column(name = "day")
     private String day;
 
     public Date(int id, String year, Set<Month> month, String day) {
-        this.date_id = id;
+        this.dateid = id;
         this.year = year;
         this.month = month;
         this.day = day;
     }
 
-    public int getDate_id() {
-        return date_id;
+    public int getDateid() {
+        return dateid;
     }
 
-    public void setDate_id(int date_id) {
-        this.date_id = date_id;
+    public void setDateid(int dateid) {
+        this.dateid = dateid;
     }
 
     public String getYear() {

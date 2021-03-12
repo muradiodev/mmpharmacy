@@ -25,7 +25,7 @@ public class ControllerUsers {
 
     @RequestMapping("/users")
     public String findAllByIsActive(Model md) {
-        List<User> users = repoUser.findAllByIsActive("1");
+        List<User> users = repoUser.findAllByIsactive("1");
         for (User user : users) {
             md.addAttribute("user", users);
         }
@@ -40,7 +40,7 @@ public class ControllerUsers {
 //        int id = Integer.parseInt(request.getParameter("id"));
 
         User user = repoUser.getOne(id);
-        user.setIsActive("0");
+        user.setIsactive("0");
         repoUser.save(user);
 
         return ResponseEntity.status(HttpStatus.OK).body("deleted");
@@ -52,7 +52,7 @@ public class ControllerUsers {
         user.setName(name);
         user.setSurname(surname);
         user.setEmail(email);
-        user.setPhone_number(phone_number);
+        user.setPhonenumber(phone_number);
         System.out.println("Setted");
         repoUser.save(user);
         return "redirect:/admin/users";

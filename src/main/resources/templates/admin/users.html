@@ -108,24 +108,24 @@
                                 <tbody>
                                 <th:block th:each="users : ${user}">
                                     <tr>
-                                        <td th:text="${users.user_id}">...</td>
+                                        <td th:text="${users.userid}">...</td>
                                         <td th:text="${users.name}">...</td>
                                         <td th:text="${users.surname}">...</td>
-                                        <td th:text="${users.phone_number}">...</td>
+                                        <td th:text="${users.phonenumber}">...</td>
                                         <td th:text="${users.email}">...</td>
                                         <td>
-                                            <button onclick="setterEdit(this)" th:id="${users.user_id}"
+                                            <button onclick="setterEdit(this)" th:id="${users.userid}"
                                                     data-toggle="modal" data-target="#exampleModalEdit"
                                                     th:data-name="${users.name}"
                                                     th:data-surname="${users.surname}"
-                                                    th:data-phone_number="${users.phone_number}"
+                                                    th:data-phonenumber="${users.phonenumber}"
                                                     th:data-email="${users.email}"
-                                                    th:data-id="${users.user_id}"
+                                                    th:data-id="${users.userid}"
                                                     type="button"
                                                     class="btn btn-outline-warning"><i
                                                     class="fa fa-edit"></i>&nbsp; Edit
                                             </button>&nbsp;&nbsp;&nbsp;
-                                            <button onclick="setter(this)" th:id="${users.user_id}"
+                                            <button onclick="setter(this)" th:id="${users.userid}"
                                                     type="button" class="btn btn-outline-danger" data-toggle="modal"
                                                     data-target="#exampleModalCenter"><i
                                                 //data-target equals id of wanted modal page
@@ -300,7 +300,7 @@
         var modal = $(this)
         $("#recipient-name").val(button.data('name'));
         $("#recipient-surname").val(button.data('surname'));
-        $("#recipient-phonenumber").val(button.data('phone_number'));
+        $("#recipient-phonenumber").val(button.data('phonenumber'));
         $("#recipient-email").val(button.data('email'));
         $("#hidden").val(button.data('id'));
         modal.find('.modal-title').text('Edit the datas of - ' + recipient)
@@ -366,7 +366,7 @@
         var id = $("#hidden").val();
         var name = $("#recipient-name").val();
         var surname = $("#recipient-surname").val();
-        var phone_number = $("#recipient-phonenumber").val();
+        var phonenumber = $("#recipient-phonenumber").val();
         var email = $("#recipient-email").val();
 
         $.ajax
@@ -377,7 +377,7 @@
                     "id": id,
                     "name": name,
                     "surname": surname,
-                    "phone_number": phone_number,
+                    "phonenumber": phonenumber,
                     "email": email
                 },
                 type: 'post',
@@ -399,7 +399,7 @@
         var id = $("#add-hidden").val();
         var name = $("#add-name").val();
         var surname = $("#add-surname").val();
-        var phone_number = $("#add-phonenumber").val();
+        var phonenumber = $("#add-phonenumber").val();
         var email = $("#add-email").val();
 
         $.ajax
@@ -410,7 +410,7 @@
                     // "id": id,
                     "name": name,
                     "surname": surname,
-                    "phone_number": phone_number,
+                    "phonenumber": phonenumber,
                     "email": email
                 },
                 type: 'post',

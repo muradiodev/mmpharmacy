@@ -12,8 +12,8 @@ public class Supplier {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "supplier_id")
-    private int supplier_id;
+    @Column(name = "supplierid")
+    private int supplierid;
 
     @Column(name = "name")
     private String name;
@@ -21,42 +21,58 @@ public class Supplier {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "supplier_country",
-            joinColumns = @JoinColumn(name = "supplier_id"),
-            inverseJoinColumns = @JoinColumn(name = "country_id"))
+            joinColumns = @JoinColumn(name = "supplierid"),
+            inverseJoinColumns = @JoinColumn(name = "countryid"))
     Country country;
 
     @Column(name = "address")
     private String address;
 
-    @Column(name = "phone_number")
-    private String phone_number;
+    @Column(name = "phonenumber")
+    private String phonenumber;
 
     @Column(name = "email")
     @Email
     private String email;
 
-    @Column(name = "isActive")
-    private String isActive;
+    @Column(name = "isactive")
+    private String isactive;
 
     public Supplier() {
     }
 
 
-    public Supplier( String name,  String address, String phone_number, @Email String email, String isActive) {
+    public Supplier(String name, String address, String phonenumber, @Email String email, String isactive) {
         this.name = name;
 //        this.country = country;
         this.address = address;
-        this.phone_number = phone_number;
+        this.phonenumber = phonenumber;
         this.email = email;
-        this.isActive = isActive;
+        this.isactive = isactive;
     }
 
-    public int getSupplier_id() {
-        return supplier_id;
+    public int getSupplierid() {
+        return supplierid;
     }
 
-    public void setSupplier_id(int supplier_id) {
-        this.supplier_id = supplier_id;
+    public void setSupplierid(int supplierid) {
+        this.supplierid = supplierid;
+    }
+
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
+    }
+
+    public String getIsactive() {
+        return isactive;
+    }
+
+    public void setIsactive(String isactive) {
+        this.isactive = isactive;
     }
 
     public String getName() {
@@ -83,27 +99,11 @@ public class Supplier {
         this.address = address;
     }
 
-    public String getPhone_number() {
-        return phone_number;
-    }
-
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(String isActive) {
-        this.isActive = isActive;
     }
 }
