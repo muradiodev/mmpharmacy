@@ -37,6 +37,7 @@ public class ControllerProducts {
         List<Category> categories = repoCategory.findAll();
         List<Type> types = repoType.findAll();
 
+
         md.addAttribute("products", products);
         md.addAttribute("categories", categories);
         md.addAttribute("types", types);
@@ -58,18 +59,11 @@ public class ControllerProducts {
         return ResponseEntity.status(HttpStatus.OK).body("deleted");
     }
 
-//    @RequestMapping("/updateProduct")
-//    public String updateProduct(@RequestParam(value = "id") int id, @RequestParam(value = "countryid", required = false) int countryid, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "email", required = false) String email, @RequestParam(value = "phonenumber", required = false) String phonenumber, @RequestParam(value = "address", required = false) String address) {
-//        Supplier sup = repoSupplier.getOne(id);
-//        Country cnt = repoCountry.getOne(countryid);
-//        sup.setEmail(email);
-//        sup.setAddress(address);
-//        sup.setName(name);
-//        sup.setPhonenumber(phonenumber);
-//        sup.setCountry(cnt);
-//        repoSupplier.save(sup);
-//        return "redirect:/admin/suppliers";
-//    }
+    @RequestMapping("/updateProduct")
+    public String updateProduct(@RequestParam(value = "id") int id, @RequestParam(value = "countryid", required = false) int countryid, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "email", required = false) String email, @RequestParam(value = "phonenumber", required = false) String phonenumber, @RequestParam(value = "address", required = false) String address) {
+//        List<Category> ctg = repoCategory.getOne(countryid);
+        return "redirect:/admin/suppliers";
+    }
 //
 //
 //    @RequestMapping("/addSupplier")
