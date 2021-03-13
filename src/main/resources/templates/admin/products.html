@@ -16,6 +16,9 @@
     <title>Ela Admin - HTML5 Admin Template</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="index, follow"/>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
 
     <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
     <link rel="shortcut icon" href="https://i.imgur.com/QRAUqs9.png">
@@ -30,21 +33,148 @@
     <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="assets/css/lib/datatable/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <!--    Links and script for Contact chips function-->
+    <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">-->
+    <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap-theme.min.css">-->
+    <!--    <link rel="stylesheet" href="dist/bootstrap-tagsinput.css">-->
+    <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/themes/github.css">-->
+    <!--    <link rel="stylesheet" href="chipassets/app.css">-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $( function() {
+            var availableTags = [
+                "ActionScript",
+                "AppleScript",
+                "Asp",
+                "BASIC",
+                "C",
+                "C++",
+                "Clojure",
+                "COBOL",
+                "ColdFusion",
+                "Erlang",
+                "Fortran",
+                "Groovy",
+                "Haskell",
+                "Java",
+                "JavaScript",
+                "Lisp",
+                "Perl",
+                "PHP",
+                "Python",
+                "Ruby",
+                "Scala",
+                "Scheme"
+            ];
+            $( "#tags" ).autocomplete({
+                source: availableTags
+            });
+        } );
+    </script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
+        ga('create', 'UA-42755476-1', 'bootstrap-tagsinput.github.io');
+        ga('send', 'pageview');
+    </script>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="admin/materialize/css/materialize.min.css"  media="screen,projection"/>
+    <!--    <link type="text/css" rel="stylesheet" href="admin/materialize/css/materialize.min.css"  media="screen,projection"/>-->
 
 
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+    <!--    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>-->
 
-    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
+    <!--     <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script>-->
+    <style>
+        .bootstrap-tagsinput {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+            display: inline-block;
+            padding: 4px 6px;
+            color: #555;
+            vertical-align: middle;
+            border-radius: 4px;
+            max-width: 100%;
+            line-height: 22px;
+            cursor: text;
+        }
+        .bootstrap-tagsinput input {
+            border: none;
+            box-shadow: none;
+            outline: none;
+            background-color: transparent;
+            padding: 0 6px;
+            margin: 0;
+            width: auto;
+            /*max-width: inherit;*/
+        }
+        .bootstrap-tagsinput.form-control input::-moz-placeholder {
+            color: #777;
+            opacity: 1;
+        }
+        .bootstrap-tagsinput.form-control input:-ms-input-placeholder {
+            color: #777;
+        }
+        .bootstrap-tagsinput.form-control input::-webkit-input-placeholder {
+            color: #777;
+        }
+        .bootstrap-tagsinput input:focus {
+            border: none;
+            box-shadow: none;
+        }
+        .bootstrap-tagsinput .tag {
+            margin-right: 2px;
+            color: whitesmoke;
+        }
+        .bootstrap-tagsinput .tag [data-role="remove"] {
+            margin-left: 8px;
+            cursor: pointer;
+        }
+        .bootstrap-tagsinput .tag [data-role="remove"]:after {
+            content: "x";
+            padding: 0px 2px;
+        }
+        .bootstrap-tagsinput .tag [data-role="remove"]:hover {
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+        .bootstrap-tagsinput .tag [data-role="remove"]:hover:active {
+            box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+        }
+        .label-info{
+            background-color: #5bc0de;
+        }
+        .label{
+            display: inline;
+            padding: .2em .6em .3em;
+            font-size: 75%;
+            font-weight: 700;
+            line-height: 1;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: .25em;
+        }
 
+
+    <!--</style>-->
 </head>
 <body>
-<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
-
 <!-- Left Panel -->
 <aside id="left-panel" class="left-panel">
     <nav class="navbar navbar-expand-sm navbar-default">
@@ -71,7 +201,7 @@
                 <div class="col-sm-4">
                     <div class="page-header float-left">
                         <div class="page-title">
-                            <h1>Medicines &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <h1>Suppliers &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal"
                                         data-target="#exampleModalAdd"><i class="fa fa-plus"></i>&nbsp; add
                                 </button>
@@ -85,7 +215,7 @@
                         <div class="page-title">
                             <ol class="breadcrumb text-right">
                                 <li><a href="#">Dashboard</a></li>
-                                <li><a href="#">Medicines</a></li>
+                                <li><a href="#">Products</a></li>
                             </ol>
                         </div>
                     </div>
@@ -95,11 +225,6 @@
     </div>
 
 
-
-
-
-
-
     <div class="content">
         <div class="animated fadeIn">
             <div class="row">
@@ -107,21 +232,9 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">List of Medicines</strong>
+                            <strong class="card-title">List of Products</strong>
                         </div>
                         <div class="card-body">
-
-
-                            <div class="chips chips-autocomplete"></div>
-
-                            <!-- Customizable input  -->
-                            <div class="chips">
-                                <input class="custom-class">
-                            </div>
-
-
-
-
                             <table id="bootstrap-data-table" class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
@@ -211,23 +324,44 @@
                             <label for="recipient-name" class="col-form-label">Name:</label>
                             <input type="text" class="form-control" id="recipient-name">
                         </div>
-                        <!--                        <div class="form-group mustselected">-->
-                        <!--                            <label class="col-form-label">Country:</label>-->
+                        <!-- bizim kod Panel -->
 
-                        <!--&lt;!&ndash;                            <select name="select" id="recipient-country" class="form-control">&ndash;&gt;-->
 
-                        <!--&lt;!&ndash;                                &lt;!&ndash;                                <option th value="1">Azerbaijan</option>&ndash;&gt;&ndash;&gt;-->
-                        <!--&lt;!&ndash;                                &lt;!&ndash;                                <option value="2">Turkey</option>&ndash;&gt;&ndash;&gt;-->
-                        <!--&lt;!&ndash;                                &lt;!&ndash;                                <option value="3">Mozambique</option>&ndash;&gt;&ndash;&gt;-->
+                        <div id="fb-root"></div>
 
-                        <!--&lt;!&ndash;                                <option th:each="cntr : ${countriess}"&ndash;&gt;-->
-                        <!--&lt;!&ndash;                                        th:value="${cntr.countryid}"&ndash;&gt;-->
 
-                        <!--&lt;!&ndash;                                        th:text="${cntr.name}">&ndash;&gt;-->
-                        <!--&lt;!&ndash;                                </option>&ndash;&gt;-->
+                        <div class="ui-widget">
+                            <label for="tags">Tags: </label>
+                            <input id="tags">
+                        </div>
+                        <div class="container">
+                                <section id="examples">
+                                    <div class="example example_multivalue">
+                                        <div class="bs-example">
+<!--                                            <select multiple data-role="tagsinput">-->
+<!--                                                <option value="Amsterdam">Amsterdam</option>-->
+<!--                                                <option value="Washington">Washington</option>-->
+<!--                                                <option value="Sydney">Sydney</option>-->
+<!--                                                <option value="Beijing">Beijing</option>-->
+<!--                                                <option value="Cairo">Cairo</option>-->
+<!--                                            </select>-->
 
-                        <!--&lt;!&ndash;                            </select>&ndash;&gt;-->
-                        <!--                        </div>-->
+                                            <select multiple data-role="tagsinput" id="recipient-category">
+
+                                                <!--                                <option th value="1">Azerbaijan</option>-->
+                                                <!--                                <option value="2">Turkey</option>-->
+                                                <!--                                <option value="3">Mozambique</option>-->
+
+                                                <option th:each="cat : ${categories}"
+                                                        th:value="${cat.name}">
+                                                </option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </section>
+                        </div>
+                        <!-- bizim kod Panel -->
 
                         <div class="form-group">
                             <label for="recipient-description" class="col-form-label">Description:</label>
@@ -291,6 +425,40 @@
 
 <!-- Right Panel -->
 
+
+<!-- bizim jskod Panel -->
+<div class="container">
+    <p>
+    <ul class="list-inline">
+        <li>
+            <script>!function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (!d.getElementById(id)) {
+                    js = d.createElement(s);
+                    js.id = id;
+                    js.src = "//platform.twitter.com/widgets.js";
+                    fjs.parentNode.insertBefore(js, fjs);
+                }
+            }(document, "script", "twitter-wjs");</script>
+        </li>
+        <li>
+            <a class="navbar-link g-plusone" data-size="medium"></a>
+            <script type="text/javascript">
+                (function () {
+                    var po = document.createElement('script');
+                    po.type = 'text/javascript';
+                    po.async = true;
+                    po.src = 'https://apis.google.com/js/plusone.js';
+                    var s = document.getElementsByTagName('script')[0];
+                    s.parentNode.insertBefore(po, s);
+                })();
+            </script>
+        </li>
+    </ul>
+    </p>
+</div>
+<!-- bizim jskod Panel -->
+
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
@@ -310,39 +478,12 @@
 <script src="assets/js/lib/data-table/buttons.colVis.min.js"></script>
 <script src="assets/js/init/datatables-init.js"></script>
 
+
 <script type="text/javascript">
     $(document).ready(function () {
         $('#bootstrap-data-table-export').DataTable();
 
 
-    });
-
-
-
-    $('.chips').chips();
-    $('.chips-initial').chips({
-        data: [{
-            tag: 'Apple',
-        }, {
-            tag: 'Microsoft',
-        }, {
-            tag: 'Google',
-        }],
-    });
-    $('.chips-placeholder').chips({
-        placeholder: 'Enter a tag',
-        secondaryPlaceholder: '+Tag',
-    });
-    $('.chips-autocomplete').chips({
-        autocompleteOptions: {
-            data: {
-                'Apple': null,
-                'Microsoft': null,
-                'Google': null
-            },
-            limit: Infinity,
-            minLength: 1
-        }
     });
 
     $('#exampleModalEdit').on('show.bs.modal', function (event) {
@@ -351,24 +492,51 @@
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         var modal = $(this)
-        // var tuple = button.data('countryid');
-        // $("div.mustselected select").val(tuple);
+///////////////////////////////////////////////////////////
+        var tuple = button.data('countryid');
+
+        $("div.mustselected select").val(tuple);
+///////////////////////////////////////////////////////////
         // alert();
         $("#recipient-name").val(button.data('name'));
         // $("#recipient-country").val(button.data('country'));
-        $("#recipient-description").val(button.data('description'));
-        $("#recipient-qtystock").val(button.data('qtystock'));
-        $("#recipient-price").val(button.data('price'));
+        $("#recipient-address").val(button.data('address'));
+        $("#recipient-phonenumber").val(button.data('phonenumber'));
+        $("#recipient-email").val(button.data('email'));
         $("#hidden").val(button.data('id'));
 
         modal.find('.modal-title').text('Edit the datas of - ' + recipient)
         modal.find('.modal-body ').val(recipient)
     })
 
+    $('#exampleModalAdd').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var recipient = button.data('name') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+
+        modal.find('.modal-title').text('Add new Entry')
+        modal.find('.modal-body ').val(recipient)
+    })
+
+
+    $('#exampleModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var recipient = button.data('whatever') // Extract info from data-* attributes
+
+
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        modal.find('.modal-title').text('New message to ' + recipient)
+        modal.find('.modal-body ').val(recipient)
+    })
+
     function setter(btn) {
         var id = $(btn).attr("id");
 
-        $(".delete-product").attr("id", id);
+        $(".delete-supplier").attr("id", id);
     }
 
     function setterEdit(btn) {
@@ -382,7 +550,7 @@
         $.ajax
         (
             {
-                url: '/admin/deleteProduct',
+                url: '/admin/deleteSupplier',
                 data: {"id": id},
                 type: 'post',
                 cache: false,
@@ -395,51 +563,97 @@
 
                 },
                 error: function () {
-                    alert('error');
+                    // alert('error');
                 }
             }
         );
 
     };
 
-    // function updateDataById() {
-    //     var id = $("#hidden").val();
-    //     var name = $("#recipient-name").val();
-    //     // var countryid = $("#recipient-country option:selected").val();
-    //     var address = $("#recipient-address").val();
-    //     var phonenumber = $("#recipient-phonenumber").val();
-    //     var email = $("#recipient-email").val();
-    //
-    //     $.ajax
-    //     (
-    //         {
-    //             url: '/admin/updateSupplier',
-    //             data: {
-    //                 "id": id,
-    //                 "name": name,
-    //                 "countryid": countryid,
-    //                 "phonenumber": phonenumber,
-    //                 "address": address,
-    //                 "email": email
-    //             },
-    //             type: 'post',
-    //             cache: false,
-    //             success: function (data) {
-    //
-    //                 location.reload();
-    //
-    //             },
-    //             error: function () {
-    //                 // alert('error');
-    //             }
-    //         }
-    //     );
-    //
-    // };
+
+    function updateDataById() {
+        var id = $("#hidden").val();
+        var name = $("#recipient-name").val();
+        var countryid = $("#recipient-country option:selected").val();
+        var address = $("#recipient-address").val();
+        var phonenumber = $("#recipient-phonenumber").val();
+        var email = $("#recipient-email").val();
+
+        $.ajax
+        (
+            {
+                url: '/admin/updateSupplier',
+                data: {
+                    "id": id,
+                    "name": name,
+                    "countryid": countryid,
+                    "phonenumber": phonenumber,
+                    "address": address,
+                    "email": email
+                },
+                type: 'post',
+                cache: false,
+                success: function (data) {
+
+                    location.reload();
+
+                },
+                error: function () {
+                    // alert('error');
+                }
+            }
+        );
+
+    };
+
+    function addData() {
+        var id = $("#add-hidden").val();
+        var name = $("#add-name").val();
+        var countryid = $("#add-country").val();
+        var address = $("#add-address").val();
+        var phonenumber = $("#add-phonenumber").val();
+        var email = $("#add-email").val();
+        alert("name " + name);
+
+        $.ajax
+        (
+            {
+                url: '/admin/addSupplier',
+                data: {
+                    // "id": id,
+                    "name": name,
+                    "countryid": countryid,
+                    "phonenumber": phonenumber,
+                    "address": address,
+                    "email": email
+                },
+                type: 'post',
+                cache: false,
+                success: function (data) {
+
+                    location.reload();
+
+                },
+                error: function () {
+                    // alert('dataaa   '+data)
+                    // alert('error');
+                }
+            }
+        );
+
+    };
+
 
 
 </script>
+<!--For contact chips-->
 
+<script src="dist/bootstrap-tagsinput.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/js/rainbow.min.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/js/language/generic.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/js/language/html.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/js/language/javascript.js"></script>-->
+<script src="chipassets/app.js"></script>
 
 </body>
 </html>
