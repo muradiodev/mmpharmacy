@@ -18,7 +18,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>HR-Countries</title>
+    <title>MMPharmacy</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="/admin/assets/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="/admin/assets/css/lib/datatable/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="/admin/assets/css/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 
     <!-- Custom styles for this template -->
     <style>
@@ -64,7 +65,7 @@
         table {
             border-collapse: collapse;
             border-spacing: 0;
-            width: 100%;
+            /*width: 100%;*/
             border: 1px solid #ddd;
         }
 
@@ -167,9 +168,51 @@
 
 <body>
 <script type="text/javascript">
-    // function Demo(id) {
-    //     $("#qwerty").val(id);
-    // }
+
+    $(document).ready(function () {
+        $(".addelement").click(function () {
+            // alert("salam")
+            var id = $(this).closest("tr").find(".id").text();
+            var nr = $(this).closest("tr").find(".nr").text();
+            var qty = $(this).closest("tr").find(".qty").text();
+            var price = $(this).closest("tr").find(".price").text();
+            /*   alert(name); */
+            var markup = "<tr>" +
+                "<td class='id'>" + id + "</td>" +
+                "<td class='nr'>" + nr + "</td>" +
+                "<td class='qty'><input class='quantity'  style='width: 100%' value='' placeholder='" + qty + "' type='number'></td>" +
+                "<td><span class='price_added'>" + price + "</span></td>" +
+                "</tr>";
+
+            $("#mytable2 tbody").append(markup);
+            $('#sum_cnt').text(price);
+            someFunction();
+        });
+
+        function someFunction() {
+            var sum = 0.00;
+            $(".price_added").each(function () {
+                sum += parseFloat($(this).text());
+            });
+            sum = sum.toFixed(2);
+            // alert(sum);
+            $('#sum_cnt').text(sum);
+        }
+
+        $(document).on("change", ".quantity", function () {
+
+            var say = $(this).val();
+            alert(say)
+            var qiymet = $(".price_added").text();
+            $(this).closest(".price_added").text();
+
+            $(".price_added").text(say * qiymet);
+            someFunction();
+        });
+
+    });
+
+
 </script>
 
 <!-- Navigation -->
@@ -207,13 +250,13 @@
                     database includes medicines currently in clinical trials or at FDA for review. Searchable by drug
                     name, indication, status, or company.</p>
 
-                <div class="row">
-                    <div class="column">
+                <div class="row justify-content-md-center">
+                    <div class="column col-7">
 
                         <table id="bootstrap-data-table" class="table table-striped table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th scope="col">Name</th>
+                                <th scope="col" colspan="2">Name</th>
                                 <th scope="col">Description</th>
                                 <th scope="col">Category</th>
                                 <th scope="col">Quantity</th>
@@ -223,7 +266,10 @@
                             <tbody>
                             <th:block th:each="product : ${products}">
                                 <tr>
-                                    <td>
+                                    <td class="id">
+                                        <p class="book-title" th:text="${product.productid}"></p>
+                                    </td>
+                                    <td class="nr">
                                         <p class="book-title" th:text="${product.name}"></p>
 
                                         <p th:each="type : ${product.types}" style="display:inline">
@@ -231,7 +277,7 @@
                                                       class="badge badge-secondary text-offset">Street</span>
                                         </p>
                                         <p>
-                                            <button type="button" class="btn btn-outline-success btn-sm"><i
+                                            <button type="button" class="btn btn-outline-success btn-sm addelement"><i
                                                     class="fa fa-plus"></i></button>
                                         </p>
                                     </td>
@@ -243,8 +289,8 @@
                                                       class="badge badge-secondary">Street</span>
                                         </p>
                                     </td>
-                                    <td th:text="${product.qtystock}">...</td>
-                                    <td th:text="${product.price}">...</td>
+                                    <td class="qty" th:text="${product.qtystock}">...</td>
+                                    <td class="price" th:text="${product.price}">...</td>
                                 </tr>
 
                             </th:block>
@@ -255,7 +301,7 @@
                         </table>
                     </div>
                     <!--  2nd table -->
-                    <div class="column">
+                    <div class="column col-5" style="width: 20%">
                         <div class="sufee-alert alert with-close alert-success alert-dismissible fade show">
                             <div>Please add from left table:</div>
 
@@ -263,49 +309,25 @@
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
-                        <table id="" class="table table-striped table-bordered table-hover">
+                        <table id="mytable2" stclass="table table-striped table-bordered table-hover">
                             <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Category</th>
-                                <th scope="col">Quantity</th>
-                                <th scope="col">Price</th>
-                            </tr>
+                            <!--                            <tr>-->
+                            <th colspan="2" scope="col">Name</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Price</th>
+                            <!--                            </tr>-->
                             </thead>
                             <tbody>
                             <tr>
-                                <td>
-                                    <p class="book-title">-</p>
 
-                                    <p style="display:inline">
-                                                <span class="badge badge-secondary text-offset">-</span>
-                                    </p>
-                                    <p style="display:inline">
-                                                <span class="badge badge-secondary text-offset">-</span>
-                                    </p>
-
-                                </td>
-
-                                <td>-</td>
-                                <td>
-                                    <p style="display:inline">
-                                                <span class="badge badge-secondary">-</span>
-                                    </p>
-                                    <p style="display:inline">
-                                        <span class="badge badge-secondary">-</span>
-                                    </p>
-                                </td>
-                                <td>-</td>
-                                <td>-</td>
                             </tr>
                             </tbody>
                             <tfoot>
 
 
                             <tr>
-                                <td colspan="4">Total</td>
-                                <td>€ 0.00</td>
+                                <td colspan="3">Total</td>
+                                <td><span id="sum_cnt"></span> €</td>
                             </tr>
                             </tfoot>
                         </table>
@@ -344,10 +366,8 @@
 <script src="/admin/assets/js/lib/data-table/buttons.print.min.js"></script>
 <script src="/admin/assets/js/lib/data-table/buttons.colVis.min.js"></script>
 <script src="/admin/assets/js/init/datatables-init.js"></script>
-<script>
 
-    // alert();
-</script>
+
 </body>
 
 </html>

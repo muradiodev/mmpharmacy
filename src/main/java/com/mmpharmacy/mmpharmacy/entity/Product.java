@@ -23,7 +23,7 @@ public class Product {
     @Column(name = "qtystock")
     private String qtystock;
 
-    @Column(name = "string")
+    @Column(name = "price")
     private String price;
 
     @ToString.Exclude
