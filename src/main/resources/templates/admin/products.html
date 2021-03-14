@@ -202,7 +202,7 @@
                                         <td>
                                             <p th:each="category : ${product.categories}" style="display:inline">
                                                 <span th:text="${category.name}"
-                                                      class="badge badge-secondary">Street</span>
+                                                      class="badge badge-secondary"></span>
                                             </p>
                                         </td>
                                         <td>
@@ -212,16 +212,10 @@
                                             </p>
 
                                         </td>
-                                        <!--                                        <td th:text="${product.categories.name}">...</td>-->
-                                        <!--                                        <td th:text="${product.types.name}">...</td>-->
+
                                         <td th:text="${product.qtystock}">...</td>
                                         <td th:text="${product.price}">...</td>
-
                                         <td>
-                                            <!--                                            th:data-category="${product.category.name}"-->
-                                            <!--                                            th:data-categoryid="${product.category.categoryid}"-->
-                                            <!--                                            th:data-type="${product.type.name}"-->
-                                            <!--                                            th:data-typeid="${product.type.typeid}"-->
                                             <button onclick="setterEdit(this)" th:id="${product.productid}"
                                                     data-toggle="modal" data-target="#exampleModalEdit"
                                                     th:data-id="${product.productid}"
@@ -259,7 +253,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Edit data of </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" onclick="removeAllTags()" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -270,24 +264,27 @@
                             <input type="text" class="form-control" id="recipient-name">
                         </div>
 
+                        <p for="tag123" class="col-form-label">Category:</p>
+
+                        <!--                        <div class="form-group" id="tags">-->
+                        <!--                            <th:block th:each="product : ${products}">-->
+                        <!--                                <p th:each="category : ${product.categories}" style="display:inline">-->
+                        <!--                                    <span th:text="${category.name}" class="tag"></span>-->
+
+                        <!--                                </p>-->
+                        <!--                            </th:block>-->
+                        <!--                            <input type="text" value="" id="tag123" placeholder="Add a skill">-->
+                        <!--                        </div>-->
+                        <!--                        <span th:text="${category.categoryid}" class="tag"></span>-->
+                        <!--                        th:each="product : ${products}"-->
+
                         <div class="form-group" id="tags">
-                            <!--                            <p th:each="category : ${categories}" style="display:inline">-->
-                            <!--                                                <span th:text="${category.name}"-->
-                            <!--                                                      class="tag"></span>-->
-                            <!--                            </p>-->
-                            <th:block th:each="product : ${products}">
-                                <p th:each="category : ${product.categories}" style="display:inline">
-                                    <span th:text="${category.name}" class="tag"></span>
 
+                                <p id="par" style="display:inline">
                                 </p>
-                            </th:block>
 
-                            <input type="text" value="" id="tag123" placeholder="Add a skill"/>
+                            <input type="text" value="" id="tag123" placeholder="Add a skill">
                         </div>
-                        <!-- bizim kod Panel -->
-
-
-                        <!-- bizim kod Panel -->
 
                         <div class="form-group">
                             <label for="recipient-description" class="col-form-label">Description:</label>
@@ -306,19 +303,71 @@
                 </div>
                 <div class="modal-footer">
                     <!--                    onclick="updateDataById()" class="btn btn-success update-supplier"-->
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" onclick="removeAllTags()" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-success">Save</button>
                 </div>
             </div>
         </div>
     </div>
+    <!--Modal Add-->
+    <!--    <div class="modal fade" id="exampleModalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"-->
+    <!--         aria-hidden="true">-->
+    <!--        <div class="modal-dialog" role="document">-->
+    <!--            <div class="modal-content">-->
+    <!--                <div class="modal-header">-->
+    <!--                    <h5 class="modal-title" id="exampleModalLabel"></h5>-->
+    <!--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+    <!--                        <span aria-hidden="true">&times;</span>-->
+    <!--                    </button>-->
+    <!--                </div>-->
+    <!--                <div class="modal-body">-->
+    <!--                    <form>-->
+    <!--                        <div class="form-group">-->
+    <!--                            <label for="recipient-name" class="col-form-label">Name:</label>-->
+    <!--                            <input type="text" class="form-control" id="recipient-name">-->
+    <!--                        </div>-->
+
+    <!--                        <p for="tag123" class="col-form-label">Category:</p>-->
+
+    <!--                        <div class="form-group" id="tags">-->
+    <!--&lt;!&ndash;                            <th:block th:each="product : ${products}">&ndash;&gt;-->
+    <!--&lt;!&ndash;                                <p th:each="category : ${product.categories}" style="display:inline">&ndash;&gt;-->
+    <!--&lt;!&ndash;                                    <span th:text="${category.name}" class="tag"></span>&ndash;&gt;-->
+    <!--&lt;!&ndash;                                </p>&ndash;&gt;-->
+    <!--&lt;!&ndash;                            </th:block>&ndash;&gt;-->
+    <!--                            <input type="text" value="" id="tag123" placeholder="Add a skill">-->
+    <!--                        </div>-->
+
+    <!--                        <div class="form-group">-->
+    <!--                            <label for="add-description" class="col-form-label">Description:</label>-->
+    <!--                            <input type="text" class="form-control" id="add-description">-->
+    <!--                        </div>-->
+    <!--                        <div class="form-group">-->
+    <!--                            <label for="add-qtystock" class="col-form-label">Quantity:</label>-->
+    <!--                            <input type="text" class="form-control" id="add-qtystock">-->
+    <!--                        </div>-->
+    <!--                        <div class="form-group">-->
+    <!--                            <label for="add-price" class="col-form-label">Price:</label>-->
+    <!--                            <input type="text" class="form-control" id="add-price">-->
+    <!--                            <input type="hidden" id="hidden" name="hidden" value="">-->
+    <!--                        </div>-->
+    <!--                    </form>-->
+    <!--                </div>-->
+    <!--                <div class="modal-footer">-->
+    <!--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+    <!--                    <button type="button" onclick="addData()" class="btn btn-success update-supplier">Save-->
+    <!--                    </button>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
     <!-- Modal -->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" onclick="closeAll()" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -351,6 +400,11 @@
 
 <!-- Right Panel -->
 <script>
+
+
+    // function closeAll(){
+    //     $(".tag").click();
+    // }
     $(function () {
         var availableTags = [
             "ActionScript",
@@ -444,12 +498,13 @@
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         var modal = $(this)
 ///////////////////////////////////////////////////////////
-        var tuple = button.data('countryid');
-
-        $("div.mustselected select").val(tuple);
+//         var tuple = button.data('countryid');
+//
+//         $("div.mustselected select").val(tuple);
 ///////////////////////////////////////////////////////////
         // alert();
         $("#recipient-name").val(button.data('name'));
+        // $("#tag123").val(button.data('categoryname'));
         // $("#recipient-country").val(button.data('country'));
         $("#recipient-address").val(button.data('address'));
         $("#recipient-phonenumber").val(button.data('phonenumber'));
@@ -487,13 +542,66 @@
     function setter(btn) {
         var id = $(btn).attr("id");
 
-        $(".delete-supplier").attr("id", id);
+        $(".").attr("id", id);
     }
 
     function setterEdit(btn) {
         var id = $(btn).attr("id");
+
+        myAjaxFunction(id);
     }
 
+    function myAjaxFunction(id) {
+
+        $.ajax
+        (
+            {
+                url: '/admin/getOneProduct',
+                data: {"id": id},
+                type: 'post',
+                cache: false,
+                success: function (data) {
+                    console.log(data);
+                    var ctrgyname = [];
+                    var ctrgyid = [];
+                    var link
+                    for (i = 0; i < data.oneproduct.length; i++) {
+                        ctrgyname[i] = data.oneproduct[i].name;
+                        ctrgyid[i] = data.oneproduct[i].categoryid;
+                        // alert("ctrgyname "+ ctrgyname[i]+ "  ctrgyid "+ctrgyid[i])
+                        // tag123
+                        appendedText(ctrgyname[i]);
+                        // $(".modal-title").click();
+                        // $('#tag123').val(ctrgyname[i]);
+                        // $('#tag123').focus();
+                        // $('#tag123').trigger('focusout');
+                    }
+
+                    // $('#guid').text(data.viewGuid);
+
+
+
+
+
+                },
+
+                error: function () {
+                    alert('error');
+                }
+            }
+        );
+    }
+    function appendedText(count){//bu comment elave eden funksiyadi buttona vuranda comment yaranir
+        var txt1 = [
+            '<span class="tag" id="taglich">'+ count + '</span>'
+        ].join("\n");
+
+        $("#par").append(txt1);
+    }
+    function removeAllTags(){
+        // alert();
+        $(".tag").remove();
+    };
     function deleteDataById(btn) {
 
         var id = $(btn).attr("id");
@@ -560,20 +668,19 @@
     function addData() {
         var id = $("#add-hidden").val();
         var name = $("#add-name").val();
-        var countryid = $("#add-country").val();
-        var address = $("#add-address").val();
-        var phonenumber = $("#add-phonenumber").val();
-        var email = $("#add-email").val();
+        var categoryid = $("#add-category").val();
+        var qtystock = $("#add-qtystock").val();
+        var price = $("#add-price").val();
         alert("name " + name);
 
         $.ajax
         (
             {
-                url: '/admin/addSupplier',
+                url: '/admin/addProduct',
                 data: {
                     // "id": id,
                     "name": name,
-                    "countryid": countryid,
+                    "categoryname": categoryname,
                     "phonenumber": phonenumber,
                     "address": address,
                     "email": email

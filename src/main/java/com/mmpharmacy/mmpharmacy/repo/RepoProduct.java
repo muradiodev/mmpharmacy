@@ -11,4 +11,5 @@ public interface RepoProduct extends JpaRepository<Product, Integer> {
 
     List<Product> findAllByIsactive(String isActive);
 
+
 }

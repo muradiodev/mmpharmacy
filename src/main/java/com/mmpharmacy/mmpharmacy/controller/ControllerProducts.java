@@ -59,14 +59,22 @@ public class ControllerProducts {
         return ResponseEntity.status(HttpStatus.OK).body("deleted");
     }
 
-    @RequestMapping("/updateProduct")
-    public String updateProduct(@RequestParam(value = "id") int id, @RequestParam(value = "countryid", required = false) int countryid, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "email", required = false) String email, @RequestParam(value = "phonenumber", required = false) String phonenumber, @RequestParam(value = "address", required = false) String address) {
-//        List<Category> ctg = repoCategory.getOne(countryid);
-        return "redirect:/admin/suppliers";
+    @RequestMapping("/getOneProduct")
+    public ResponseEntity getOneProduct(Model md, @RequestParam(value = "id") int id) {
+
+        Product products = repoProduct.getOne(id);
+
+
+        md.addAttribute("oneproduct", products.getCategories());
+//        System.out.println("asdfg + "+id);
+//        System.out.println("products1 + "+);
+
+//        return "redirect:/admin/suppliers";
+        return ResponseEntity.status(HttpStatus.OK).body(md);
     }
-//
-//
-//    @RequestMapping("/addSupplier")
+
+
+//    @RequestMapping("/addProduct")
 //    public String addSupplier(@RequestParam(value = "countryid", required = false) int countryid,
 //                              @RequestParam(value = "name", required = false) String name,
 //                              @RequestParam(value = "email", required = false) String email,
@@ -82,6 +90,6 @@ public class ControllerProducts {
 //        repoSupplier.save(sup);
 //        return "redirect:/admin/suppliers";
 //    }
-//
+
 
 }
