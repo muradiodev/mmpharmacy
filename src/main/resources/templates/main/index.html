@@ -180,33 +180,57 @@
             var markup = "<tr>" +
                 "<td class='id'>" + id + "</td>" +
                 "<td class='nr'>" + nr + "</td>" +
-                "<td class='qty'><input class='quantity'  style='width: 100%' value='' placeholder='" + qty + "' type='number'></td>" +
-                "<td><span class='price_added'>" + price + "</span></td>" +
+
+                "<td class='qty'><input class='quantity'  style='width: 100%' value='1' placeholder='max " + qty + "' type='number'></td>" +
+                "<td><span class='price_added  badge badge-success'>" + price + "</span><br>" +
+                "<span class='price_basis'>" + price + "</span></td>" +
+                "<td class='remove'><button type='button' class='btn btn-outline-danger btn-sm removeelement'><i class='fa fa-minus'></i></button></td>" +
                 "</tr>";
 
             $("#mytable2 tbody").append(markup);
-            $('#sum_cnt').text(price);
-            someFunction();
+            alert("returned value " + whenAddButtonClickedSum());
+            $('#sum_cnt').text(whenAddButtonClickedSum());
         });
 
-        function someFunction() {
-            var sum = 0.00;
+        function whenAddButtonClickedSum() {
+
+            var sum = 0;
+
             $(".price_added").each(function () {
+                console.log("$(this).text()  " + $(this).text())
                 sum += parseFloat($(this).text());
+
             });
+            console.log("sum1 " + sum);
             sum = sum.toFixed(2);
-            // alert(sum);
+            console.log("sum2 " + sum);
+            $('#sum_cnt').text(sum);
+            return sum;
+        }
+
+        function someFunction() {
+            var sum = 0;
+
+            $(".price_added").each(function () {
+                console.log("$(this).text()  " + $(this).text())
+                sum += parseFloat($(this).text());
+
+            });
+            console.log("sum1 " + sum);
+            sum = sum.toFixed(2);
+            console.log("sum2 " + sum);
             $('#sum_cnt').text(sum);
         }
 
         $(document).on("change", ".quantity", function () {
 
             var say = $(this).val();
-            alert(say)
-            var qiymet = $(".price_added").text();
-            $(this).closest(".price_added").text();
+            // alert(say)
+            var qiymet = $(this).closest("tr").find(".price_basis").text();
+            alert("say = " + say + " qiymet = " + qiymet)
+            $(this).closest("tr").find(".price_added").text(say * qiymet);
 
-            $(".price_added").text(say * qiymet);
+            // $(".price_added").text(say * qiymet);
             someFunction();
         });
 
@@ -244,11 +268,19 @@
 
             <div class="card-body">
 
-                <h2>Tables Side by Side</h2>
-                <p>MMPharmacy is a peer-reviewed and fully referenced database of drugs to which breastfeeding mothers
+                <h2>MMPharmacy</h2>
+                <p>- is a peer-reviewed and fully referenced database of drugs to which breastfeeding mothers
                     may be exposed. Information includes the drugs potential effects on infants and lactation. This
                     database includes medicines currently in clinical trials or at FDA for review. Searchable by drug
                     name, indication, status, or company.</p>
+
+                <div class="sufee-alert alert with-close alert-success alert-dismissible fade show">
+                    <div>Please press  <i class="fa fa-plus"></i> to add from left table:</div>
+
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
 
                 <div class="row justify-content-md-center">
                     <div class="column col-7">
@@ -260,13 +292,13 @@
                                 <th scope="col">Description</th>
                                 <th scope="col">Category</th>
                                 <th scope="col">Quantity</th>
-                                <th scope="col">Price</th>
+                                <th colspan="2" scope="col">Price</th>
                             </tr>
                             </thead>
                             <tbody>
                             <th:block th:each="product : ${products}">
                                 <tr>
-                                    <td class="id">
+                                    <td style="text-align:center" class="id">
                                         <p class="book-title" th:text="${product.productid}"></p>
                                     </td>
                                     <td class="nr">
@@ -276,10 +308,7 @@
                                                 <span th:text="${type.name}"
                                                       class="badge badge-secondary text-offset">Street</span>
                                         </p>
-                                        <p>
-                                            <button type="button" class="btn btn-outline-success btn-sm addelement"><i
-                                                    class="fa fa-plus"></i></button>
-                                        </p>
+
                                     </td>
 
                                     <td th:text="${product.description}">...</td>
@@ -289,8 +318,13 @@
                                                       class="badge badge-secondary">Street</span>
                                         </p>
                                     </td>
-                                    <td class="qty" th:text="${product.qtystock}">...</td>
-                                    <td class="price" th:text="${product.price}">...</td>
+                                    <td style="text-align:center" class="qty" th:text="${product.qtystock}">...</td>
+                                    <td style="text-align:center" class="price" th:text="${product.price}">...</td>
+                                    <td style="text-align:center">
+                                        <p>
+                                        <button type="button" class="btn btn-outline-success btn-sm addelement"><i
+                                                class="fa fa-plus"></i></button>
+                                    </p></td>
                                 </tr>
 
                             </th:block>
@@ -302,19 +336,13 @@
                     </div>
                     <!--  2nd table -->
                     <div class="column col-5" style="width: 20%">
-                        <div class="sufee-alert alert with-close alert-success alert-dismissible fade show">
-                            <div>Please add from left table:</div>
 
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
                         <table id="mytable2" stclass="table table-striped table-bordered table-hover">
                             <thead>
                             <!--                            <tr>-->
                             <th colspan="2" scope="col">Name</th>
                             <th scope="col">Quantity</th>
-                            <th scope="col">Price</th>
+                            <th colspan="2" scope="col">Price</th>
                             <!--                            </tr>-->
                             </thead>
                             <tbody>
@@ -327,7 +355,7 @@
 
                             <tr>
                                 <td colspan="3">Total</td>
-                                <td><span id="sum_cnt"></span> €</td>
+                                <td colspan="2" style="text-align:center"><span id="sum_cnt">0</span> €</td>
                             </tr>
                             </tfoot>
                         </table>
