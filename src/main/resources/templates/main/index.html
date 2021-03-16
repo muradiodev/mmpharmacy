@@ -170,6 +170,8 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+
+
         $(".addelement").click(function () {
             // alert("salam")
             var id = $(this).closest("tr").find(".id").text();
@@ -188,8 +190,15 @@
                 "</tr>";
 
             $("#mytable2 tbody").append(markup);
-            alert("returned value " + whenAddButtonClickedSum());
+            // alert("returned value " + whenAddButtonClickedSum());
             $('#sum_cnt').text(whenAddButtonClickedSum());
+        });
+
+        $(document).on("click", ".removeelement", function () {
+            // console.log("$asadssadads" + $(this).closest("tr"));
+            // console.log("$asadssadads");
+            $(this).closest("tr").remove();
+            someFunction();
         });
 
         function whenAddButtonClickedSum() {
@@ -197,28 +206,29 @@
             var sum = 0;
 
             $(".price_added").each(function () {
-                console.log("$(this).text()  " + $(this).text())
+                // console.log("$(this).text()  " + $(this).text())
                 sum += parseFloat($(this).text());
 
             });
-            console.log("sum1 " + sum);
+            // console.log("sum1 " + sum);
             sum = sum.toFixed(2);
-            console.log("sum2 " + sum);
+            // console.log("sum2 " + sum);
             $('#sum_cnt').text(sum);
             return sum;
         }
+
 
         function someFunction() {
             var sum = 0;
 
             $(".price_added").each(function () {
-                console.log("$(this).text()  " + $(this).text())
+                // console.log("$(this).text()  " + $(this).text())
                 sum += parseFloat($(this).text());
 
             });
-            console.log("sum1 " + sum);
+            // console.log("sum1 " + sum);
             sum = sum.toFixed(2);
-            console.log("sum2 " + sum);
+            // console.log("sum2 " + sum);
             $('#sum_cnt').text(sum);
         }
 
@@ -227,7 +237,7 @@
             var say = $(this).val();
             // alert(say)
             var qiymet = $(this).closest("tr").find(".price_basis").text();
-            alert("say = " + say + " qiymet = " + qiymet)
+            // alert("say = " + say + " qiymet = " + qiymet)
             $(this).closest("tr").find(".price_added").text(say * qiymet);
 
             // $(".price_added").text(say * qiymet);
@@ -275,7 +285,7 @@
                     name, indication, status, or company.</p>
 
                 <div class="sufee-alert alert with-close alert-success alert-dismissible fade show">
-                    <div>Please press  <i class="fa fa-plus"></i> to add from left table:</div>
+                    <div>Please press <i class="fa fa-plus"></i> to add from left table:</div>
 
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">×</span>
@@ -322,9 +332,10 @@
                                     <td style="text-align:center" class="price" th:text="${product.price}">...</td>
                                     <td style="text-align:center">
                                         <p>
-                                        <button type="button" class="btn btn-outline-success btn-sm addelement"><i
-                                                class="fa fa-plus"></i></button>
-                                    </p></td>
+                                            <button type="button" class="btn btn-outline-success btn-sm addelement"><i
+                                                    class="fa fa-plus"></i></button>
+                                        </p>
+                                    </td>
                                 </tr>
 
                             </th:block>
@@ -357,8 +368,17 @@
                                 <td colspan="3">Total</td>
                                 <td colspan="2" style="text-align:center"><span id="sum_cnt">0</span> €</td>
                             </tr>
+                            <tr>
+                                <td colspan="5">
+                                    <button type="button" class="btn btn-outline-success btn-lg btn-block">PROCEED TO
+                                        CHECKOUT
+                                    </button>
+                            </tr>
+                            </td>
                             </tfoot>
+
                         </table>
+
                     </div>
 
                 </div>
