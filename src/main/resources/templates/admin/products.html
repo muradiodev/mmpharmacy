@@ -116,9 +116,49 @@
             width: auto;
         }
 
+        /*MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM*/
 
-        <!--</style>
-    -->
+        #tagst {
+            float: left;
+            border: 1px solid #ccc;
+            padding: 4px;
+            font-family: Arial;
+        }
+
+        #tagst span.tag {
+            cursor: pointer;
+            display: block;
+            float: left;
+            color: #555;
+            background: #add;
+            padding: 5px 10px;
+            padding-right: 30px;
+            margin: 4px;
+        }
+
+        #tagst span.tag:hover {
+            opacity: 0.7;
+        }
+
+        #tagst span.tag:after {
+            position: absolute;
+            content: "×";
+            border: 1px solid;
+            border-radius: 10px;
+            padding: 0 4px;
+            margin: 3px 0 10px 7px;
+            font-size: 10px;
+        }
+
+        #tagst input {
+            background: #eee;
+            border: 0;
+            margin: 4px;
+            padding: 7px;
+            width: auto;
+        }
+
+    </style>
 </head>
 <body>
 <!-- Left Panel -->
@@ -266,45 +306,49 @@
 
                         <p for="tag123" class="col-form-label">Category:</p>
 
-                        <!--                        <div class="form-group" id="tags">-->
-                        <!--                            <th:block th:each="product : ${products}">-->
-                        <!--                                <p th:each="category : ${product.categories}" style="display:inline">-->
-                        <!--                                    <span th:text="${category.name}" class="tag"></span>-->
-
-                        <!--                                </p>-->
-                        <!--                            </th:block>-->
-                        <!--                            <input type="text" value="" id="tag123" placeholder="Add a skill">-->
-                        <!--                        </div>-->
-                        <!--                        <span th:text="${category.categoryid}" class="tag"></span>-->
-                        <!--                        th:each="product : ${products}"-->
-
                         <div class="form-group" id="tags">
 
                                 <p id="par" style="display:inline">
                                 </p>
 
-                            <input type="text" value="" id="tag123" placeholder="Add a skill">
+                            <input type="text" value="" id="tag123" class="autotag" placeholder="Add a category">
+                            <input type="hidden" id="hiddencatid" name="hiddencatid" value="">
+                        </div>
+
+                        <p for="tag123t" class="col-form-label">Type:</p>
+
+                        <div class="form-group" id="tagst">
+
+                            <p id="part" style="display:inline">
+                            </p>
+
+                            <input type="text" value="" id="tag123t" class="autotag" placeholder="Add a type">
+                            <input type="hidden" id="hiddentypeid" name="hiddentypeid" value="">
                         </div>
 
                         <div class="form-group">
                             <label for="recipient-description" class="col-form-label">Description:</label>
                             <input type="text" class="form-control" id="recipient-description">
                         </div>
+
                         <div class="form-group">
                             <label for="recipient-qtystock" class="col-form-label">Quantity:</label>
                             <input type="text" class="form-control" id="recipient-qtystock">
                         </div>
+
                         <div class="form-group">
                             <label for="recipient-price" class="col-form-label">Price:</label>
                             <input type="text" class="form-control" id="recipient-price">
-                            <input type="hidden" id="hidden" name="hidden" value="">
+                            <input type="hidden" id="hiddenid" name="hiddenid" value="">
+                            <input type="hidden" id="hiddenc" name="hiddenc" value="1">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <!--                    onclick="updateDataById()" class="btn btn-success update-supplier"-->
                     <button type="button" onclick="removeAllTags()" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success">Save</button>
+                    <button type="button" onclick="updateDataById()" class="btn btn-success update-supplier">Save
+                    </button>
                 </div>
             </div>
         </div>
@@ -400,56 +444,74 @@
 
 <!-- Right Panel -->
 <script>
-
-
     // function closeAll(){
     //     $(".tag").click();
     // }
-    $(function () {
-        var availableTags = [
-            "ActionScript",
-            "AppleScript",
-            "Asp",
-            "BASIC",
-            "C",
-            "C++",
-            "Clojure",
-            "COBOL",
-            "ColdFusion",
-            "Erlang",
-            "Fortran",
-            "Groovy",
-            "Haskell",
-            "Java",
-            "JavaScript",
-            "Lisp",
-            "Perl",
-            "PHP",
-            "Python",
-            "Ruby",
-            "Scala",
-            "Scheme"
-        ];
-
-        $("#tag123").autocomplete({
-
+    $( function() {
+        var availableTags = ["ActionScript", "AppleScript", "Asp", "BASIC",];
+        //
+        $( "#tag123" ).autocomplete({
             source: availableTags
         });
-    });
+        //
+        //     var tags = ["abc","def","xyz"];
+        //     $('.autoc').on("focus", function(){
+        //         $(this).autocomplete({
+        //             source: tags
+        //         });
+        //     });
+        //
+    } );
+
+    $( function() {
+        var availableTags = ["ActionScript", "AppleScript", "Asp", "BASIC",];
+    //
+        $( "#tag123t" ).autocomplete({
+            source: availableTags
+        });
+    //
+    //     var tags = ["abc","def","xyz"];
+    //     $('.autoc').on("focus", function(){
+    //         $(this).autocomplete({
+    //             source: tags
+    //         });
+    //     });
+    //
+    } );
+
+    // -------------------------------------------------------------------
+    // qosha taglari onlemek ucun yeni biir array yaradiriq. her yazilan chipi hemin arraya daxil edrik.
+    // her yeni input daxil edilende gedib hemin array icinde yoxlayir ki, o arrayin icindedi ya yox
+    // -------------------------------------------------------------------
+
 
     jQuery(function ($) {
-
         $('#tags input').on('focusout', function () {
             var txt = this.value.replace(/[^a-zA-Z0-9\+\-\.\#]/g, ''); // allowed characters list
             if (txt) $(this).before('<span class="tag">' + txt + '</span>');
             this.value = "";
-            this.focus();
+            // this.focus();
         }).on('keyup', function (e) {
             // comma|enter (add more keyCodes delimited with | pipe)
             if (/(188|13)/.test(e.which)) $(this).trigger('focusout');
         });
 
         $('#tags').on('click', '.tag', function () {
+            if (confirm("Really delete this tag?")) $(this).remove();
+        });
+
+        $('#tagst input').on('focusout', function () {
+            var availableTagst = ["ActionScript", "AppleScript", "Asp", "BASIC",];
+            var txt = this.value.replace(/[^a-zA-Z0-9\+\-\.\#]/g, ''); // allowed characters list
+            if (txt) $(this).before('<span class="tag">' + txt + '</span>');
+            this.value = "";
+            // this.focus();
+        }).on('keyup', function (e) {
+            // comma|enter (add more keyCodes delimited with | pipe)
+            if (/(188|13)/.test(e.which)) $(this).trigger('focusout');
+        });
+
+        $('#tagst').on('click', '.tag', function () {
             if (confirm("Really delete this tag?")) $(this).remove();
         });
 
@@ -504,12 +566,10 @@
 ///////////////////////////////////////////////////////////
         // alert();
         $("#recipient-name").val(button.data('name'));
-        // $("#tag123").val(button.data('categoryname'));
-        // $("#recipient-country").val(button.data('country'));
-        $("#recipient-address").val(button.data('address'));
-        $("#recipient-phonenumber").val(button.data('phonenumber'));
-        $("#recipient-email").val(button.data('email'));
-        $("#hidden").val(button.data('id'));
+        $("#recipient-description").val(button.data('description'));
+        $("#recipient-qtystock").val(button.data('qtystock'));
+        $("#recipient-price").val(button.data('price'));
+        $("#hiddenid").val(button.data('id'));
 
         modal.find('.modal-title').text('Edit the datas of - ' + recipient)
         modal.find('.modal-body ').val(recipient)
@@ -542,13 +602,14 @@
     function setter(btn) {
         var id = $(btn).attr("id");
 
-        $(".").attr("id", id);
+        // $(".").attr("id", id);
     }
 
     function setterEdit(btn) {
         var id = $(btn).attr("id");
 
         myAjaxFunction(id);
+        myAjaxFunctionType(id);
     }
 
     function myAjaxFunction(id) {
@@ -564,7 +625,6 @@
                     console.log(data);
                     var ctrgyname = [];
                     var ctrgyid = [];
-                    var link
                     for (i = 0; i < data.oneproduct.length; i++) {
                         ctrgyname[i] = data.oneproduct[i].name;
                         ctrgyid[i] = data.oneproduct[i].categoryid;
@@ -579,10 +639,6 @@
 
                     // $('#guid').text(data.viewGuid);
 
-
-
-
-
                 },
 
                 error: function () {
@@ -591,17 +647,101 @@
             }
         );
     }
-    function appendedText(count){//bu comment elave eden funksiyadi buttona vuranda comment yaranir
+
+    function myAjaxFunctionType(id) {
+
+        $.ajax
+        (
+            {
+                url: '/admin/getOneProduct',
+                data: {"id": id},
+                type: 'post',
+                cache: false,
+                success: function (data) {
+                    console.log(data);
+                    var ctrgyname = [];
+                    var ctrgyid = [];
+                    for (i = 0; i < data.typeproduct.length; i++) {
+                        ctrgyname[i] = data.typeproduct[i].name;
+                        ctrgyid[i] = data.typeproduct[i].typeid;
+                        // alert("ctrgyname "+ ctrgyname[i]+ "  ctrgyid "+ctrgyid[i])
+                        // tag123
+                        appendedTextType(ctrgyname[i], ctrgyid[i]);
+                        // $(".modal-title").click();
+                        // $('#tag123').val(ctrgyname[i]);
+                        // $('#tag123').focus();
+                        // $('#tag123').trigger('focusout');
+                    }
+
+                    // $('#guid').text(data.viewGuid);
+                },
+                error: function () {
+                    alert('error');
+                }
+            }
+        );
+    }
+
+    function updateDataById() {
+        // var categoriesid = [$("#hiddencatid1").val(), $("#hiddencatid2").val()];
+        var categoriesid = ['1', '2'];
+        var id = $("#hiddenid").val();
+        var name = $("#recipient-name").val();
+        var description = $("#recipient-description").val();
+        var qtystock = $("#recipient-qtystock").val();
+        var price = $("#recipient-price").val();
+
+        $.ajax
+        (
+            {
+                url: '/admin/updateProduct',
+                data: {
+                    "id": id,
+                    "name": name,
+                    "categoriesid": categoriesid,
+                    "description": description,
+                    "qtystock": qtystock,
+                    "price": price
+                },
+                type: 'post',
+                cache: false,
+                success: function (data) {
+                    alert('categoryid gonderildi');
+                    location.reload();
+
+                },
+                error: function () {
+                    alert('error');
+                }
+            }
+        );
+
+    };
+
+    function appendedText(countname, countid){//bu comment elave eden funksiyadi buttona vuranda comment yaranir
+        // var c = $("#hiddenc").val();
         var txt1 = [
-            '<span class="tag" id="taglich">'+ count + '</span>'
+            '<span class="tag">'+ countname + '</span>'
+            // '<input type="hidden" id="hiddencatspan' + c + '" name="hiddencatspan" value="' + countid + '">'
+        ].join("\n");
+        $("#par").append(txt1);
+        // c++;
+        // $("#hiddenc").val(c);
+    }
+
+    function appendedTextType(count){//bu comment elave eden funksiyadi buttona vuranda comment yaranir
+        var txt1 = [
+            '<span class="tag">'+ count + '</span>'
         ].join("\n");
 
-        $("#par").append(txt1);
+        $("#part").append(txt1);
     }
+
     function removeAllTags(){
         // alert();
         $(".tag").remove();
     };
+
     function deleteDataById(btn) {
 
         var id = $(btn).attr("id");
@@ -619,42 +759,6 @@
                         location.reload();
                         //$("#bootstrap-data-table").DataTable().ajax.reload(null, false);
                     }
-
-                },
-                error: function () {
-                    // alert('error');
-                }
-            }
-        );
-
-    };
-
-
-    function updateDataById() {
-        var id = $("#hidden").val();
-        var name = $("#recipient-name").val();
-        var countryid = $("#recipient-country option:selected").val();
-        var address = $("#recipient-address").val();
-        var phonenumber = $("#recipient-phonenumber").val();
-        var email = $("#recipient-email").val();
-
-        $.ajax
-        (
-            {
-                url: '/admin/updateSupplier',
-                data: {
-                    "id": id,
-                    "name": name,
-                    "countryid": countryid,
-                    "phonenumber": phonenumber,
-                    "address": address,
-                    "email": email
-                },
-                type: 'post',
-                cache: false,
-                success: function (data) {
-
-                    location.reload();
 
                 },
                 error: function () {
@@ -700,7 +804,6 @@
         );
 
     };
-
 
     // alert($( "#selector2" ).val());
 </script>

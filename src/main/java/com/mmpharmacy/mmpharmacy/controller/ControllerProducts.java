@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/admin")
@@ -66,6 +66,7 @@ public class ControllerProducts {
 
 
         md.addAttribute("oneproduct", products.getCategories());
+        md.addAttribute("typeproduct", products.getTypes());
 //        System.out.println("asdfg + "+id);
 //        System.out.println("products1 + "+);
 
@@ -73,23 +74,46 @@ public class ControllerProducts {
         return ResponseEntity.status(HttpStatus.OK).body(md);
     }
 
-
-//    @RequestMapping("/addProduct")
-//    public String addSupplier(@RequestParam(value = "countryid", required = false) int countryid,
-//                              @RequestParam(value = "name", required = false) String name,
-//                              @RequestParam(value = "email", required = false) String email,
-//                              @RequestParam(value = "phonenumber", required = false) String phonenumber,
-//                              @RequestParam(value = "address", required = false) String address) {
-//
+    @RequestMapping("/updateProduct")
+    public String updateProduct(@RequestParam(value = "id") int id, @RequestParam(value = "categoriesid", required = false) int[] categoriesid, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "description", required = false) String description, @RequestParam(value = "qtystock", required = false) String qtystock, @RequestParam(value = "price", required = false) String price) {
+        Product product = repoProduct.getOne(id);
+//        Category category = repoCategory.getOne(categoryid);
+//        List<Category> categories = new ArrayList<>(Arrays.asList(categoriesid));
+        Category[] catarray = new Category[2];
+        for (int i = 0; i < categoriesid.length; i++) {
+            catarray[i] = repoCategory.getOne(categoriesid[i]);
+        }
+        List<Category> categories = new ArrayList<>(Arrays.asList(catarray));
+//        List<Category> categories = Arrays.asList(catarray);
+//        List<Category> categories = new LinkedList<>();
+//        Category cat;
+//        for (int i = 0; i < categoriesid.length; i++) {
+//            cat = repoCategory.getOne(categoriesid[i]);
+//            categories.add(cat);
+//        }
+        product.setCategories((Set<Category>) categories);
+        product.setName(name);
+        product.setDescription(description);
+        product.setQtystock(qtystock);
+        product.setPrice(price);
 //        Country cnt = repoCountry.getOne(countryid);
-//
-//        Supplier sup = new Supplier(name, address, phonenumber, email, "1");
-//        sup.setCountry(cnt);
-//        System.out.println("suppppp" + sup);
-//
-//        repoSupplier.save(sup);
-//        return "redirect:/admin/suppliers";
-//    }
+//        product.setCountry(cnt);
+        repoProduct.save(product);
+        return "redirect:/admin/products";
+    }
 
+    // Ishleyen kod without category and type
+//    @RequestMapping("/updateProduct")
+//    public String updateProduct(@RequestParam(value = "id") int id, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "description", required = false) String description, @RequestParam(value = "qtystock", required = false) String qtystock, @RequestParam(value = "price", required = false) String price) {
+//        Product product = repoProduct.getOne(id);
+//        product.setName(name);
+//        product.setDescription(description);
+//        product.setQtystock(qtystock);
+//        product.setPrice(price);
+////        Country cnt = repoCountry.getOne(countryid);
+////        product.setCountry(cnt);
+//        repoProduct.save(product);
+//        return "redirect:/admin/products";
+//    }
 
 }
