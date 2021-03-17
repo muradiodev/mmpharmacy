@@ -57,98 +57,66 @@
 </head>
 <body>
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-    Launch demo modal
-</button>
+<input id="search_ctO" class="autoc" type="text" name="search_ct[]"/>
+<input id="search_ct1" class="autoc" type="text" name="search_ct[]"/>
+<input id="search_ct2" class="autoc" type="text" name="search_ct[]"/>
+<input id="search_ctn" class="autoc" type="text" name="search_ct[]"/>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--<div class="ui-widget">-->
-<!--    <label for="tags">Tags: </label>-->
-<!--    <input id="tags">-->
-<!--</div>-->
-
-mubariz
-Add a skill and hit [,] or [Tab] or [Enter]<br><br>
-
-<div id="tags">
-    <span class="tag">Photoshop</span>
-    <span class="tag">Illustrator</span>
-    <input type="text" value="" id="tag123"  placeholder="Add a skill" />
-</div>
 <!--<input type="text" >-->
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
 <script>
+
+    // var tags = ["abc","def","xyz"];
+    // $('.autoc').on("focus", function(){
+    //     $(this).autocomplete({
+    //         minLength: 2,
+    //         source: tags
+    //     });
+    // });
+    //
+    // $('.autoc').on("focus", function() {
+    //     $(this).autocomplete({
+    //         minLength: 2,
+    //         source: 'liste_contact.php',
+    //         select: function( event, ui ) {
+    //             $('.autoc #search_ct').val( ui.item.label );
+    //             $(".autoc #contact_id").val( ui.item.value );
+    //             $(".autoc #contact_description").val( ui.item.desc );
+    //             return false;
+    //         },
+    //         change: function() {
+    //             var servi = $("#service_id").val();
+    //             var hop = $('#hop').val();
+    //             var contact = $("#contact_id" ).val();
+    //             $.ajax({
+    //                 url: 'ajout_contact.php',
+    //                 data: "serv="+servi+"&hopit="+hop+"&contact="+contact+"",
+    //                 success: function() {
+    //                     $("#search_ct").val('');
+    //                 }
+    //             });
+    //         }
+    //     });
+    // });
+
+
     $( function() {
         var availableTags = [
             "ActionScript",
             "AppleScript",
-            "Asp",
-            "BASIC",
-            "C",
-            "C++",
-            "Clojure",
-            "COBOL",
-            "ColdFusion",
-            "Erlang",
-            "Fortran",
-            "Groovy",
-            "Haskell",
-            "Java",
-            "JavaScript",
-            "Lisp",
-            "Perl",
-            "PHP",
-            "Python",
-            "Ruby",
-            "Scala",
-            "Scheme"
+            "Asp"
         ];
 
-        $( "#tag123" ).autocomplete({
+        $( "#search_ctO" ).autocomplete({
 
             source: availableTags
         });
-    } );
 
-    jQuery(function($) {
+        $( "#search_ct1" ).autocomplete({
 
-        $('#tags input').on('focusout', function() {
-            var txt = this.value.replace(/[^a-zA-Z0-9\+\-\.\#]/g, ''); // allowed characters list
-            if (txt) $(this).before('<span class="tag">' + txt + '</span>');
-            this.value = "";
-            this.focus();
-        }).on('keyup', function(e) {
-            // comma|enter (add more keyCodes delimited with | pipe)
-            if (/(188|13)/.test(e.which)) $(this).trigger('focusout');
+            source: availableTags
         });
-
-        $('#tags').on('click', '.tag', function() {
-            if (confirm("Really delete this tag?")) $(this).remove();
-        });
-
     });
-
-
 
 </script>
 
@@ -161,7 +129,7 @@ Add a skill and hit [,] or [Tab] or [Enter]<br><br>
 
 
 <!--<script src="assets/js/lib/data-table/datatables.min.js"></script>-->
-    <script src="assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+<script src="assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
 <script src="assets/js/lib/data-table/dataTables.buttons.min.js"></script>
 <script src="assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
 <script src="assets/js/lib/data-table/jszip.min.js"></script>

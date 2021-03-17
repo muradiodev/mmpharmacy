@@ -613,7 +613,7 @@
             var txt = this.value.replace(/[^a-zA-Z0-9\+\-\.\#]/g, ' ', ''); // allowed characters list
             if (txt) {
                 $(this).before('<span class="tag">' + txt + '</span>');
-                chipids.push(getChipId(txt));
+                catids.push(getChipId(txt));
             }
             this.value = "";
             // this.focus();
@@ -624,9 +624,9 @@
 
         $('#tags').on('click', '.tag', function () {
             if (confirm("Really delete this tag?")){
-                for (let i = 0; i < chipids.length; i++) {
-                    if (chipids[i] == $(this).attr('id')) {
-                        chipids.splice(i, 1);
+                for (let i = 0; i < catids.length; i++) {
+                    if (catids[i] == $(this).attr('id')) {
+                        catids.splice(i, 1);
                     }
                 }
                 $(this).remove();
@@ -634,9 +634,11 @@
         });
 
         $('#tagst input').on('focusout', function () {
-            var availableTagst = ["ActionScript", "AppleScript", "Asp", "BASIC",];
             var txt = this.value.replace(/[^a-zA-Z0-9\+\-\.\#]/g, ''); // allowed characters list
-            if (txt) $(this).before('<span class="tag">' + txt + '</span>');
+            if (txt) {
+                $(this).before('<span class="tag">' + txt + '</span>');
+                catids.push(getChipId(txt));
+            }
             this.value = "";
             // this.focus();
         }).on('keyup', function (e) {
@@ -652,7 +654,7 @@
             var txt = this.value.replace(/[^a-zA-Z0-9\+\-\.\#]/g, ' ', ''); // allowed characters list
             if (txt) {
                 $(this).before('<span class="tag">' + txt + '</span>');
-                chipids.push(getChipId(txt));
+                catids.push(getChipId(txt));
             }
             this.value = "";
             // this.focus();
@@ -663,9 +665,9 @@
 
         $('#tagsadd').on('click', '.tag', function () {
             if (confirm("Really delete this tag?")){
-                for (let i = 0; i < chipids.length; i++) {
-                    if (chipids[i] == $(this).attr('id')) {
-                        chipids.splice(i, 1);
+                for (let i = 0; i < catids.length; i++) {
+                    if (catids[i] == $(this).attr('id')) {
+                        catids.splice(i, 1);
                     }
                 }
                 $(this).remove();
@@ -720,12 +722,51 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+
+        $.ajax
+        (
+            {
+                url: '/admin/getCategories',
+                type: 'get',
+                cache: false,
+                success: function (data) {
+                    for(var i = 0; i < data.length; i++) {
+                        categoriesManual.push(data[i])
+                    }
+                },
+                error: function () {
+                    alert('error');
+                }
+            }
+        );
+
+        $.ajax
+        (
+            {
+                url: '/admin/getTypes',
+                type: 'get',
+                cache: false,
+                success: function (data) {
+                    for(var i = 0; i < data.length; i++) {
+                        typesManual.push(data[i])
+                    }
+                },
+                error: function () {
+                    alert('error');
+                }
+            }
+        );
+
+
         $('#bootstrap-data-table-export').DataTable();
 
 
     });
 
-    var chipids = [];
+    var typesManual = [];
+    var categoriesManual = [];
+    var catids = [];
+    var typeids = [];
 
     $('#exampleModalEdit').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
@@ -823,7 +864,7 @@
     }
 
     function appendedText(countname, countid) {
-        chipids.push(countid);
+        catids.push(countid);
         var txt1 = [
             '<span id="' + countid + '" class="tag">' + countname + '</span>'
             // '<span class="tag">' + countname + '</span>',
@@ -831,6 +872,14 @@
             // ''<input type="hidden" id="hiddenspan' + " name="hiddenc" value="1">''
         ].join("\n");
         $("#par").append(txt1);
+    }
+
+    function appendedTextType(countname, countid) {//bu comment elave eden funksiyadi buttona vuranda comment yaranir
+        var txt1 = [
+            '<span class="tag" >' + count + '</span>'
+        ].join("\n");
+
+        $("#part").append(txt1);
     }
 
     function myAjaxFunctionType(id) {
@@ -867,14 +916,22 @@
         );
     }
 
-    var categoriesManual = ["Vitaminler", "Antacidler", "Antianxiety Drugs", "Antiarrhythmics", "Antibacterials"];
+    // var categoriesManual = ["Vitaminler", "Antacidler", "Antianxiety Drugs", "Antiarrhythmics", "Antibacterials"];
 
     function getChipId(chip) {
+
         for (let i = 0; i < categoriesManual.length; i++) {
             if (chip == categoriesManual[i]) {
                 return i + 1;
             }
         }
+
+    }
+
+    function getCategories() {
+
+
+
     }
 
     function updateDataById() {
@@ -893,7 +950,7 @@
                 data: {
                     "id": id,
                     "name": name,
-                    myArray: chipids,
+                    myArray: catids,
                     "description": description,
                     "qtystock": qtystock,
                     "price": price
@@ -912,18 +969,12 @@
 
     };
 
-    function appendedTextType(count) {//bu comment elave eden funksiyadi buttona vuranda comment yaranir
-        var txt1 = [
-            '<span class="tag" >' + count + '</span>'
-        ].join("\n");
 
-        $("#part").append(txt1);
-    }
 
     function removeAllTags() {
         // alert();
         $(".tag").remove();
-        chipids = [];
+        catids = [];
     };
 
     function deleteDataById(btn) {
@@ -966,7 +1017,7 @@
                 data: {
                     // "id": id,
                     "name": name,
-                    myArray: chipids,
+                    myArray: catids,
                     "description": description,
                     "qtystock": qtystock,
                     "price": price

@@ -100,27 +100,27 @@ public class ControllerProducts {
         return "redirect:/admin/products";
     }
 
-    @RequestMapping("/addProduct")
-    public String addSupplier(@RequestParam(value = "id") int id,
-                              @RequestParam(value = "myArray[]", required = false) List<Integer> myArray,
-                              @RequestParam(value = "name", required = false) String name,
-                              @RequestParam(value = "description", required = false) String description,
-                              @RequestParam(value = "qtystock", required = false) String qtystock,
-                              @RequestParam(value = "price", required = false) String price) {
-
-        Set<Category> categories = new HashSet<>();
-
-        for (Integer integer : myArray) {
-            Category cat = repoCategory.getOne(integer);
-            categories.add(cat);
-        }
-
-        Product product = new Product(name, description, qtystock, price, "1");
-        product.setCategories(categories);
-        System.out.println("product" + product);
-
-        repoProduct.save(product);
-        return "redirect:/admin/products";
-    }
+//    @RequestMapping("/addProduct")
+//    public String addSupplier(@RequestParam(value = "id") int id,
+//                              @RequestParam(value = "myArray[]", required = false) List<Integer> myArray,
+//                              @RequestParam(value = "name", required = false) String name,
+//                              @RequestParam(value = "description", required = false) String description,
+//                              @RequestParam(value = "qtystock", required = false) String qtystock,
+//                              @RequestParam(value = "price", required = false) String price) {
+//
+//        Set<Category> categories = new HashSet<>();
+//
+//        for (Integer integer : myArray) {
+//            Category cat = repoCategory.getOne(integer);
+//            categories.add(cat);
+//        }
+//
+//        Product product = new Product(name, description, qtystock, price, "1");
+//        product.setCategories(categories);
+//        System.out.println("product" + product);
+//
+//        repoProduct.save(product);
+//        return "redirect:/admin/products";
+//    }
 
 }

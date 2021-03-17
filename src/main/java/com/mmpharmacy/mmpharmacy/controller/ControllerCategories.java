@@ -2,7 +2,9 @@ package com.mmpharmacy.mmpharmacy.controller;
 
 
 import com.mmpharmacy.mmpharmacy.entity.Category;
+import com.mmpharmacy.mmpharmacy.entity.Type;
 import com.mmpharmacy.mmpharmacy.repo.RepoCategory;
+import com.mmpharmacy.mmpharmacy.repo.RepoType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -20,31 +23,59 @@ import java.util.List;
 public class ControllerCategories {
 
     @Autowired
+    private RepoType repoType;
+
+    @Autowired
     private RepoCategory repoCategory;
 
 
     @RequestMapping("/categories")
     public String openAdminPage(Model md) {
+
         List<Category> category = repoCategory.findAll();
-        for (Category cat: category){
+
+
+        for (Category cat : category) {
             md.addAttribute("category", category);
         }
+
+
         return "admin/categories.html";
     }
 
-//    @RequestMapping("/getCategories")
-//    @ResponseBody
-//    public ResponseEntity<List<String>> getCategories(List<String> myCatArray) {
-//        System.out.println("Controllere girdi");
-//        List<Category> category = repoCategory.findAll();
-//        for (int i = 0; i < category.size(); i++) {
-//            System.out.println(i + " : " + category.get(i));
-//            Category cat = category.get(i);
-////            myCatArray.get(i) = cat.getName();
-//            System.out.println(i + " : " + cat.getName());
-//        }
-//        return ResponseEntity.status(HttpStatus.OK).body(myCatArray);
-//    }
+    @RequestMapping("/getCategories")
+    @ResponseBody
+    public ResponseEntity<List<String>> getCategories() {
+
+        System.out.println("Controllere girdi");
+        List<Category> category = repoCategory.findAll();
+
+        List<String> myCatArray = new ArrayList<>();
+
+        for (int i = 0; i < category.size(); i++) {
+            Category cat = category.get(i);
+            myCatArray.add(cat.getName());
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(myCatArray);
+    }
+
+    @RequestMapping("/getTypes")
+    @ResponseBody
+    public ResponseEntity<List<String>> getTypes() {
+
+        System.out.println("Controllere girdi");
+        List<Type> types = repoType.findAll();
+
+        List<String> myTypeArray = new ArrayList<>();
+
+        for (int i = 0; i < types.size(); i++) {
+            Type type = types.get(i);
+            myTypeArray.add(type.getName());
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(myTypeArray);
+    }
 
 //    @GetMapping("/deleteCategory")
 //    public String deleteTicketByViewGuid(@RequestParam("id") String category_id) {
