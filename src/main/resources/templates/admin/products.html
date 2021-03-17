@@ -24,14 +24,13 @@
     <link rel="shortcut icon" href="https://i.imgur.com/QRAUqs9.png">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
     <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
-    <link rel="stylesheet" href="assets/css/lib/datatable/dataTables.bootstrap.min.css">
+
     <link rel="stylesheet" href="assets/css/style.css">
     <!--    Links and script for Contact chips function-->
     <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">-->
@@ -42,8 +41,8 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/lib/datatable/dataTables.bootstrap.min.css">
     <script>
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r;
@@ -73,7 +72,19 @@
 
 
         #ui-id-1 {
-            z-index: 9999;
+            z-index: 1510;
+        }
+
+        #ui-id-2 {
+            z-index: 1510;
+        }
+
+        #ui-id-3 {
+            z-index: 1510;
+        }
+
+        #ui-id-4 {
+            z-index: 1510;
         }
 
         #tags {
@@ -158,6 +169,89 @@
             width: auto;
         }
 
+        /*///////////////////////////////////////////////*/
+
+        #tagsadd {
+            float: left;
+            border: 1px solid #ccc;
+            padding: 4px;
+            font-family: Arial;
+        }
+
+        #tagsadd span.tag {
+            cursor: pointer;
+            display: block;
+            float: left;
+            color: #555;
+            background: #add;
+            padding: 5px 10px;
+            padding-right: 30px;
+            margin: 4px;
+        }
+
+        #tagsadd span.tag:hover {
+            opacity: 0.7;
+        }
+
+        #tagsadd span.tag:after {
+            position: absolute;
+            content: "×";
+            border: 1px solid;
+            border-radius: 10px;
+            padding: 0 4px;
+            margin: 3px 0 10px 7px;
+            font-size: 10px;
+        }
+
+        #tagsadd input {
+            background: #eee;
+            border: 0;
+            margin: 4px;
+            padding: 7px;
+            width: auto;
+        }
+
+        /*MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM*/
+
+        #tagstadd {
+            float: left;
+            border: 1px solid #ccc;
+            padding: 4px;
+            font-family: Arial;
+        }
+
+        #tagstadd span.tag {
+            cursor: pointer;
+            display: block;
+            float: left;
+            color: #555;
+            background: #add;
+            padding: 5px 10px;
+            padding-right: 30px;
+            margin: 4px;
+        }
+
+        #tagstadd span.tag:hover {
+            opacity: 0.7;
+        }
+
+        #tagstadd span.tag:after {
+            position: absolute;
+            content: "×";
+            border: 1px solid;
+            border-radius: 10px;
+            padding: 0 4px;
+            margin: 3px 0 10px 7px;
+            font-size: 10px;
+        }
+
+        #tagstadd input {
+            background: #eee;
+            border: 0;
+            margin: 4px;
+            padding: 7px;
+            width: auto;
+        }
     </style>
 </head>
 <body>
@@ -187,7 +281,7 @@
                 <div class="col-sm-4">
                     <div class="page-header float-left">
                         <div class="page-title">
-                            <h1>Suppliers &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <h1>Products &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal"
                                         data-target="#exampleModalAdd"><i class="fa fa-plus"></i>&nbsp; add
                                 </button>
@@ -208,7 +302,6 @@
             </div>
         </div>
     </div>
-
 
     <div class="content">
         <div class="animated fadeIn">
@@ -293,7 +386,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Edit data of </h5>
-                    <button type="button" onclick="removeAllTags()" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" onclick="removeAllTags()" class="close" data-dismiss="modal"
+                            aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -308,11 +402,10 @@
 
                         <div class="form-group" id="tags">
 
-                                <p id="par" style="display:inline">
-                                </p>
+                            <p id="par" style="display:inline">
+                            </p>
 
                             <input type="text" value="" id="tag123" class="autotag" placeholder="Add a category">
-                            <input type="hidden" id="hiddencatid" name="hiddencatid" value="">
                         </div>
 
                         <p for="tag123t" class="col-form-label">Type:</p>
@@ -323,7 +416,6 @@
                             </p>
 
                             <input type="text" value="" id="tag123t" class="autotag" placeholder="Add a type">
-                            <input type="hidden" id="hiddentypeid" name="hiddentypeid" value="">
                         </div>
 
                         <div class="form-group">
@@ -346,7 +438,9 @@
                 </div>
                 <div class="modal-footer">
                     <!--                    onclick="updateDataById()" class="btn btn-success update-supplier"-->
-                    <button type="button" onclick="removeAllTags()" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" onclick="removeAllTags()" class="btn btn-secondary" data-dismiss="modal">
+                        Close
+                    </button>
                     <button type="button" onclick="updateDataById()" class="btn btn-success update-supplier">Save
                     </button>
                 </div>
@@ -354,57 +448,73 @@
         </div>
     </div>
     <!--Modal Add-->
-    <!--    <div class="modal fade" id="exampleModalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"-->
-    <!--         aria-hidden="true">-->
-    <!--        <div class="modal-dialog" role="document">-->
-    <!--            <div class="modal-content">-->
-    <!--                <div class="modal-header">-->
-    <!--                    <h5 class="modal-title" id="exampleModalLabel"></h5>-->
-    <!--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-    <!--                        <span aria-hidden="true">&times;</span>-->
-    <!--                    </button>-->
-    <!--                </div>-->
-    <!--                <div class="modal-body">-->
-    <!--                    <form>-->
-    <!--                        <div class="form-group">-->
-    <!--                            <label for="recipient-name" class="col-form-label">Name:</label>-->
-    <!--                            <input type="text" class="form-control" id="recipient-name">-->
-    <!--                        </div>-->
+    <div class="modal fade" id="exampleModalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit data of </h5>
+                    <button type="button" onclick="removeAllTags()" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="add-name" class="col-form-label">Name:</label>
+                            <input type="text" class="form-control" id="add-name">
+                        </div>
 
-    <!--                        <p for="tag123" class="col-form-label">Category:</p>-->
+                        <p for="tag123" class="col-form-label">Category:</p>
 
-    <!--                        <div class="form-group" id="tags">-->
-    <!--&lt;!&ndash;                            <th:block th:each="product : ${products}">&ndash;&gt;-->
-    <!--&lt;!&ndash;                                <p th:each="category : ${product.categories}" style="display:inline">&ndash;&gt;-->
-    <!--&lt;!&ndash;                                    <span th:text="${category.name}" class="tag"></span>&ndash;&gt;-->
-    <!--&lt;!&ndash;                                </p>&ndash;&gt;-->
-    <!--&lt;!&ndash;                            </th:block>&ndash;&gt;-->
-    <!--                            <input type="text" value="" id="tag123" placeholder="Add a skill">-->
-    <!--                        </div>-->
+                        <div class="form-group" id="tagsadd">
 
-    <!--                        <div class="form-group">-->
-    <!--                            <label for="add-description" class="col-form-label">Description:</label>-->
-    <!--                            <input type="text" class="form-control" id="add-description">-->
-    <!--                        </div>-->
-    <!--                        <div class="form-group">-->
-    <!--                            <label for="add-qtystock" class="col-form-label">Quantity:</label>-->
-    <!--                            <input type="text" class="form-control" id="add-qtystock">-->
-    <!--                        </div>-->
-    <!--                        <div class="form-group">-->
-    <!--                            <label for="add-price" class="col-form-label">Price:</label>-->
-    <!--                            <input type="text" class="form-control" id="add-price">-->
-    <!--                            <input type="hidden" id="hidden" name="hidden" value="">-->
-    <!--                        </div>-->
-    <!--                    </form>-->
-    <!--                </div>-->
-    <!--                <div class="modal-footer">-->
-    <!--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-    <!--                    <button type="button" onclick="addData()" class="btn btn-success update-supplier">Save-->
-    <!--                    </button>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
+                            <p id="paradd" style="display:inline">
+                            </p>
+
+                            <input type="text" value="" id="tag123add" class="autotag" placeholder="Add a category">
+                        </div>
+
+                        <p for="tag123t" class="col-form-label">Type:</p>
+
+                        <div class="form-group" id="tagstadd">
+
+                            <p id="partadd" style="display:inline">
+                            </p>
+
+                            <input type="text" value="" id="tag123tadd" class="autotag" placeholder="Add a type">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="add-description" class="col-form-label">Description:</label>
+                            <input type="text" class="form-control" id="add-description">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="add-qtystock" class="col-form-label">Quantity:</label>
+                            <input type="text" class="form-control" id="add-qtystock">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="recipient-price" class="col-form-label">Price:</label>
+                            <input type="text" class="form-control" id="add-price">
+                            <input type="hidden" id="hiddenidadd" name="hiddenidadd" value="">
+<!--                            <input type="hidden" id="hiddenc" name="hiddenc" value="1">-->
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <!--                    onclick="updateDataById()" class="btn btn-success update-supplier"-->
+                    <button type="button" onclick="removeAllTags()" class="btn btn-secondary" data-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="button" onclick="addData()" class="btn btn-success update-product">Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Modal -->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -447,37 +557,50 @@
     // function closeAll(){
     //     $(".tag").click();
     // }
-    $( function() {
-        var availableTags = ["ActionScript", "AppleScript", "Asp", "BASIC",];
-        //
-        $( "#tag123" ).autocomplete({
-            source: availableTags
-        });
-        //
-        //     var tags = ["abc","def","xyz"];
-        //     $('.autoc').on("focus", function(){
-        //         $(this).autocomplete({
-        //             source: tags
-        //         });
-        //     });
-        //
-    } );
 
-    $( function() {
-        var availableTags = ["ActionScript", "AppleScript", "Asp", "BASIC",];
+    // $( function() {
+    //     var availableTags = [
+    //         "ActionScript",
+    //         "AppleScript",
+    //         "Asp"
+    //     ];
     //
-        $( "#tag123t" ).autocomplete({
-            source: availableTags
-        });
-    //
-    //     var tags = ["abc","def","xyz"];
-    //     $('.autoc').on("focus", function(){
-    //         $(this).autocomplete({
-    //             source: tags
-    //         });
+    //     $( "#tag123" ).autocomplete({
+    //         source: availableTags
     //     });
     //
-    } );
+    //     $( "#tag123t" ).autocomplete({
+    //         source: availableTags
+    //     });
+    // });
+
+    $( function() {
+        var availableTags = [
+            "ActionScript",
+            "AppleScript",
+            "Asp"
+        ];
+
+        $( "#tag123" ).autocomplete({
+
+            source: categoriesManual
+        });
+
+        $( "#tag123t" ).autocomplete({
+
+            source: categoriesManual
+        });
+
+        $( "#tag123add" ).autocomplete({
+
+            source: categoriesManual
+        });
+
+        $( "#tag123tadd" ).autocomplete({
+
+            source: categoriesManual
+        });
+    });
 
     // -------------------------------------------------------------------
     // qosha taglari onlemek ucun yeni biir array yaradiriq. her yazilan chipi hemin arraya daxil edrik.
@@ -487,8 +610,11 @@
 
     jQuery(function ($) {
         $('#tags input').on('focusout', function () {
-            var txt = this.value.replace(/[^a-zA-Z0-9\+\-\.\#]/g, ''); // allowed characters list
-            if (txt) $(this).before('<span class="tag">' + txt + '</span>');
+            var txt = this.value.replace(/[^a-zA-Z0-9\+\-\.\#]/g, ' ', ''); // allowed characters list
+            if (txt) {
+                $(this).before('<span class="tag">' + txt + '</span>');
+                chipids.push(getChipId(txt));
+            }
             this.value = "";
             // this.focus();
         }).on('keyup', function (e) {
@@ -497,7 +623,14 @@
         });
 
         $('#tags').on('click', '.tag', function () {
-            if (confirm("Really delete this tag?")) $(this).remove();
+            if (confirm("Really delete this tag?")){
+                for (let i = 0; i < chipids.length; i++) {
+                    if (chipids[i] == $(this).attr('id')) {
+                        chipids.splice(i, 1);
+                    }
+                }
+                $(this).remove();
+            }
         });
 
         $('#tagst input').on('focusout', function () {
@@ -512,6 +645,45 @@
         });
 
         $('#tagst').on('click', '.tag', function () {
+            if (confirm("Really delete this tag?")) $(this).remove();
+        });
+
+        $('#tagsadd input').on('focusout', function () {
+            var txt = this.value.replace(/[^a-zA-Z0-9\+\-\.\#]/g, ' ', ''); // allowed characters list
+            if (txt) {
+                $(this).before('<span class="tag">' + txt + '</span>');
+                chipids.push(getChipId(txt));
+            }
+            this.value = "";
+            // this.focus();
+        }).on('keyup', function (e) {
+            // comma|enter (add more keyCodes delimited with | pipe)
+            if (/(188|13)/.test(e.which)) $(this).trigger('focusout');
+        });
+
+        $('#tagsadd').on('click', '.tag', function () {
+            if (confirm("Really delete this tag?")){
+                for (let i = 0; i < chipids.length; i++) {
+                    if (chipids[i] == $(this).attr('id')) {
+                        chipids.splice(i, 1);
+                    }
+                }
+                $(this).remove();
+            }
+        });
+
+        $('#tagstadd input').on('focusout', function () {
+            var availableTagst = ["ActionScript", "AppleScript", "Asp", "BASIC",];
+            var txt = this.value.replace(/[^a-zA-Z0-9\+\-\.\#]/g, ''); // allowed characters list
+            if (txt) $(this).before('<span class="tag">' + txt + '</span>');
+            this.value = "";
+            // this.focus();
+        }).on('keyup', function (e) {
+            // comma|enter (add more keyCodes delimited with | pipe)
+            if (/(188|13)/.test(e.which)) $(this).trigger('focusout');
+        });
+
+        $('#tagstadd').on('click', '.tag', function () {
             if (confirm("Really delete this tag?")) $(this).remove();
         });
 
@@ -552,6 +724,8 @@
 
 
     });
+
+    var chipids = [];
 
     $('#exampleModalEdit').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
@@ -630,7 +804,7 @@
                         ctrgyid[i] = data.oneproduct[i].categoryid;
                         // alert("ctrgyname "+ ctrgyname[i]+ "  ctrgyid "+ctrgyid[i])
                         // tag123
-                        appendedText(ctrgyname[i]);
+                        appendedText(ctrgyname[i], ctrgyid[i]);
                         // $(".modal-title").click();
                         // $('#tag123').val(ctrgyname[i]);
                         // $('#tag123').focus();
@@ -646,6 +820,17 @@
                 }
             }
         );
+    }
+
+    function appendedText(countname, countid) {
+        chipids.push(countid);
+        var txt1 = [
+            '<span id="' + countid + '" class="tag">' + countname + '</span>'
+            // '<span class="tag">' + countname + '</span>',
+            // '<div id="' + countid + '" style="display: none;">' + countid + '</div>'
+            // ''<input type="hidden" id="hiddenspan' + " name="hiddenc" value="1">''
+        ].join("\n");
+        $("#par").append(txt1);
     }
 
     function myAjaxFunctionType(id) {
@@ -666,7 +851,7 @@
                         ctrgyid[i] = data.typeproduct[i].typeid;
                         // alert("ctrgyname "+ ctrgyname[i]+ "  ctrgyid "+ctrgyid[i])
                         // tag123
-                        appendedTextType(ctrgyname[i], ctrgyid[i]);
+                        appendedTextType(ctrgyname[i]);
                         // $(".modal-title").click();
                         // $('#tag123').val(ctrgyname[i]);
                         // $('#tag123').focus();
@@ -682,9 +867,19 @@
         );
     }
 
+    var categoriesManual = ["Vitaminler", "Antacidler", "Antianxiety Drugs", "Antiarrhythmics", "Antibacterials"];
+
+    function getChipId(chip) {
+        for (let i = 0; i < categoriesManual.length; i++) {
+            if (chip == categoriesManual[i]) {
+                return i + 1;
+            }
+        }
+    }
+
     function updateDataById() {
-        // var categoriesid = [$("#hiddencatid1").val(), $("#hiddencatid2").val()];
-        var categoriesid = ['1', '2'];
+        var categoryArray = ['1','2'];
+
         var id = $("#hiddenid").val();
         var name = $("#recipient-name").val();
         var description = $("#recipient-description").val();
@@ -698,7 +893,7 @@
                 data: {
                     "id": id,
                     "name": name,
-                    "categoriesid": categoriesid,
+                    myArray: chipids,
                     "description": description,
                     "qtystock": qtystock,
                     "price": price
@@ -706,7 +901,6 @@
                 type: 'post',
                 cache: false,
                 success: function (data) {
-                    alert('categoryid gonderildi');
                     location.reload();
 
                 },
@@ -718,28 +912,18 @@
 
     };
 
-    function appendedText(countname, countid){//bu comment elave eden funksiyadi buttona vuranda comment yaranir
-        // var c = $("#hiddenc").val();
+    function appendedTextType(count) {//bu comment elave eden funksiyadi buttona vuranda comment yaranir
         var txt1 = [
-            '<span class="tag">'+ countname + '</span>'
-            // '<input type="hidden" id="hiddencatspan' + c + '" name="hiddencatspan" value="' + countid + '">'
-        ].join("\n");
-        $("#par").append(txt1);
-        // c++;
-        // $("#hiddenc").val(c);
-    }
-
-    function appendedTextType(count){//bu comment elave eden funksiyadi buttona vuranda comment yaranir
-        var txt1 = [
-            '<span class="tag">'+ count + '</span>'
+            '<span class="tag" >' + count + '</span>'
         ].join("\n");
 
         $("#part").append(txt1);
     }
 
-    function removeAllTags(){
+    function removeAllTags() {
         // alert();
         $(".tag").remove();
+        chipids = [];
     };
 
     function deleteDataById(btn) {
@@ -757,7 +941,6 @@
 
                     if (data === "deleted") {
                         location.reload();
-                        //$("#bootstrap-data-table").DataTable().ajax.reload(null, false);
                     }
 
                 },
@@ -772,7 +955,6 @@
     function addData() {
         var id = $("#add-hidden").val();
         var name = $("#add-name").val();
-        var categoryid = $("#add-category").val();
         var qtystock = $("#add-qtystock").val();
         var price = $("#add-price").val();
         alert("name " + name);
@@ -784,30 +966,28 @@
                 data: {
                     // "id": id,
                     "name": name,
-                    "categoryname": categoryname,
-                    "phonenumber": phonenumber,
-                    "address": address,
-                    "email": email
+                    myArray: chipids,
+                    "description": description,
+                    "qtystock": qtystock,
+                    "price": price
                 },
                 type: 'post',
                 cache: false,
                 success: function (data) {
+                    alert("success");
 
                     location.reload();
 
                 },
                 error: function () {
-                    // alert('dataaa   '+data)
-                    // alert('error');
+                    alert('error');
                 }
             }
         );
 
     };
 
-    // alert($( "#selector2" ).val());
 </script>
-<!--For contact chips-->
 
 <script src="dist/bootstrap-tagsinput.min.js"></script>
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/js/rainbow.min.js"></script>-->

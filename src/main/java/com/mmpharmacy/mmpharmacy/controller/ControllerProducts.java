@@ -75,45 +75,52 @@ public class ControllerProducts {
     }
 
     @RequestMapping("/updateProduct")
-    public String updateProduct(@RequestParam(value = "id") int id, @RequestParam(value = "categoriesid", required = false) int[] categoriesid, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "description", required = false) String description, @RequestParam(value = "qtystock", required = false) String qtystock, @RequestParam(value = "price", required = false) String price) {
+    public String updateProduct(@RequestParam(value = "id") int id,
+                                @RequestParam(value = "myArray[]", required = false) List<Integer> myArray,
+                                @RequestParam(value = "name", required = false) String name,
+                                @RequestParam(value = "description", required = false) String description,
+                                @RequestParam(value = "qtystock", required = false) String qtystock,
+                                @RequestParam(value = "price", required = false) String price) {
+
+
         Product product = repoProduct.getOne(id);
-//        Category category = repoCategory.getOne(categoryid);
-//        List<Category> categories = new ArrayList<>(Arrays.asList(categoriesid));
-        Category[] catarray = new Category[2];
-        for (int i = 0; i < categoriesid.length; i++) {
-            catarray[i] = repoCategory.getOne(categoriesid[i]);
+        Set<Category> categories = new HashSet<>();
+
+        for (Integer integer : myArray) {
+            Category cat = repoCategory.getOne(integer);
+            categories.add(cat);
         }
-        List<Category> categories = new ArrayList<>(Arrays.asList(catarray));
-//        List<Category> categories = Arrays.asList(catarray);
-//        List<Category> categories = new LinkedList<>();
-//        Category cat;
-//        for (int i = 0; i < categoriesid.length; i++) {
-//            cat = repoCategory.getOne(categoriesid[i]);
-//            categories.add(cat);
-//        }
-        product.setCategories((Set<Category>) categories);
+
+        product.setCategories(categories);
         product.setName(name);
         product.setDescription(description);
         product.setQtystock(qtystock);
         product.setPrice(price);
-//        Country cnt = repoCountry.getOne(countryid);
-//        product.setCountry(cnt);
         repoProduct.save(product);
         return "redirect:/admin/products";
     }
 
-    // Ishleyen kod without category and type
-//    @RequestMapping("/updateProduct")
-//    public String updateProduct(@RequestParam(value = "id") int id, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "description", required = false) String description, @RequestParam(value = "qtystock", required = false) String qtystock, @RequestParam(value = "price", required = false) String price) {
-//        Product product = repoProduct.getOne(id);
-//        product.setName(name);
-//        product.setDescription(description);
-//        product.setQtystock(qtystock);
-//        product.setPrice(price);
-////        Country cnt = repoCountry.getOne(countryid);
-////        product.setCountry(cnt);
-//        repoProduct.save(product);
-//        return "redirect:/admin/products";
-//    }
+    @RequestMapping("/addProduct")
+    public String addSupplier(@RequestParam(value = "id") int id,
+                              @RequestParam(value = "myArray[]", required = false) List<Integer> myArray,
+                              @RequestParam(value = "name", required = false) String name,
+                              @RequestParam(value = "description", required = false) String description,
+                              @RequestParam(value = "qtystock", required = false) String qtystock,
+                              @RequestParam(value = "price", required = false) String price) {
+
+        Set<Category> categories = new HashSet<>();
+
+        for (Integer integer : myArray) {
+            Category cat = repoCategory.getOne(integer);
+            categories.add(cat);
+        }
+
+        Product product = new Product(name, description, qtystock, price, "1");
+        product.setCategories(categories);
+        System.out.println("product" + product);
+
+        repoProduct.save(product);
+        return "redirect:/admin/products";
+    }
 
 }
