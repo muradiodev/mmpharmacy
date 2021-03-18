@@ -15,4 +15,6 @@ public class OrderDetailDTO {
 
     private BigDecimal price;
 
+    private String  total;
+
 }

@@ -19,9 +19,9 @@ public class OrderDetails {
     @Column(name = "id")
     private int id;
 
-    private int orderId;
+    private int orderid;
 
-    private int productId;
+    private int productid;
 
     private int quantity;
 
@@ -38,20 +38,20 @@ public class OrderDetails {
         this.id = id;
     }
 
-    public int getOrderId() {
-        return orderId;
+    public int getOrderid() {
+        return orderid;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+    public void setOrderid(int orderId) {
+        this.orderid = orderid;
     }
 
-    public int getProductId() {
-        return productId;
+    public int getProductid() {
+        return productid;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public void setProductid(int productid) {
+        this.productid = productid;
     }
 
     public int getQuantity() {
@@ -70,9 +70,9 @@ public class OrderDetails {
         this.price = price;
     }
 
-    public OrderDetails( int orderId, int productId, int quantity, BigDecimal price) {
-        this.orderId = orderId;
-        this.productId = productId;
+    public OrderDetails( int orderid, int productid, int quantity, BigDecimal price, String total) {
+        this.orderid = orderid;
+        this.productid = productid;
         this.quantity = quantity;
         this.price = price;
     }

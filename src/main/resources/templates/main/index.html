@@ -170,6 +170,36 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+        $('#postButton').click(function () {
+            var orders = [];
+            alert($("#sum_cnt").text());
+            $('#b tr').each(function (index, item) {
+                var $item = $(item);
+
+                console.log($item)
+                orders.push({
+                    productid: $item.find("td[name='productid']").text(),
+                    // productid: $item.find("td span[name='productid']").text(),
+                    // .closest("tr").find(".price_basis").text();
+                    quantity: $item.find("td input[name='quantity']").val(),
+                    price: $item.find("td span[name='price']").text(),
+                    total: $("#sum_cnt").text(),
+                });
+            });
+
+            $.ajax({
+                url: '/main/testGet',
+                method: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(orders)
+            })
+                .done(function (orders) {
+                    // handle success
+                })
+                .fail(function () {
+                    // handle fail
+                });
+        });
 
 
         $(".addelement").click(function () {
@@ -180,11 +210,11 @@
             var price = $(this).closest("tr").find(".price").text();
             /*   alert(name); */
             var markup = "<tr>" +
-                "<td class='id'>" + id + "</td>" +
+                "<td name='productid' class='id'>" + id + "</td>" +
                 "<td class='nr'>" + nr + "</td>" +
 
-                "<td class='qty'><input class='quantity'  style='width: 100%' value='1' placeholder='max " + qty + "' type='number'></td>" +
-                "<td><span class='price_added  badge badge-success'>" + price + "</span><br>" +
+                "<td class='qty'><input class='quantity' name='quantity'  style='width: 100%' value='1' placeholder='max " + qty + "' type='number'></td>" +
+                "<td ><span class='price_added  badge badge-success' name='price'>" + price + "</span><br>" +
                 "<span class='price_basis'>" + price + "</span></td>" +
                 "<td class='remove'><button type='button' class='btn btn-outline-danger btn-sm removeelement'><i class='fa fa-minus'></i></button></td>" +
                 "</tr>";
@@ -349,32 +379,30 @@
                     <div class="column col-5" style="width: 20%">
 
                         <table id="mytable2" stclass="table table-striped table-bordered table-hover">
-                            <thead>
+                            <thead id="a">
                             <!--                            <tr>-->
                             <th colspan="2" scope="col">Name</th>
                             <th scope="col">Quantity</th>
                             <th colspan="2" scope="col">Price</th>
                             <!--                            </tr>-->
                             </thead>
-                            <tbody>
-                            <tr>
+                            <tbody id="b">
 
-                            </tr>
+
+                            </td>
                             </tbody>
                             <tfoot>
-
-
                             <tr>
                                 <td colspan="3">Total</td>
                                 <td colspan="2" style="text-align:center"><span id="sum_cnt">0</span> €</td>
                             </tr>
                             <tr>
                                 <td colspan="5">
-                                    <button type="button" class="btn btn-outline-success btn-lg btn-block">PROCEED TO
+                                    <button id="postButton" type="button" class="btn btn-outline-success btn-lg btn-block">PROCEED TO
                                         CHECKOUT
                                     </button>
                             </tr>
-                            </td>
+
                             </tfoot>
 
                         </table>

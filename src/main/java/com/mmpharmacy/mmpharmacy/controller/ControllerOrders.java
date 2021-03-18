@@ -32,7 +32,7 @@ public class ControllerOrders {
     private RepoOrderDetails repoOrderDetails;
 
     @RequestMapping("/")
-    public String getAllOrders(Model md) {
+    public String getAllProducts(Model md) {
         List<Product> products = repoProduct.findAllByIsactive("1");
         List<Category> categories = repoCategory.findAll();
         List<Type> types = repoType.findAll();
@@ -48,12 +48,12 @@ public class ControllerOrders {
     public String postSeries(HttpServletRequest request, @RequestBody List<OrderDetailDTO> list) {
 
         System.out.println(list);
-
-        Orders order = repoOrders.save(new Orders());
+        System.out.println("totallll = "+list.get(1).getTotal());
+        Orders order = repoOrders.save(new Orders(list.get(1).getTotal()));
 
         for (OrderDetailDTO detail : list) {
 
-            repoOrderDetails.save(new OrderDetails(order.getOrderid(), detail.getProductid(), detail.getQuantity(), detail.getPrice()));
+            repoOrderDetails.save(new OrderDetails(order.getOrderid(), detail.getProductid(), detail.getQuantity(), detail.getPrice(),order.getTotal()));
         }
 
 

@@ -23,11 +23,28 @@ public class Orders {
     @Column(name = "orderid")
     private int orderid;
 
+    @Column(name = "total")
+    private String total;
+
+
+
+    public String getTotal() {
+        return total;
+    }
+
+    public void setTotal(String total) {
+        this.total = total;
+    }
+
     public Orders(){}
 
-    public Orders(int orderid) {
-        this.orderid = orderid;
+    public Orders(String total) {
+        this.total = total;
     }
+
+//    public Orders(int orderid) {
+//        this.orderid = orderid;
+//    }
 
     public int getOrderid() {
         return orderid;

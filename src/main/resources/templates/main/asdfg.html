@@ -176,11 +176,13 @@
 
             $('#b tr').each(function (index, item) {
                 var $item = $(item);
+                alert($item.find("td[name='productid']").text());
                 console.log($item)
                 orders.push({
-                    productid: $item.find("td input[name='productid']").val(),
+                    productid: $item.find("td[name='productid']").text(),
                     quantity: $item.find("td input[name='quantity']").val(),
-                    price: $item.find("td input[name='price']").val(),
+                    price: $item.find("td[name='price']").text(),
+
                 });
             });
 
@@ -249,7 +251,7 @@
                 <div class="row justify-content-md-center">
                     <div class="column col-7">
 
-                        <table id="tableMyObjects">
+                        <table id="mytable2">
                             <thead id="a">
                             <tr>
                                 <th>productid</th>
@@ -259,15 +261,15 @@
                             </thead>
                             <tbody id="b">
                             <tr>
-                                <td><input type="text" name="productid"/></td>
+                                <td name="productid">1</td>
                                 <td><input type="text" name="quantity"/></td>
-                                <td><input type="text" name="price"/></td>
+                                <td name="price">15.99</td>
 
                             </tr>
                             <tr>
-                                <td><input type="text" name="productid"/></td>
+                                <td name="productid">2</td>
                                 <td><input type="text" name="quantity"/></td>
-                                <td><input type="text" name="price"/></td>
+                                <td name="price">3.61</td>
                             </tr>
                             </tbody>
                         </table>
