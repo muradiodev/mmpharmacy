@@ -43,13 +43,10 @@ public class ControllerCategories {
         return "admin/categories.html";
     }
 
-    @RequestMapping("/getCategories")
+    @RequestMapping("/getCategoriesName")
     @ResponseBody
-    public ResponseEntity<List<String>> getCategories() {
-
-        System.out.println("Controllere girdi");
+    public ResponseEntity<List<String>> getCategoriesName() {
         List<Category> category = repoCategory.findAll();
-
         List<String> myCatArray = new ArrayList<>();
 
         for (int i = 0; i < category.size(); i++) {
@@ -60,13 +57,10 @@ public class ControllerCategories {
         return ResponseEntity.status(HttpStatus.OK).body(myCatArray);
     }
 
-    @RequestMapping("/getTypes")
+    @RequestMapping("/getTypesName")
     @ResponseBody
-    public ResponseEntity<List<String>> getTypes() {
-
-        System.out.println("Controllere girdi");
+    public ResponseEntity<List<String>> getTypesName() {
         List<Type> types = repoType.findAll();
-
         List<String> myTypeArray = new ArrayList<>();
 
         for (int i = 0; i < types.size(); i++) {
@@ -88,6 +82,4 @@ public class ControllerCategories {
 //
 //        return
 //    }
-    //todo: getAllTables, edit, delete as update
-
 }

@@ -88,7 +88,7 @@
         }
 
         #tags {
-            float: left;
+            /*float: left;*/
             border: 1px solid #ccc;
             padding: 4px;
             font-family: Arial;
@@ -130,7 +130,7 @@
         /*MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM*/
 
         #tagst {
-            float: left;
+            /*float: left;*/
             border: 1px solid #ccc;
             padding: 4px;
             font-family: Arial;
@@ -172,7 +172,7 @@
         /*///////////////////////////////////////////////*/
 
         #tagsadd {
-            float: left;
+            /*float: left;*/
             border: 1px solid #ccc;
             padding: 4px;
             font-family: Arial;
@@ -214,7 +214,7 @@
         /*MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM*/
 
         #tagstadd {
-            float: left;
+            /*float: left;*/
             border: 1px solid #ccc;
             padding: 4px;
             font-family: Arial;
@@ -252,6 +252,7 @@
             padding: 7px;
             width: auto;
         }
+
     </style>
 </head>
 <body>
@@ -405,7 +406,15 @@
                             <p id="par" style="display:inline">
                             </p>
 
-                            <input type="text" value="" id="tag123" class="autotag" placeholder="Add a category">
+<!--                            <input type="text" value="" id="tag123" class="autotag" placeholder="Add a category">-->
+
+                            <form class="eventInsForm" action="#" method="post">
+                                <input type="text" id="tag123" class="autotag" placeholder="Add a category"/>
+                            </form>
+                        </div>
+
+                        <div id="catexist" style="display: none;">
+                            <p id="pcatexist" style="font-size: small; color: red" ></p>
                         </div>
 
                         <p for="tag123t" class="col-form-label">Type:</p>
@@ -416,6 +425,10 @@
                             </p>
 
                             <input type="text" value="" id="tag123t" class="autotag" placeholder="Add a type">
+                        </div>
+
+                        <div id="typeexist" style="display: none;">
+                            <p id="ptypeexist" style="font-size: small; color: red" ></p>
                         </div>
 
                         <div class="form-group">
@@ -432,7 +445,6 @@
                             <label for="recipient-price" class="col-form-label">Price:</label>
                             <input type="text" class="form-control" id="recipient-price">
                             <input type="hidden" id="hiddenid" name="hiddenid" value="">
-                            <input type="hidden" id="hiddenc" name="hiddenc" value="1">
                         </div>
                     </form>
                 </div>
@@ -476,6 +488,10 @@
                             <input type="text" value="" id="tag123add" class="autotag" placeholder="Add a category">
                         </div>
 
+                        <div id="catexistadd" style="display: none;">
+                            <p id="pcatexistadd" style="font-size: small; color: red" ></p>
+                        </div>
+
                         <p for="tag123t" class="col-form-label">Type:</p>
 
                         <div class="form-group" id="tagstadd">
@@ -484,6 +500,10 @@
                             </p>
 
                             <input type="text" value="" id="tag123tadd" class="autotag" placeholder="Add a type">
+                        </div>
+
+                        <div id="typeexistadd" style="display: none;">
+                            <p id="ptypeexistadd" style="font-size: small; color: red" ></p>
                         </div>
 
                         <div class="form-group">
@@ -500,7 +520,6 @@
                             <label for="recipient-price" class="col-form-label">Price:</label>
                             <input type="text" class="form-control" id="add-price">
                             <input type="hidden" id="hiddenidadd" name="hiddenidadd" value="">
-<!--                            <input type="hidden" id="hiddenc" name="hiddenc" value="1">-->
                         </div>
                     </form>
                 </div>
@@ -558,22 +577,6 @@
     //     $(".tag").click();
     // }
 
-    // $( function() {
-    //     var availableTags = [
-    //         "ActionScript",
-    //         "AppleScript",
-    //         "Asp"
-    //     ];
-    //
-    //     $( "#tag123" ).autocomplete({
-    //         source: availableTags
-    //     });
-    //
-    //     $( "#tag123t" ).autocomplete({
-    //         source: availableTags
-    //     });
-    // });
-
     $( function() {
         var availableTags = [
             "ActionScript",
@@ -585,10 +588,11 @@
 
             source: categoriesManual
         });
+        $( "#tag123" ).autocomplete( "option", "appendTo", ".eventInsForm" );
 
         $( "#tag123t" ).autocomplete({
 
-            source: categoriesManual
+            source: typesManual
         });
 
         $( "#tag123add" ).autocomplete({
@@ -598,7 +602,7 @@
 
         $( "#tag123tadd" ).autocomplete({
 
-            source: categoriesManual
+            source: typesManual
         });
     });
 
@@ -612,8 +616,19 @@
         $('#tags input').on('focusout', function () {
             var txt = this.value.replace(/[^a-zA-Z0-9\+\-\.\#]/g, ' ', ''); // allowed characters list
             if (txt) {
-                $(this).before('<span class="tag">' + txt + '</span>');
-                catids.push(getChipId(txt));
+                if (catids.includes(getChipId(txt), 0)){
+                    $('#catexist').css('display','inline');
+                    $('#pcatexist').html("Category alredy selected");
+                    // $('#catexist').attr('style','display:inline');
+                } else if (!categoriesManual.includes(txt, 0)){
+                    $('#catexist').css('display','inline');
+                    $('#pcatexist').html("Invalid Cataegory");
+                }
+                if (!catids.includes(getChipId(txt), 0) && categoriesManual.includes(txt, 0)){
+                    $(this).before('<span id="' + getChipId(txt) + '" class="tag">' + txt + '</span>');
+                    catids.push(getChipId(txt));
+                    $('#catexist').css('display','none');
+                }
             }
             this.value = "";
             // this.focus();
@@ -636,8 +651,19 @@
         $('#tagst input').on('focusout', function () {
             var txt = this.value.replace(/[^a-zA-Z0-9\+\-\.\#]/g, ''); // allowed characters list
             if (txt) {
-                $(this).before('<span class="tag">' + txt + '</span>');
-                catids.push(getChipId(txt));
+                if (typeids.includes(getTypeId(txt), 0)){
+                    $('#typeexist').css('display','inline');
+                    $('#ptypeexist').html("Type alredy selected");
+                    // $('#catexist').attr('style','display:inline');
+                } else if (!typesManual.includes(txt, 0)){
+                    $('#typeexist').css('display','inline');
+                    $('#ptypeexist').html("Invalid Type");
+                }
+                if (!typeids.includes(getTypeId(txt), 0) && typesManual.includes(txt, 0)){
+                    $(this).before('<span id="' + getTypeId(txt) + '" class="tag">' + txt + '</span>');
+                    typeids.push(getTypeId(txt));
+                    $('#typeexist').css('display','none');
+                }
             }
             this.value = "";
             // this.focus();
@@ -647,14 +673,31 @@
         });
 
         $('#tagst').on('click', '.tag', function () {
-            if (confirm("Really delete this tag?")) $(this).remove();
+            if (confirm("Really delete this tag?")) {
+                for (let i = 0; i < typeids.length; i++) {
+                    if (typeids[i] == $(this).attr('id')) {
+                        typeids.splice(i, 1);
+                    }
+                }
+                $(this).remove();
+            }
         });
 
         $('#tagsadd input').on('focusout', function () {
             var txt = this.value.replace(/[^a-zA-Z0-9\+\-\.\#]/g, ' ', ''); // allowed characters list
             if (txt) {
-                $(this).before('<span class="tag">' + txt + '</span>');
-                catids.push(getChipId(txt));
+                if (catids.includes(getChipId(txt), 0)){
+                    $('#catexistadd').css('display','inline');
+                    $('#pcatexistadd').html("Category alredy selected");
+                    // $('#catexist').attr('style','display:inline');
+                } else if (!categoriesManual.includes(txt, 0)){
+                    $('#catexistadd').css('display','inline');
+                    $('#pcatexistadd').html("Invalid Category");
+                }
+                if (!catids.includes(getChipId(txt), 0) && categoriesManual.includes(txt, 0)){
+                    $(this).before('<span id="' + getChipId(txt) + '" class="tag">' + txt + '</span>');
+                    catids.push(getChipId(txt));
+                }
             }
             this.value = "";
             // this.focus();
@@ -675,9 +718,22 @@
         });
 
         $('#tagstadd input').on('focusout', function () {
-            var availableTagst = ["ActionScript", "AppleScript", "Asp", "BASIC",];
             var txt = this.value.replace(/[^a-zA-Z0-9\+\-\.\#]/g, ''); // allowed characters list
-            if (txt) $(this).before('<span class="tag">' + txt + '</span>');
+            if (txt) {
+                if (typeids.includes(getTypeId(txt), 0)){
+                    $('#typeexistadd').css('display','inline');
+                    $('#ptypeexistadd').html("Type alredy selected");
+                    // $('#catexist').attr('style','display:inline');
+                } else if (!typesManual.includes(txt, 0)){
+                    $('#typeexistadd').css('display','inline');
+                    $('#ptypeexistadd').html("Invalid Type");
+                }
+                if (!typeids.includes(getTypeId(txt), 0) && typesManual.includes(txt, 0)){
+                    $(this).before('<span id="' + getTypeId(txt) + '" class="tag">' + txt + '</span>');
+                    typeids.push(getTypeId(txt));
+                    $('#typeexistadd').css('display','none');
+                }
+            }
             this.value = "";
             // this.focus();
         }).on('keyup', function (e) {
@@ -686,7 +742,14 @@
         });
 
         $('#tagstadd').on('click', '.tag', function () {
-            if (confirm("Really delete this tag?")) $(this).remove();
+            if (confirm("Really delete this tag?")) {
+                for (let i = 0; i < typeids.length; i++) {
+                    if (typeids[i] == $(this).attr('id')) {
+                        typeids.splice(i, 1);
+                    }
+                }
+                $(this).remove();
+            }
         });
 
     });
@@ -726,7 +789,7 @@
         $.ajax
         (
             {
-                url: '/admin/getCategories',
+                url: '/admin/getCategoriesName',
                 type: 'get',
                 cache: false,
                 success: function (data) {
@@ -743,7 +806,7 @@
         $.ajax
         (
             {
-                url: '/admin/getTypes',
+                url: '/admin/getTypesName',
                 type: 'get',
                 cache: false,
                 success: function (data) {
@@ -817,7 +880,7 @@
     function setter(btn) {
         var id = $(btn).attr("id");
 
-        // $(".").attr("id", id);
+        $(".delete-product").attr("id", id);
     }
 
     function setterEdit(btn) {
@@ -863,25 +926,6 @@
         );
     }
 
-    function appendedText(countname, countid) {
-        catids.push(countid);
-        var txt1 = [
-            '<span id="' + countid + '" class="tag">' + countname + '</span>'
-            // '<span class="tag">' + countname + '</span>',
-            // '<div id="' + countid + '" style="display: none;">' + countid + '</div>'
-            // ''<input type="hidden" id="hiddenspan' + " name="hiddenc" value="1">''
-        ].join("\n");
-        $("#par").append(txt1);
-    }
-
-    function appendedTextType(countname, countid) {//bu comment elave eden funksiyadi buttona vuranda comment yaranir
-        var txt1 = [
-            '<span class="tag" >' + count + '</span>'
-        ].join("\n");
-
-        $("#part").append(txt1);
-    }
-
     function myAjaxFunctionType(id) {
 
         $.ajax
@@ -900,7 +944,7 @@
                         ctrgyid[i] = data.typeproduct[i].typeid;
                         // alert("ctrgyname "+ ctrgyname[i]+ "  ctrgyid "+ctrgyid[i])
                         // tag123
-                        appendedTextType(ctrgyname[i]);
+                        appendedTextType(ctrgyname[i], ctrgyid[i]);
                         // $(".modal-title").click();
                         // $('#tag123').val(ctrgyname[i]);
                         // $('#tag123').focus();
@@ -916,22 +960,41 @@
         );
     }
 
+    function appendedText(countname, countid) {
+        catids.push(countid);
+        var txt1 = [
+            '<span id="' + countid + '" class="tag">' + countname + '</span>'
+        ].join("\n");
+        $("#par").append(txt1);
+    }
+
+    function appendedTextType(countname, countid) {//bu comment elave eden funksiyadi buttona vuranda comment yaranir
+        typeids.push(countid);
+        var txt1 = [
+            '<span id="' + countid + '" class="tag">' + countname + '</span>'
+        ].join("\n");
+
+        $("#part").append(txt1);
+    }
+
+
+
     // var categoriesManual = ["Vitaminler", "Antacidler", "Antianxiety Drugs", "Antiarrhythmics", "Antibacterials"];
 
     function getChipId(chip) {
-
         for (let i = 0; i < categoriesManual.length; i++) {
             if (chip == categoriesManual[i]) {
                 return i + 1;
             }
         }
-
     }
 
-    function getCategories() {
-
-
-
+    function getTypeId(type) {
+        for (let i = 0; i < typesManual.length; i++) {
+            if (type == typesManual[i]) {
+                return i + 1;
+            }
+        }
     }
 
     function updateDataById() {
@@ -951,6 +1014,7 @@
                     "id": id,
                     "name": name,
                     myArray: catids,
+                    tArray: typeids,
                     "description": description,
                     "qtystock": qtystock,
                     "price": price
@@ -969,12 +1033,11 @@
 
     };
 
-
-
     function removeAllTags() {
         // alert();
         $(".tag").remove();
         catids = [];
+        typeids = [];
     };
 
     function deleteDataById(btn) {
@@ -984,7 +1047,7 @@
         $.ajax
         (
             {
-                url: '/admin/deleteSupplier',
+                url: '/admin/deleteProduct',
                 data: {"id": id},
                 type: 'post',
                 cache: false,
@@ -996,7 +1059,7 @@
 
                 },
                 error: function () {
-                    // alert('error');
+                    alert('error');
                 }
             }
         );
@@ -1006,9 +1069,9 @@
     function addData() {
         var id = $("#add-hidden").val();
         var name = $("#add-name").val();
+        var description = $("#add-description").val();
         var qtystock = $("#add-qtystock").val();
         var price = $("#add-price").val();
-        alert("name " + name);
 
         $.ajax
         (
@@ -1018,6 +1081,7 @@
                     // "id": id,
                     "name": name,
                     myArray: catids,
+                    tArray: typeids,
                     "description": description,
                     "qtystock": qtystock,
                     "price": price
@@ -1025,7 +1089,6 @@
                 type: 'post',
                 cache: false,
                 success: function (data) {
-                    alert("success");
 
                     location.reload();
 
