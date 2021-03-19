@@ -184,19 +184,26 @@
                                 </tr>
                                 </thead>
                                 <tbody style="text-align: center">
-<!--                                <th:block th:each="order : ${orders}">-->
-<!--                                    <tr>-->
-<!--                                        <td th:text="${order.id}">...</td>-->
-<!--&lt;!&ndash;                                        <td th:text="${order.orderid}">...</td>&ndash;&gt;-->
-<!--&lt;!&ndash;                                        <td th:text="${order.productid}">...</td>&ndash;&gt;-->
-<!--&lt;!&ndash;                                        <td th:text="${order.price}">...</td>&ndash;&gt;-->
-<!--&lt;!&ndash;                                        <td th:text="${order.quantity}">...</td>&ndash;&gt;-->
-<!--                                        <td>...</td>-->
+                                <th:block th:each="order : ${orders}">
+                                    <tr>
+                                        <td th:text="${order.id}">...</td>
+<!--                                        <td>-->
+<!--                                            <p th:each="pname : ${productname}" style="display:inline">-->
+<!--                                                <span th:text="${pname.name}"-->
+<!--                                                      class="badge badge-secondary"></span>-->
+<!--                                            </p>-->
+<!--                                        </td>-->
+
+                                        <td th:utext="${productname.name}">Event Name</td>
+                                        <td th:text="${order.productid}">...</td>
+                                        <td th:text="${order.price}">...</td>
+                                        <td th:text="${order.quantity}">...</td>
+                                        <td>...</td>
 
 
 
-<!--                                    </tr>-->
-<!--                                </th:block>-->
+                                    </tr>
+                                </th:block>
                                 <tr>
                                     <td class="serial">1.</td>
 

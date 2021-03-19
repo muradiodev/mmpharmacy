@@ -203,35 +203,50 @@
 
 
         $(".addelement").click(function () {
-            // alert("salam")
-            var id = $(this).closest("tr").find(".id").text();
-            var nr = $(this).closest("tr").find(".nr").text();
-            var qty = $(this).closest("tr").find(".qty").text();
-            var price = $(this).closest("tr").find(".price").text();
-            /*   alert(name); */
-            var markup = "<tr>" +
-                "<td name='productid' class='id'>" + id + "</td>" +
-                "<td class='nr'>" + nr + "</td>" +
+            if (Check()) {
+                // alert("salam")
+                var id = $(this).closest("tr").find(".id").text();
+                var nr = $(this).closest("tr").find(".nr").text();
+                var qty = $(this).closest("tr").find(".qty").text();
+                var price = $(this).closest("tr").find(".price").text();
+                /*   alert(name); */
+                var markup = "<tr>" +
+                    "<td name='productid' class='id'>" + id + "</td>" +
+                    "<td class='nr'>" + nr + "</td>" +
 
-                "<td class='qty'><input class='quantity' name='quantity'  style='width: 100%' value='1' placeholder='max " + qty + "' type='number'></td>" +
-                "<td ><span class='price_added  badge badge-success' name='price'>" + price + "</span><br>" +
-                "<span class='price_basis'>" + price + "</span></td>" +
-                "<td class='remove'><button type='button' class='btn btn-outline-danger btn-sm removeelement'><i class='fa fa-minus'></i></button></td>" +
-                "</tr>";
+                    "<td class='qty'><input class='quantity' name='quantity'  style='width: 100%' value='1' placeholder='max " + qty + "' type='number'></td>" +
+                    "<td ><span class='price_added  badge badge-success' name='price'>" + price + "</span><br>" +
+                    "<span class='price_basis'>" + price + "</span></td>" +
+                    "<td class='remove'><button type='button' class='btn btn-outline-danger btn-sm removeelement'><i class='fa fa-minus'></i></button></td>" +
+                    "</tr>";
 
-            $("#mytable2 tbody").append(markup);
-            // alert("returned value " + whenAddButtonClickedSum());
-            $('#sum_cnt').text(whenAddButtonClickedSum());
+                $("#mytable2 tbody").append(markup);
+                // alert("returned value " + whenAddButtonClickedSum());
+                $('#sum_cnt').text(someFunction());
+
+
+            }
         });
+
+        function Check() {
+            var result = true;
+            $('#mytable2 tbody').each(function () {///TODO: mordo
+                // alert($(this).find(".id").text());
+            });
+
+
+            return result;
+        }
 
         $(document).on("click", ".removeelement", function () {
             // console.log("$asadssadads" + $(this).closest("tr"));
             // console.log("$asadssadads");
             $(this).closest("tr").remove();
-            someFunction();
+            // someFunction();
+            $('#sum_cnt').text(someFunction());
         });
 
-        function whenAddButtonClickedSum() {
+        function someFunction() {
 
             var sum = 0;
 
@@ -248,30 +263,17 @@
         }
 
 
-        function someFunction() {
-            var sum = 0;
-
-            $(".price_added").each(function () {
-                // console.log("$(this).text()  " + $(this).text())
-                sum += parseFloat($(this).text());
-
-            });
-            // console.log("sum1 " + sum);
-            sum = sum.toFixed(2);
-            // console.log("sum2 " + sum);
-            $('#sum_cnt').text(sum);
-        }
-
         $(document).on("change", ".quantity", function () {
 
             var say = $(this).val();
             // alert(say)
             var qiymet = $(this).closest("tr").find(".price_basis").text();
             // alert("say = " + say + " qiymet = " + qiymet)
-            $(this).closest("tr").find(".price_added").text(say * qiymet);
+            $(this).closest("tr").find(".price_added").text(parseFloat(say * qiymet).toFixed(2));
 
             // $(".price_added").text(say * qiymet);
-            someFunction();
+            $('#sum_cnt').text(someFunction());
+
         });
 
     });
@@ -389,7 +391,6 @@
                             <tbody id="b">
 
 
-                            </td>
                             </tbody>
                             <tfoot>
                             <tr>
@@ -398,7 +399,8 @@
                             </tr>
                             <tr>
                                 <td colspan="5">
-                                    <button id="postButton" type="button" class="btn btn-outline-success btn-lg btn-block">PROCEED TO
+                                    <button id="postButton" type="button"
+                                            class="btn btn-outline-success btn-lg btn-block">PROCEED TO
                                         CHECKOUT
                                     </button>
                             </tr>

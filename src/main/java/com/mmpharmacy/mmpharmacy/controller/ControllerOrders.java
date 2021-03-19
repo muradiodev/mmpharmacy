@@ -47,8 +47,7 @@ public class ControllerOrders {
     @RequestMapping("/testGet")
     public String postSeries(HttpServletRequest request, @RequestBody List<OrderDetailDTO> list) {
 
-        System.out.println(list);
-        System.out.println("totallll = "+list.get(1).getTotal());
+
         Orders order = repoOrders.save(new Orders(list.get(1).getTotal()));
 
         for (OrderDetailDTO detail : list) {

@@ -78,6 +78,14 @@
         #ui-id-2 {
             z-index: 1510;
         }
+        .ui-autocomplete {
+            max-height: 200px;
+            overflow-y: auto;
+            /* prevent horizontal scrollbar */
+            overflow-x: hidden;
+            /* add padding to account for vertical scrollbar */
+            padding-right: 20px;
+        }
 
         #ui-id-3 {
             z-index: 1510;
@@ -618,7 +626,7 @@
             if (txt) {
                 if (catids.includes(getChipId(txt), 0)){
                     $('#catexist').css('display','inline');
-                    $('#pcatexist').html("Category alredy selected");
+                    $('#pcatexist').html("Category is  already selected");
                     // $('#catexist').attr('style','display:inline');
                 } else if (!categoriesManual.includes(txt, 0)){
                     $('#catexist').css('display','inline');
@@ -688,7 +696,7 @@
             if (txt) {
                 if (catids.includes(getChipId(txt), 0)){
                     $('#catexistadd').css('display','inline');
-                    $('#pcatexistadd').html("Category alredy selected");
+                    $('#pcatexistadd').html("Category is already selected");
                     // $('#catexist').attr('style','display:inline');
                 } else if (!categoriesManual.includes(txt, 0)){
                     $('#catexistadd').css('display','inline');
@@ -925,6 +933,8 @@
             }
         );
     }
+
+
 
     function myAjaxFunctionType(id) {
 
