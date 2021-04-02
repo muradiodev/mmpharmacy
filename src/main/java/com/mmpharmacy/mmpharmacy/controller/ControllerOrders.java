@@ -44,6 +44,9 @@ public class ControllerOrders {
         return "main/index.html";
     }
 
+
+
+
     @RequestMapping("/testGet")
     public String postSeries(HttpServletRequest request, @RequestBody List<OrderDetailDTO> list) {
 

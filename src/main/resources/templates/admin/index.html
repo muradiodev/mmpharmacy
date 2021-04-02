@@ -177,7 +177,7 @@
                                 <thead style="text-align: center">
                                 <tr>
                                     <th class="serial">#</th>
-                                    <th>ID</th>
+                                    <th>Order ID</th>
                                     <th>Product Name</th>
                                     <th>Price</th>
                                     <th colspan="2">Quantity</th>
@@ -194,8 +194,9 @@
 <!--                                            </p>-->
 <!--                                        </td>-->
 
-                                        <td th:utext="${productname.name}">Event Name</td>
+
                                         <td th:text="${order.productid}">...</td>
+                                        <td>Event Name</td>
                                         <td th:text="${order.price}">...</td>
                                         <td th:text="${order.quantity}">...</td>
                                         <td>...</td>
@@ -315,7 +316,27 @@
 <!--Local Stuff-->
 <script>
     jQuery(document).ready(function ($) {
-        "use strict";
+
+        $.ajax
+        (
+            {
+                url: '/admin/getProductNames',
+                type: 'get',
+                cache: false,
+                success: function (data) {
+                    // for(var i = 0; i < data.length; i++) {
+                    //
+                    // }
+                    alert(data);
+                },
+                error: function () {
+                    alert('error');
+                }
+            }
+        );
+
+
+
 
         // Pie chart flotPie1
         var piedata = [
