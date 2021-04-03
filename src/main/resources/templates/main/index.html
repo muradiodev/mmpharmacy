@@ -203,9 +203,10 @@
 
 
         $(".addelement").click(function () {
-            if (Check()) {
+            var id = $(this).closest("tr").find(".id").text();
+            var eyni = checkId(id);
+            if (eyni == '0') {
                 // alert("salam")
-                var id = $(this).closest("tr").find(".id").text();
                 var nr = $(this).closest("tr").find(".nr").text();
                 var qty = $(this).closest("tr").find(".qty").text();
                 var price = $(this).closest("tr").find(".price").text();
@@ -223,19 +224,31 @@
                 $("#mytable2 tbody").append(markup);
                 // alert("returned value " + whenAddButtonClickedSum());
                 $('#sum_cnt').text(someFunction());
-
-
+                $('#pas').html('');
+            } else {
+                var passinner = "<div class=\"sufee-alert alert with-close alert-danger alert-dismissible fade show\">\n" +
+                    "                    <div id=\"alertmulti\">⚠️PRODUCT ALREADY SELECTED</div>\n" +
+                    "\n" +
+                    "                    <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n" +
+                    "                        <span aria-hidden=\"true\">×</span>\n" +
+                    "                    </button>\n" +
+                    "                </div>";
+                $('#pas').html(passinner);
+                // alert('PRODUCT ALREADY SELECTED!');
             }
         });
 
-        function Check() {
-            var result = true;
-            $('#mytable2 tbody').each(function () {///TODO: mordo
-                // alert($(this).find(".id").text());
+        function checkId(thisid) {
+            var eyni = '0';
+            $('#mytable2 tr').each(function () {///TODO: mordo
+                var buid = $(this).find(".id").text();
+                console.log('buidler' + buid);
+                // alert('THIS ID:' + $(this).attr("id"));
+                if (buid == thisid) {
+                    eyni = '1';
+                }
             });
-
-
-            return result;
+            return eyni;
         }
 
         $(document).on("click", ".removeelement", function () {
@@ -324,6 +337,8 @@
                     </button>
                 </div>
 
+                <div id="pas"></div>
+
                 <div class="row justify-content-md-center">
                     <div class="column col-7">
 
@@ -371,7 +386,6 @@
                                 </tr>
 
                             </th:block>
-
 
                             </tbody>
 
