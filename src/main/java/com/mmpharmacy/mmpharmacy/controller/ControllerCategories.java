@@ -1,85 +1,45 @@
 package com.mmpharmacy.mmpharmacy.controller;
 
 
-import com.mmpharmacy.mmpharmacy.entity.Category;
-import com.mmpharmacy.mmpharmacy.entity.Type;
 import com.mmpharmacy.mmpharmacy.repo.RepoCategory;
 import com.mmpharmacy.mmpharmacy.repo.RepoType;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.mmpharmacy.mmpharmacy.service.impl.CategoryServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/admin")
 public class ControllerCategories {
 
-    @Autowired
-    private RepoType repoType;
-
-    @Autowired
-    private RepoCategory repoCategory;
+    private final RepoType repoType;
+    private final RepoCategory repoCategory;
+    private final CategoryServiceImpl categoryService;
 
 
     @RequestMapping("/categories")
     public String openAdminPage(Model md) {
-
-        List<Category> category = repoCategory.findAll();
-
-
-        for (Category cat : category) {
-            md.addAttribute("category", category);
-        }
-
-
+        categoryService.openAdminPage(md);
         return "admin/categories.html";
     }
 
     @RequestMapping("/getCategoriesName")
     @ResponseBody
     public ResponseEntity<List<String>> getCategoriesName() {
-        List<Category> category = repoCategory.findAll();
-        List<String> myCatArray = new ArrayList<>();
-
-        for (int i = 0; i < category.size(); i++) {
-            Category cat = category.get(i);
-            myCatArray.add(cat.getName());
-        }
-
-        return ResponseEntity.status(HttpStatus.OK).body(myCatArray);
+        return ResponseEntity.status(HttpStatus.OK).body(categoryService.getCategoriesName());
     }
 
     @RequestMapping("/getTypesName")
     @ResponseBody
     public ResponseEntity<List<String>> getTypesName() {
-        List<Type> types = repoType.findAll();
-        List<String> myTypeArray = new ArrayList<>();
-
-        for (int i = 0; i < types.size(); i++) {
-            Type type = types.get(i);
-            myTypeArray.add(type.getName());
-        }
-
-        return ResponseEntity.status(HttpStatus.OK).body(myTypeArray);
+        return ResponseEntity.status(HttpStatus.OK).body(categoryService.getTypesName());
     }
 
-//    @GetMapping("/deleteCategory")
-//    public String deleteTicketByViewGuid(@RequestParam("id") String category_id) {
-//        Category category = repoCategory.findTicketsByviewGuid(category_id);
-//        category.setIsActive(0);
-//        repoCategory.save(ticket);
-//        return "redirect:/tickets";
-//    }
-//    public String getAll(){
-//
-//        return
-//    }
 }
