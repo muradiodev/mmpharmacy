@@ -5,6 +5,8 @@ import com.mmpharmacy.mmpharmacy.entity.*;
 import com.mmpharmacy.mmpharmacy.repo.RepoCategory;
 import com.mmpharmacy.mmpharmacy.repo.RepoProduct;
 import com.mmpharmacy.mmpharmacy.repo.RepoType;
+import com.mmpharmacy.mmpharmacy.service.impl.ProductServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,30 +20,15 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/admin")
 public class ControllerProducts {
 
-    @Autowired
-    private RepoCategory repoCategory;
-
-    @Autowired
-    private RepoType repoType;
-
-    @Autowired
-    private RepoProduct repoProduct;
+    private final ProductServiceImpl productService;
 
     @RequestMapping("/products")
     public String findAllByIsActive(Model md) {
-
-        List<Product> products = repoProduct.findAllByIsactive("1");
-        List<Category> categories = repoCategory.findAll();
-        List<Type> types = repoType.findAll();
-
-
-        md.addAttribute("products", products);
-        md.addAttribute("categories", categories);
-        md.addAttribute("types", types);
-
+        productService.findAllByIsActive(md);
         return "admin/products.html";
     }
 
@@ -50,28 +37,13 @@ public class ControllerProducts {
     public ResponseEntity deleteProductById(@RequestParam(value = "id") int id) {
 //    public ResponseEntity deleteProductById(HttpServletRequest request) {
 //        int id = Integer.parseInt(request.getParameter("id"));
-
-        System.out.println("Delete Controllere girdi");
-
-        Product product = repoProduct.getOne(id);
-        product.setIsactive("0");
-        repoProduct.save(product);
-
+        productService.deleteProductById(id);
         return ResponseEntity.status(HttpStatus.OK).body("deleted");
     }
 
     @RequestMapping("/getOneProduct")
     public ResponseEntity getOneProduct(Model md, @RequestParam(value = "id") int id) {
-
-        Product products = repoProduct.getOne(id);
-
-
-        md.addAttribute("oneproduct", products.getCategories());
-        md.addAttribute("typeproduct", products.getTypes());
-//        System.out.println("asdfg + "+id);
-//        System.out.println("products1 + "+);
-
-//        return "redirect:/admin/suppliers";
+        productService.getOneProduct(md, id);
         return ResponseEntity.status(HttpStatus.OK).body(md);
     }
 
@@ -84,28 +56,7 @@ public class ControllerProducts {
                                 @RequestParam(value = "qtystock", required = false) String qtystock,
                                 @RequestParam(value = "price", required = false) String price) {
 
-
-        Product product = repoProduct.getOne(id);
-        Set<Category> categories = new HashSet<>();
-        Set<Type> types = new HashSet<>();
-
-        for (Integer integer : myArray) {
-            Category cat = repoCategory.getOne(integer);
-            categories.add(cat);
-        }
-
-        for (Integer integert : tArray) {
-            Type type = repoType.getOne(integert);
-            types.add(type);
-        }
-
-        product.setCategories(categories);
-        product.setTypes(types);
-        product.setName(name);
-        product.setDescription(description);
-        product.setQtystock(qtystock);
-        product.setPrice(price);
-        repoProduct.save(product);
+        productService.updateProduct(id, myArray, tArray, name, description, qtystock, price);
         return "redirect:/admin/products";
     }
 
@@ -117,25 +68,7 @@ public class ControllerProducts {
                               @RequestParam(value = "qtystock", required = false) String qtystock,
                               @RequestParam(value = "price", required = false) String price) {
 
-        Set<Category> categories = new HashSet<>();
-        Set<Type> types = new HashSet<>();
-
-        for (Integer integer : myArray) {
-            Category cat = repoCategory.getOne(integer);
-            categories.add(cat);
-        }
-
-        for (Integer integert : tArray) {
-            Type type = repoType.getOne(integert);
-            types.add(type);
-        }
-
-        Product product = new Product(name, description, qtystock, price, "1");
-        product.setCategories(categories);
-        product.setTypes(types);
-        System.out.println("product" + product);
-
-        repoProduct.save(product);
+        productService.addSupplier(myArray, tArray, name, description, qtystock, price);
         return "redirect:/admin/products";
     }
 

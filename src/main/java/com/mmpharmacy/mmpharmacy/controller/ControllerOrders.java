@@ -38,32 +38,13 @@ public class ControllerOrders {
     public String updateProductAfterBuy(@RequestParam(value = "idArray[]") List<Integer> idArray,
                                         @RequestParam(value = "qtyArray[]", required = false) List<String> qtyArray) {
 
-        int diff = 0;
-        int j = 0;
-        for (Integer i : idArray) {
-            Product product = repoProduct.getOne(i);
-            diff = Integer.parseInt(product.getQtystock()) - Integer.parseInt(qtyArray.get(j));
-            product.setQtystock(String.valueOf(diff));
-            repoProduct.save(product);
-            j++;
-        }
+        orderService.updateProductAfterBuy(idArray, qtyArray);
         return "redirect:/main";
     }
 
-
     @RequestMapping("/testGet")
     public String postSeries(HttpServletRequest request, @RequestBody List<OrderDetailDTO> list) {
-        Orders order = repoOrders.save(new Orders(list.get(1).getTotal()));
-        for (OrderDetailDTO detail : list) {
-
-            repoOrderDetails.save(new OrderDetails(order.getOrderid(), detail.getProductid(), detail.getQuantity(), detail.getPrice(), order.getTotal()));
-        }
+        orderService.postSeries(request, list);
         return "main/asdfg.html";
     }
-
-    @RequestMapping("/test")
-    public String getAllOrders() {
-        return "main/asdfg.html";
-    }
-
 }
