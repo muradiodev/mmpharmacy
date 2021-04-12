@@ -19,8 +19,6 @@ import java.util.List;
 @RequestMapping("/admin")
 public class ControllerCategories {
 
-    private final RepoType repoType;
-    private final RepoCategory repoCategory;
     private final CategoryServiceImpl categoryService;
 
 

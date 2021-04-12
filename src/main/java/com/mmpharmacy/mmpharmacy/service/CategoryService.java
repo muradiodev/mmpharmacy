@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface CategoryService {
 
-
     void openAdminPage(Model md);
 
     List<String> getCategoriesName();
