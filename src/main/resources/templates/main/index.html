@@ -238,11 +238,55 @@
             }
         });
 
+        function shiftPop(ids, qtys) {
+            ids.shift();
+            qtys.shift();
+            ids.pop();
+            qtys.pop();
+            ids.pop();
+            qtys.pop();
+        };
+
+        $(".buy").click(function () {
+            var test = ['a','b'];
+            var ids = [];
+            var qtys = [];
+            $('#mytable2 tr').each(function () {
+                ids.push($(this).find(".id").text());
+                qtys.push($(this).find(".quantity").val());
+            });
+            shiftPop(ids, qtys);
+
+            console.log("ids = " + ids);
+            console.log("qtys = " + qtys);
+
+            $.ajax
+            (
+                {
+                    url: '/main/productBuyed',
+                    data: {
+                        idArray: ids,
+                        qtyArray: qtys
+                    },
+                    type: 'post',
+                    cache: false,
+                    success: function (data) {
+                        location.reload();
+
+                    },
+                    error: function () {
+                        alert('error');
+                    }
+                }
+            );
+
+        });
+
         function checkId(thisid) {
             var eyni = '0';
-            $('#mytable2 tr').each(function () {///TODO: mordo
+            $('#mytable2 tr').each(function () {
                 var buid = $(this).find(".id").text();
-                console.log('buidler' + buid);
+                // console.log('buidler' + buid);
                 // alert('THIS ID:' + $(this).attr("id"));
                 if (buid == thisid) {
                     eyni = '1';
@@ -414,7 +458,7 @@
                             <tr>
                                 <td colspan="5">
                                     <button id="postButton" type="button"
-                                            class="btn btn-outline-success btn-lg btn-block">PROCEED TO
+                                            class="btn btn-outline-success btn-lg btn-block buy">PROCEED TO
                                         CHECKOUT
                                     </button>
                             </tr>

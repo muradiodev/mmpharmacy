@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -44,7 +45,21 @@ public class ControllerOrders {
         return "main/index.html";
     }
 
+    @RequestMapping("/productBuyed")
+    public String updateProductAfterBuy(@RequestParam(value = "idArray[]") List<Integer> idArray,
+                                        @RequestParam(value = "qtyArray[]", required = false) List<String> qtyArray) {
 
+        int diff = 0;
+        int j = 0;
+        for (Integer i : idArray) {
+            Product product = repoProduct.getOne(i);
+            diff = Integer.parseInt(product.getQtystock()) - Integer.parseInt(qtyArray.get(j));
+            product.setQtystock(String.valueOf(diff));
+            repoProduct.save(product);
+            j++;
+        }
+        return "redirect:/main";
+    }
 
 
     @RequestMapping("/testGet")
@@ -55,7 +70,7 @@ public class ControllerOrders {
 
         for (OrderDetailDTO detail : list) {
 
-            repoOrderDetails.save(new OrderDetails(order.getOrderid(), detail.getProductid(), detail.getQuantity(), detail.getPrice(),order.getTotal()));
+            repoOrderDetails.save(new OrderDetails(order.getOrderid(), detail.getProductid(), detail.getQuantity(), detail.getPrice(), order.getTotal()));
         }
 
 
