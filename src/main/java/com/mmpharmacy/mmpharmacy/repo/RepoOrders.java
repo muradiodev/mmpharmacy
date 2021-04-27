@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RepoOrders extends JpaRepository<Orders,Integer> {
 
+//    Strin
 
 }

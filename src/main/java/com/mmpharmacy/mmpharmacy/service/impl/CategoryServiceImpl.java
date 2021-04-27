@@ -15,6 +15,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
+
+
     private final RepoCategory repoCategory;
     private final RepoType repoType;
 

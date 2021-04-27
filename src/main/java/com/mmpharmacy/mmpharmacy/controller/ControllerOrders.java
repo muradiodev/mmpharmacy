@@ -21,11 +21,6 @@ import java.util.List;
 @RequestMapping("/main")
 public class ControllerOrders {
 
-    private final RepoCategory repoCategory;
-    private final RepoType repoType;
-    private final RepoProduct repoProduct;
-    private final RepoOrders repoOrders;
-    private final RepoOrderDetails repoOrderDetails;
     private final OrderServiceImpl orderService;
 
     @RequestMapping("/")
@@ -43,8 +38,12 @@ public class ControllerOrders {
     }
 
     @RequestMapping("/testGet")
-    public String postSeries(HttpServletRequest request, @RequestBody List<OrderDetailDTO> list) {
-        orderService.postSeries(request, list);
-        return "main/asdfg.html";
+    public String postSeries(@RequestBody List<OrderDetailDTO> list) {
+        System.out.println("testsssss");
+        orderService.postSeries(list);
+        return "main/index.html";
     }
+
+
+
 }

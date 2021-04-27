@@ -11,7 +11,9 @@ import java.util.Set;
 @Table(name = "order_product")
 @Accessors(chain = true)
 @ToString
-
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class OrderDetails {
 
     @Id
@@ -25,10 +27,7 @@ public class OrderDetails {
 
     private int quantity;
 
-    private BigDecimal price;
-
-    public OrderDetails() {
-    }
+    private String price;
 
     public int getId() {
         return id;
@@ -42,7 +41,7 @@ public class OrderDetails {
         return orderid;
     }
 
-    public void setOrderid(int orderId) {
+    public void setOrderid(int orderid) {
         this.orderid = orderid;
     }
 
@@ -62,18 +61,11 @@ public class OrderDetails {
         this.quantity = quantity;
     }
 
-    public BigDecimal getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public OrderDetails( int orderid, int productid, int quantity, BigDecimal price, String total) {
-        this.orderid = orderid;
-        this.productid = productid;
-        this.quantity = quantity;
+    public void setPrice(String price) {
         this.price = price;
     }
 }

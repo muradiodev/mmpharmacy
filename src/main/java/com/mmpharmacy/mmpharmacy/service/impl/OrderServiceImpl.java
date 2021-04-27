@@ -8,8 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +21,7 @@ public class OrderServiceImpl implements OrderService {
     private final RepoType repoType;
     private final RepoOrders repoOrders;
     private final RepoOrderDetails repoOrderDetails;
+    private final RepoOrderDetailsDTO repoOrderDetailsDTO;
 
 
     @Override
@@ -34,7 +36,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void updateProductAfterBuy(List<Integer> idArray, List<String> qtyArray){
+    public void updateProductAfterBuy(List<Integer> idArray, List<String> qtyArray) {
         int diff = 0;
         int j = 0;
         for (Integer i : idArray) {
@@ -46,10 +48,51 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    public void postSeries(HttpServletRequest request, List<OrderDetailDTO> list){
-        Orders order = repoOrders.save(new Orders(list.get(1).getTotal()));
+    public void postSeries(List<OrderDetailDTO> list) {
+        System.out.println("list   " + list);
+        Orders order =  Orders.builder().total(list.get(0).getTotal()).build();
+        System.out.println("orderin deyeri  = " + order);
+        repoOrders.save(order);
+
+
+
+
         for (OrderDetailDTO detail : list) {
-            repoOrderDetails.save(new OrderDetails(order.getOrderid(), detail.getProductid(), detail.getQuantity(), detail.getPrice(), order.getTotal()));
+//            repoOrderDetails.save(new OrderDetails(order.getOrderid(), detail.getProductid(), detail.getQuantity(), detail.getPrice(), order.getTotal()));
+            repoOrderDetails.save(OrderDetails.builder()
+                    .orderid(order.getOrderid())
+                    .productid(detail.getProductid())
+                    .quantity(detail.getQuantity())
+                    .price(detail.getPrice())
+                    .build()
+        );
         }
     }
+
+    @Override
+    public void getAllOrders(Model model) {
+        Optional<List<OrderDetails>> orderDetails = repoOrderDetails.findAllBy();
+        List<OrderDetailDTO> orderDetailDTOS = new ArrayList<>();
+
+        if (orderDetails.isPresent()) {
+            orderDetails.get().forEach(detail -> {
+                orderDetailDTOS.add(OrderDetailDTO.builder()
+                        .orderid(detail.getOrderid())
+                        .productid(detail.getProductid())
+                        .quantity(detail.getQuantity())
+                        .price(detail.getPrice())
+                        .productName(repoProduct.findByProductid(detail.getProductid()).getName())
+                        .build());
+            });
+            model.addAttribute("orderDetailDTOS", orderDetailDTOS);
+        } else {
+            model.addAttribute("orderDetailDTOS", null);
+        }
+    }
+
+    @Override
+    public void getRevenue(Model model) {
+
+    }
+
 }

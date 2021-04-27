@@ -11,6 +11,10 @@ import java.util.Set;
 @Entity
 @Table(name = "orders")
 @ToString
+@Builder
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Orders {
 
 //    @Id
@@ -28,29 +32,5 @@ public class Orders {
 
 
 
-    public String getTotal() {
-        return total;
-    }
 
-    public void setTotal(String total) {
-        this.total = total;
-    }
-
-    public Orders(){}
-
-    public Orders(String total) {
-        this.total = total;
-    }
-
-//    public Orders(int orderid) {
-//        this.orderid = orderid;
-//    }
-
-    public int getOrderid() {
-        return orderid;
-    }
-
-    public void setOrderid(int orderid) {
-        this.orderid = orderid;
-    }
 }
