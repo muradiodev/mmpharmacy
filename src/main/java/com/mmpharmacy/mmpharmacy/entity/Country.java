@@ -1,12 +1,16 @@
 package com.mmpharmacy.mmpharmacy.entity;
 
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "country")
 @ToString
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,28 +20,4 @@ public class Country {
     @Column(name = "name")
     private String name;
 
-    public Country() {
-    }
-
-
-    public Country(int id, String name) {
-        this.countryid = id;
-        this.name = name;
-    }
-
-    public int getCountryid() {
-        return countryid;
-    }
-
-    public void setCountryid(int countryid) {
-        this.countryid = countryid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

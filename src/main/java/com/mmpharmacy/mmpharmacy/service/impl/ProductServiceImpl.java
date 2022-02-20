@@ -8,15 +8,19 @@ import com.mmpharmacy.mmpharmacy.repo.RepoProduct;
 import com.mmpharmacy.mmpharmacy.repo.RepoType;
 import com.mmpharmacy.mmpharmacy.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.Iterators;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -49,6 +53,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void getOneProduct(Model md, int id){
         Product products = repoProduct.getOne(id);
+//        System.out.println("products "+products.getCategories());
+//        System.out.println("types "+products.getTypes());
         md.addAttribute("oneproduct", products.getCategories());
         md.addAttribute("typeproduct", products.getTypes());
     }
@@ -98,6 +104,7 @@ public class ProductServiceImpl implements ProductService {
             Category cat = repoCategory.getOne(integer);
             categories.add(cat);
         }
+//        myArray.stream().map(repoCategory::getOne).collect(Collectors.toSet());
 
         for (Integer integert : tArray) {
             Type type = repoType.getOne(integert);

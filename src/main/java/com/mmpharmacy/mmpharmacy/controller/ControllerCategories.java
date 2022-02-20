@@ -31,6 +31,7 @@ public class ControllerCategories {
     @RequestMapping("/getCategoriesName")
     @ResponseBody
     public ResponseEntity<List<String>> getCategoriesName() {
+        System.out.println("bura girdi responsum" + categoryService.getCategoriesName() );
         return ResponseEntity.status(HttpStatus.OK).body(categoryService.getCategoriesName());
     }
 

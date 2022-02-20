@@ -6,15 +6,10 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface RepoSupplier extends JpaRepository<Supplier,Integer> {
+public interface RepoSupplier extends JpaRepository<Supplier, Integer> {
 
 
     List<Supplier> findAllByIsactive(String isActive);
-
-//    List<Supplier> findSupplierBySupplier_id
-
-//    Supplier
-
 
 }
 

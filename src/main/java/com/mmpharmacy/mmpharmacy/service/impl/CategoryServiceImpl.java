@@ -36,6 +36,7 @@ public class CategoryServiceImpl implements CategoryService {
             Category cat = category.get(i);
             myCatArray.add(cat.getName());
         }
+        System.out.println("My categories " + myCatArray);
         return myCatArray;
     }
 
@@ -47,6 +48,8 @@ public class CategoryServiceImpl implements CategoryService {
             Type type = types.get(i);
             myTypeArray.add(type.getName());
         }
+
+        System.out.println("My categories " + myTypeArray);
         return myTypeArray;
     }
 }

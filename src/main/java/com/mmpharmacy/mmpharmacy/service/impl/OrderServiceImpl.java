@@ -72,9 +72,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void getAllOrders(Model model) {
         Optional<List<OrderDetails>> orderDetails = repoOrderDetails.findAllBy();
-        List<OrderDetailDTO> orderDetailDTOS = new ArrayList<>();
+
 
         if (orderDetails.isPresent()) {
+            List<OrderDetailDTO> orderDetailDTOS = new ArrayList<>();
             orderDetails.get().forEach(detail -> {
                 orderDetailDTOS.add(OrderDetailDTO.builder()
                         .orderid(detail.getOrderid())

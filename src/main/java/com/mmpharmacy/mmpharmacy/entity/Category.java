@@ -1,12 +1,16 @@
 package com.mmpharmacy.mmpharmacy.entity;
 
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "category")
 @ToString
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,27 +20,4 @@ public class Category {
     @Column(name = "name")
     private String name;
 
-    public Category() {
-    }
-
-    public Category(int categoryid, String name) {
-        this.categoryid = categoryid;
-        this.name = name;
-    }
-
-    public int getCategoryid() {
-        return categoryid;
-    }
-
-    public void setCategoryid(int categoryid) {
-        this.categoryid = categoryid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

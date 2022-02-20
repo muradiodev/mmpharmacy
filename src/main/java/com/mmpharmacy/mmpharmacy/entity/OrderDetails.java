@@ -11,8 +11,9 @@ import java.util.Set;
 @Table(name = "order_product")
 @Accessors(chain = true)
 @ToString
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class OrderDetails {
 
@@ -29,43 +30,5 @@ public class OrderDetails {
 
     private String price;
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getOrderid() {
-        return orderid;
-    }
-
-    public void setOrderid(int orderid) {
-        this.orderid = orderid;
-    }
-
-    public int getProductid() {
-        return productid;
-    }
-
-    public void setProductid(int productid) {
-        this.productid = productid;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
 }

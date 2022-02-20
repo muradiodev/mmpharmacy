@@ -1,12 +1,8 @@
 package com.mmpharmacy.mmpharmacy.entity;
 
 import lombok.*;
-import lombok.experimental.Accessors;
-import org.aspectj.weaver.ast.Or;
-import org.hibernate.criterion.Order;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "orders")

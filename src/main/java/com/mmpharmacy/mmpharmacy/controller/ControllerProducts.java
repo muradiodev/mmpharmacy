@@ -43,7 +43,9 @@ public class ControllerProducts {
 
     @RequestMapping("/getOneProduct")
     public ResponseEntity getOneProduct(Model md, @RequestParam(value = "id") int id) {
+        System.out.println("GetOneProducta girdi");
         productService.getOneProduct(md, id);
+        System.out.println(" getONe Products md verdi "+md);
         return ResponseEntity.status(HttpStatus.OK).body(md);
     }
 

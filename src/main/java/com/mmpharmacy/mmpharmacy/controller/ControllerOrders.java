@@ -29,7 +29,7 @@ public class ControllerOrders {
         return "main/index.html";
     }
 
-    @RequestMapping("/productBuyed")
+    @RequestMapping("/productSold")
     public String updateProductAfterBuy(@RequestParam(value = "idArray[]") List<Integer> idArray,
                                         @RequestParam(value = "qtyArray[]", required = false) List<String> qtyArray) {
 

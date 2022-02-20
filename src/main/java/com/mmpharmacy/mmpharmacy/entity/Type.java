@@ -1,12 +1,16 @@
 package com.mmpharmacy.mmpharmacy.entity;
 
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "type")
 @ToString
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Type {
 
     @Id
@@ -17,27 +21,4 @@ public class Type {
     @Column(name = "name")
     private String name;
 
-    public Type() {
-    }
-
-    public Type(int typeid, String name) {
-        this.typeid = typeid;
-        this.name = name;
-    }
-
-    public int getTypeid() {
-        return typeid;
-    }
-
-    public void setTypeid(int typeid) {
-        this.typeid = typeid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

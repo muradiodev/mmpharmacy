@@ -172,7 +172,7 @@
     $(document).ready(function () {
         $('#postButton').click(function () {
             var orders = [];
-            alert($("#sum_cnt").text());
+            // alert($("#sum_cnt").text());
             $('#b tr').each(function (index, item) {
                 var $item = $(item);
 
@@ -185,6 +185,7 @@
                     price: $item.find("td span[name='price']").text(),
                     total: $("#sum_cnt").text(),
                 });
+                // alert("orderss ");
             });
 
             $.ajax({
@@ -192,12 +193,15 @@
                 method: 'POST',
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(orders)
+
             })
                 .done(function (orders) {
                     // handle success
+                    // alert("success")
                 })
                 .fail(function () {
                     // handle fail
+                    // alert("error in testget")
                 });
         });
 
@@ -263,7 +267,7 @@
             $.ajax
             (
                 {
-                    url: '/main/productBuyed',
+                    url: '/main/productSold',
                     data: {
                         idArray: ids,
                         qtyArray: qtys
@@ -271,7 +275,7 @@
                     type: 'post',
                     cache: false,
                     success: function (data) {
-                        location.reload();
+                        // location.reload();
 
                     },
                     error: function () {

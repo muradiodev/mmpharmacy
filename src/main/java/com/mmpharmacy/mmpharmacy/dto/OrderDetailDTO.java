@@ -1,16 +1,14 @@
 package com.mmpharmacy.mmpharmacy.dto;
 
 import com.mmpharmacy.mmpharmacy.entity.Product;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 @Data
-@Builder
+@NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class OrderDetailDTO {
 
     private int productid;
