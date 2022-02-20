@@ -21,7 +21,6 @@ public class OrderServiceImpl implements OrderService {
     private final RepoType repoType;
     private final RepoOrders repoOrders;
     private final RepoOrderDetails repoOrderDetails;
-    private final RepoOrderDetailsDTO repoOrderDetailsDTO;
 
 
     @Override
@@ -50,11 +49,9 @@ public class OrderServiceImpl implements OrderService {
 
     public void postSeries(List<OrderDetailDTO> list) {
         System.out.println("list   " + list);
-        Orders order =  Orders.builder().total(list.get(0).getTotal()).build();
+        Orders order = Orders.builder().total(list.get(0).getTotal()).build();
         System.out.println("orderin deyeri  = " + order);
         repoOrders.save(order);
-
-
 
 
         for (OrderDetailDTO detail : list) {
@@ -65,7 +62,7 @@ public class OrderServiceImpl implements OrderService {
                     .quantity(detail.getQuantity())
                     .price(detail.getPrice())
                     .build()
-        );
+            );
         }
     }
 
